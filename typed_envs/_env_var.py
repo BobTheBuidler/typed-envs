@@ -1,9 +1,15 @@
 
 from typing import Generic, TypeVar, Type, Any
 
+
 T = TypeVar('T')
 
 class EnvironmentVariable(Generic[T]):
+    """
+    NOTE: This is just a base class used to create custom wrapper subclasses on the fly.
+    You must never initialize these directly.
+    You must use the `create_env` function either on the main module or on an `EnvVarFactory` to initialize your env vars.
+    """
     name: str
     _base_type: Type[T]
     _default_value: Any
@@ -29,7 +35,7 @@ class EnvironmentVariable(Generic[T]):
     True
     ```
     There are only 2 differences between `some_var` and `int(10)`:
-    - `some_var` will properly type check as all of the following: `int`, `EnvironmentVariable`, `EnvironmentVariable[int]`
+    - `some_var` will properly type check as an instance of both `int` and `EnvironmentVariable`
     - `some_var.__repr__()` will include contextual information about the `EnvironmentVariable`.
     
     ```

@@ -7,7 +7,7 @@ from types import new_class
 from typing import Any, Callable, Optional, Type, TypeVar
 
 from typed_envs import registry
-from typed_envs.env_var import EnvironmentVariable
+from typed_envs._env_var import EnvironmentVariable
 
 T = TypeVar('T')
 
@@ -49,7 +49,7 @@ class EnvVarFactory:
         True
         ```
         There are only 2 differences between `some_var` and `int(10)`:
-        - `some_var` will properly type check as all of the following: `int`, `EnvironmentVariable`, `EnvironmentVariable[int]`
+        - `some_var` will properly type check as an instance of both `int` and `EnvironmentVariable`
         - `some_var.__repr__()` will include contextual information about the `EnvironmentVariable`.
         
         ```

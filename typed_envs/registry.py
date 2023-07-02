@@ -2,7 +2,7 @@
 from typing import TYPE_CHECKING, Dict
 
 if TYPE_CHECKING:
-    from typed_envs.env_var import EnvironmentVariable
+    from typed_envs._env_var import EnvironmentVariable
     
 _EnvsRegistry = Dict[str, "EnvironmentVariable"]
 
