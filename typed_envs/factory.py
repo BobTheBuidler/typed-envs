@@ -68,6 +68,8 @@ class EnvVarFactory:
         var_value = os.environ.get(name)
         using_default = var_value is None
         var_value = var_value or default
+        if typ is bool:
+            var_value = bool(var_value)
         if any(iter_typ in typ.__bases__ for iter_typ in [list, tuple, set]):
             var_value = var_value.split(',')
         if string_converter and not (using_default and isinstance(default, typ)):
@@ -107,6 +109,7 @@ def _create_subclass(typ: Type[T]) -> Type["EnvironmentVariable[T]"]:
     Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
     """
     subclass_name = f'EnvironmentVariable_{typ.__name__}'
+    # You can't subclass a boolean but its just an int anyway
     subclass_bases = (int if typ is bool else typ, EnvironmentVariable[typ])
     cls = new_class(subclass_name, subclass_bases, {})
     cls.__repr__ = EnvironmentVariable.__repr__

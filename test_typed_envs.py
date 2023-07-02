@@ -30,3 +30,10 @@ def test_complex_env():
     assert isinstance(env, EnvironmentVariable)
     assert hasattr(env, 'acquire')
     assert hasattr(env, 'release')
+
+def test_bool_conversion():
+    env = create_env("TEST", bool, default='test')
+    # You can't subclass a bool so its the only type that breaks our type checking
+    with pytest.raises(AssertionError):
+        assert isinstance(env, bool)
+    assert isinstance(env, int)
