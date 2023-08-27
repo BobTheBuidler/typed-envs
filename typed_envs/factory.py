@@ -16,8 +16,8 @@ class EnvVarFactory:
         self.prefix = env_var_prefix
     def create_env(
         self,
-        name: Optional[str], 
-        typ: Type[T], 
+        env_var_name: Optional[str], 
+        env_var_type: Type[T], 
         default: Any,
         *init_args, 
         string_converter: Optional[Callable[[str], Any]] = None, 
@@ -64,26 +64,26 @@ class EnvVarFactory:
         ```
         """
         if self.prefix:
-            name = f"{self.prefix}_{name}"
-        var_value = os.environ.get(name)
+            env_var_name = f"{self.prefix}_{env_var_name}"
+        var_value = os.environ.get(env_var_name)
         using_default = var_value is None
         var_value = var_value or default
-        if typ is bool:
+        if env_var_type is bool:
             var_value = bool(var_value)
-        if any(iter_typ in typ.__bases__ for iter_typ in [list, tuple, set]):
+        if any(iter_typ in env_var_type.__bases__ for iter_typ in [list, tuple, set]):
             var_value = var_value.split(',')
-        if string_converter and not (using_default and isinstance(default, typ)):
+        if string_converter and not (using_default and isinstance(default, env_var_type)):
             var_value = string_converter(var_value)
 
-        subclass = _create_subclass(typ)
+        subclass = _create_subclass(env_var_type)
         instance = subclass(var_value, *init_args, **init_kwargs)
         # Set additional attributes
         instance._init_arg0 = var_value
         try:
-            instance.name = name
+            instance.name = env_var_name
         except AttributeError:
             logger.warning(f'{str(instance)} already has a name attribute defined. value can always be accessed with `instance._env_name`')
-        instance._env_name = name
+        instance._env_name = env_var_name
         instance._default_value = default
         instance._using_default = using_default
 
@@ -93,10 +93,10 @@ class EnvVarFactory:
             try:
                 logger.info(instance.__repr__())
             except RecursionError:
-                logger.debug(f"unable to properly display your `{name}` {instance.__class__.__base__} env due to RecursionError")
+                logger.debug(f"unable to properly display your `{env_var_name}` {instance.__class__.__base__} env due to RecursionError")
                 with suppress(RecursionError):
-                    logger.debug(f"Here is your `{name}` env in string form: {str(instance)}")
-        _register_new_env(name, instance)
+                    logger.debug(f"Here is your `{env_var_name}` env in string form: {str(instance)}")
+        _register_new_env(env_var_name, instance)
         return instance
 
 @lru_cache(maxsize=None)
