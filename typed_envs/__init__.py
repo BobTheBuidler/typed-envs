@@ -47,8 +47,8 @@ There are only 2 differences between `some_var` and `int(10)`:
 T = TypeVar('T')
 
 def create_env(
-    name: Optional[str], 
-    typ: Type[T], 
+    env_var_name: Optional[str], 
+    env_var_type: Type[T], 
     default: Any,
     *init_args, 
     string_converter: Optional[Callable[[str], Any]] = None, 
@@ -86,7 +86,7 @@ def create_env(
     2
     ```
     """
-    return default_factory.create_env(name, typ, default, *init_args, string_converter=string_converter, verbose=verbose, **init_kwargs)
+    return default_factory.create_env(env_var_name, env_var_type, default, *init_args, string_converter=string_converter, verbose=verbose, **init_kwargs)
 
 __all__ = ["create_env", "EnvVarFactory", "ENVIRONMENT", "_ENVIRONMENT_VARIABLES_SET_BY_USER", "_ENVIRONMENT_VARIABLES_USING_DEFAULTS"]
 
