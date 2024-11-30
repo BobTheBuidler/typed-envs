@@ -26,6 +26,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install wheel
+          pip install sphinx sphinx-rtd-theme
         
       - name: Build documentation config
         run: |
