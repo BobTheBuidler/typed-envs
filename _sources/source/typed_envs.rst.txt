@@ -1,0 +1,37 @@
+typed\_envs package
+===================
+
+Submodules
+----------
+
+typed\_envs.ENVIRONMENT\_VARIABLES module
+-----------------------------------------
+
+.. automodule:: typed_envs.ENVIRONMENT_VARIABLES
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+typed\_envs.factory module
+--------------------------
+
+.. automodule:: typed_envs.factory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+typed\_envs.registry module
+---------------------------
+
+.. automodule:: typed_envs.registry
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: typed_envs
+   :members:
+   :undoc-members:
+   :show-inheritance:
