@@ -73,7 +73,7 @@ class EnvironmentVariable(Generic[T]):
         )
 
     def __repr__(self) -> str:
-        return "<EnvironmentVariable[name=`%s`, type=%s, default_value=%s, current_value=%s, using_default=%s]>".format(
+        return "<EnvironmentVariable[name=`{}`, type={}, default_value={}, current_value={}, using_default={}]>".format(
             self._env_name,
             self._base_type.__qualname__,
             self._default_value,
