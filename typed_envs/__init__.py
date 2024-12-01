@@ -9,7 +9,7 @@ from typed_envs.registry import (
 )
 
 description = """\
-typed_envs is used to create specialized :class:`EnvironmentVariable` objects that behave exactly the same as any other instance of the `typ` used to create them.
+typed_envs is used to create specialized `EnvironmentVariable` objects that behave exactly the same as any other instance of the `typ` used to create them.
 
 typed_envs is used for:
     - defining your envs in a readable, user friendly way
