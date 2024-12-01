@@ -101,13 +101,6 @@ class EnvVarFactory:
         instance._env_name = env_var_name
         instance._default_value = default
         instance._using_default = using_default
-        try:
-            instance.name = env_var_name
-        except AttributeError:
-            # NOTE all the private attrs need to be set before this log msg, just in case it gets used
-            logger.warning(
-                f"{str(instance)} already has a name attribute defined. value can always be accessed with `instance._env_name`"
-            )
 
         # Finish up
         if verbose:
