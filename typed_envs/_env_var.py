@@ -51,7 +51,6 @@ class EnvironmentVariable(Generic[T]):
     """
 
     # TODO: give these docstrings
-    name: str
     _base_type: Type[T]
     _default_value: Any
     _using_default: bool
