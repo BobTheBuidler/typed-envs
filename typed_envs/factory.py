@@ -8,8 +8,24 @@ from typing import Any, Callable, Optional, Type, TypeVar
 from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
 
+
 T = TypeVar("T")
 
+# NOTE: While we create the TYPEDENVS_SHUTUP object in the ENVIRONMENT_VARIABLES file as an example,
+#       we cannot use it here without creating a circular import.
+
+logger = logging.getLogger("typed_envs")
+
+from typed_envs import ENVIRONMENT_VARIABLES
+
+if ENVIRONMENT_VARIABLES.SHUTUP:
+    logger.disabled = True
+else:
+    if not logger.hasHandlers():
+        logger.addHandler(logging.StreamHandler())
+    if not logger.isEnabledFor(logging.INFO):
+        logger.setLevel(logging.INFO)
+        
 
 class EnvVarFactory:
     """Factory for creating :class:`EnvironmentVariable` instances with optional prefix."""
@@ -109,11 +125,15 @@ class EnvVarFactory:
                 logger.info(instance.__repr__())
             except RecursionError:
                 logger.debug(
-                    f"unable to properly display your `{env_var_name}` {instance.__class__.__base__} env due to RecursionError"
+                    "unable to properly display your `%s` %s env due to RecursionError",
+                    env_var_name,
+                    instance.__class__.__base__,
                 )
                 with suppress(RecursionError):
                     logger.debug(
-                        f"Here is your `{env_var_name}` env in string form: {str(instance)}"
+                        "Here is your `%s` env in string form: %s",
+                        env_var_name,
+                        str(instance),
                     )
         _register_new_env(env_var_name, instance)
         return instance
@@ -145,18 +165,5 @@ def _register_new_env(name: str, instance: EnvironmentVariable) -> None:
     else:
         registry._ENVIRONMENT_VARIABLES_SET_BY_USER[name] = instance
 
-
-# NOTE: While we create the TYPEDENVS_SHUTUP object in the ENVIRONMENT_VARIABLES file as an example,
-#       we cannot use it here without creating a circular import.
-
-logger = logging.getLogger("typed_envs")
-
-from typed_envs import ENVIRONMENT_VARIABLES
-
-if ENVIRONMENT_VARIABLES.SHUTUP:
-    logger.disabled = True
-else:
-    logger.addHandler(logging.StreamHandler())
-    logger.setLevel(logging.INFO)
 
 default_factory = EnvVarFactory()
