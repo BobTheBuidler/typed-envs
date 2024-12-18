@@ -8,23 +8,7 @@ from typing import Any, Callable, Optional, Type, TypeVar
 from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
 
-
 T = TypeVar("T")
-
-# NOTE: While we create the TYPEDENVS_SHUTUP object in the ENVIRONMENT_VARIABLES file as an example,
-#       we cannot use it here without creating a circular import.
-
-logger = logging.getLogger("typed_envs")
-
-from typed_envs import ENVIRONMENT_VARIABLES
-
-if ENVIRONMENT_VARIABLES.SHUTUP:
-    logger.disabled = True
-else:
-    if not logger.hasHandlers():
-        logger.addHandler(logging.StreamHandler())
-    if not logger.isEnabledFor(logging.INFO):
-        logger.setLevel(logging.INFO)
 
 
 class EnvVarFactory:
@@ -164,6 +148,22 @@ def _register_new_env(name: str, instance: EnvironmentVariable) -> None:
         registry._ENVIRONMENT_VARIABLES_USING_DEFAULTS[name] = instance
     else:
         registry._ENVIRONMENT_VARIABLES_SET_BY_USER[name] = instance
+
+
+# NOTE: While we create the TYPEDENVS_SHUTUP object in the ENVIRONMENT_VARIABLES file as an example,
+#       we cannot use it here without creating a circular import.
+
+logger = logging.getLogger("typed_envs")
+
+from typed_envs import ENVIRONMENT_VARIABLES
+
+if ENVIRONMENT_VARIABLES.SHUTUP:
+    logger.disabled = True
+else:
+    if not logger.hasHandlers():
+        logger.addHandler(logging.StreamHandler())
+    if not logger.isEnabledFor(logging.INFO):
+        logger.setLevel(logging.INFO)
 
 
 default_factory = EnvVarFactory()
