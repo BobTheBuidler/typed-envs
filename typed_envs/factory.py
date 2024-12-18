@@ -109,11 +109,15 @@ class EnvVarFactory:
                 logger.info(instance.__repr__())
             except RecursionError:
                 logger.debug(
-                    f"unable to properly display your `{env_var_name}` {instance.__class__.__base__} env due to RecursionError"
+                    "unable to properly display your `%s` %s env due to RecursionError",
+                    env_var_name,
+                    instance.__class__.__base__,
                 )
                 with suppress(RecursionError):
                     logger.debug(
-                        f"Here is your `{env_var_name}` env in string form: {str(instance)}"
+                        "Here is your `%s` env in string form: %s",
+                        env_var_name,
+                        str(instance),
                     )
         _register_new_env(env_var_name, instance)
         return instance
@@ -156,7 +160,10 @@ from typed_envs import ENVIRONMENT_VARIABLES
 if ENVIRONMENT_VARIABLES.SHUTUP:
     logger.disabled = True
 else:
-    logger.addHandler(logging.StreamHandler())
-    logger.setLevel(logging.INFO)
+    if not logger.hasHandlers():
+        logger.addHandler(logging.StreamHandler())
+    if not logger.isEnabledFor(logging.INFO):
+        logger.setLevel(logging.INFO)
+
 
 default_factory = EnvVarFactory()
