@@ -25,7 +25,7 @@ else:
         logger.addHandler(logging.StreamHandler())
     if not logger.isEnabledFor(logging.INFO):
         logger.setLevel(logging.INFO)
-        
+
 
 class EnvVarFactory:
     """Factory for creating :class:`EnvironmentVariable` instances with optional prefix."""
