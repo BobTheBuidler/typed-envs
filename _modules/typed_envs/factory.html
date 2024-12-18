@@ -188,11 +188,15 @@
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">())</span>
             <span class="k">except</span> <span class="ne">RecursionError</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;unable to properly display your `</span><span class="si">{</span><span class="n">env_var_name</span><span class="si">}</span><span class="s2">` </span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="si">}</span><span class="s2"> env due to RecursionError&quot;</span>
+                    <span class="s2">&quot;unable to properly display your `</span><span class="si">%s</span><span class="s2">` </span><span class="si">%s</span><span class="s2"> env due to RecursionError&quot;</span><span class="p">,</span>
+                    <span class="n">env_var_name</span><span class="p">,</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">__base__</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">RecursionError</span><span class="p">):</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;Here is your `</span><span class="si">{</span><span class="n">env_var_name</span><span class="si">}</span><span class="s2">` env in string form: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;Here is your `</span><span class="si">%s</span><span class="s2">` env in string form: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">env_var_name</span><span class="p">,</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
                     <span class="p">)</span>
         <span class="n">_register_new_env</span><span class="p">(</span><span class="n">env_var_name</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">instance</span></div>
@@ -237,8 +241,11 @@
 <span class="k">if</span> <span class="n">ENVIRONMENT_VARIABLES</span><span class="o">.</span><span class="n">SHUTUP</span><span class="p">:</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">())</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">logger</span><span class="o">.</span><span class="n">hasHandlers</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
 
 <span class="n">default_factory</span> <span class="o">=</span> <span class="n">EnvVarFactory</span><span class="p">()</span>
 </pre></div>
