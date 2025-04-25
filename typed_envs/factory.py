@@ -86,7 +86,7 @@ class EnvVarFactory:
         using_default = var_value is None
         var_value = var_value or default
         if env_var_type is bool:
-            if var_value.lower() == "false":
+            if isinstance(var_value, str) and var_value.lower() == "false":
                 var_value = False
             else:
                 with suppress(ValueError):
