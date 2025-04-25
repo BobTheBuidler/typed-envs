@@ -92,7 +92,7 @@ def test_bool_conversion():
     assert env
 
 
-@pytest.mark.parametrize("value", ("0", "false", "False", "FALSE")
+@pytest.mark.parametrize("value", ("0", "false", "False", "FALSE"))
 def test_falsey_bool_conversion(value):
     """Test boolean environment variable conversion behavior for falsey values.
 
