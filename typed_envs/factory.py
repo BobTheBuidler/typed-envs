@@ -86,7 +86,13 @@ class EnvVarFactory:
         using_default = var_value is None
         var_value = var_value or default
         if env_var_type is bool:
-            var_value = bool(var_value)
+            if isinstance(var_value, str) and var_value.lower() == "false":
+                var_value = False
+            else:
+                with suppress(ValueError):
+                    # if var_value is "0" or "1"
+                    var_value = int(var_value)
+                var_value = bool(var_value)
         if any(iter_typ in env_var_type.__bases__ for iter_typ in [list, tuple, set]):
             var_value = var_value.split(",")
         if string_converter and not (
