@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>typed_envs package &mdash; typed-envs  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
@@ -123,7 +123,7 @@ non-empty string, it will be interpreted as <cite>True</cite>.</p>
 <p class="rubric">Examples</p>
 <p>To access the <cite>SHUTUP</cite> environment variable, you can use it as a regular
 boolean:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typed_envs.ENVIRONMENT_VARIABLES</span> <span class="kn">import</span> <span class="n">SHUTUP</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">typed_envs.ENVIRONMENT_VARIABLES</span><span class="w"> </span><span class="kn">import</span> <span class="n">SHUTUP</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">SHUTUP</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">SHUTUP</span>
@@ -132,9 +132,9 @@ boolean:</p>
 </div>
 <p>If you set the environment variable <cite>TYPEDENVS_SHUTUP</cite> to a non-empty
 string, it will be interpreted as <cite>True</cite>:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TYPEDENVS_SHUTUP&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typed_envs.ENVIRONMENT_VARIABLES</span> <span class="kn">import</span> <span class="n">SHUTUP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">typed_envs.ENVIRONMENT_VARIABLES</span><span class="w"> </span><span class="kn">import</span> <span class="n">SHUTUP</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">SHUTUP</span>
 <span class="go">&lt;EnvironmentVariable[name=`TYPEDENVS_SHUTUP`, type=bool, default_value=False, current_value=True, using_default=False]&gt;</span>
 </pre></div>
@@ -375,7 +375,7 @@ some_var = factory.create_env(“SET_WITH_THIS_ENV”, int, 10)</p>
 </dl>
 <p class="rubric">Examples</p>
 <p>In the example below, <cite>some_var</cite> can be used just like any other <cite>int</cite> object.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">typed_envs</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">typed_envs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">some_var</span> <span class="o">=</span> <span class="n">typed_envs</span><span class="o">.</span><span class="n">create_env</span><span class="p">(</span><span class="s2">&quot;SET_WITH_THIS_ENV&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">some_var</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
 <span class="go">True</span>
