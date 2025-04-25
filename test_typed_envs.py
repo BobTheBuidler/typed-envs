@@ -89,3 +89,28 @@ def test_bool_conversion():
     with pytest.raises(AssertionError):
         assert isinstance(env, bool)
     assert isinstance(env, int)
+    assert env
+
+
+@pytest.mark.parametrize("value", ("0", "false", "False", "FALSE")
+def test_falsey_bool_conversion(value):
+    """Test boolean environment variable conversion behavior for falsey values.
+
+    Demonstrates that falsey values are properly converted, the environment variable behaves
+    like an :class:`int` due to subclassing, and cannot be directly checked as an instance of
+    :class:`bool`, verified by expecting an assertion failure when checking its instance type.
+
+    Note:
+        You can't subclass a bool, so it's the only type that breaks our type checking.
+        We subclass :class:`int` as a workaround to create a bool-like class.
+
+    See Also:
+        - :func:`create_env`
+        - :class:`EnvironmentVariable`
+    """
+    env = create_env("TEST", bool, default=value)
+    # You can't subclass a bool so its the only type that breaks our type checking
+    with pytest.raises(AssertionError):
+        assert isinstance(env, bool)
+    assert isinstance(env, int)
+    assert not env
