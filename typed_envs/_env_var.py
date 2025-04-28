@@ -110,7 +110,7 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     typed_cls_dict = typed_class_dict = {
         "__repr__": EnvironmentVariable.__repr__,
         "__str__": EnvironmentVariable.__str__,
-        "__args__": type_args,
+        "__args__": type_arg,
         "__module__": generic_cls.__module__,
         "__qualname__": generic_cls.__qualname__,
         "__doc__": generic_cls.__doc__,
