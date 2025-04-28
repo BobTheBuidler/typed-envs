@@ -72,7 +72,6 @@
   <h1>Source code for typed_envs.factory</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">suppress</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">new_class</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span>
@@ -179,8 +178,9 @@
         <span class="p">):</span>
             <span class="n">var_value</span> <span class="o">=</span> <span class="n">string_converter</span><span class="p">(</span><span class="n">var_value</span><span class="p">)</span>
 
-        <span class="n">subclass</span> <span class="o">=</span> <span class="n">_create_subclass</span><span class="p">(</span><span class="n">env_var_type</span><span class="p">)</span>
-        <span class="n">instance</span> <span class="o">=</span> <span class="n">subclass</span><span class="p">(</span><span class="n">var_value</span><span class="p">,</span> <span class="o">*</span><span class="n">init_args</span><span class="p">,</span> <span class="o">**</span><span class="n">init_kwargs</span><span class="p">)</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="n">EnvironmentVariable</span><span class="p">[</span><span class="n">env_var_type</span><span class="p">](</span>
+            <span class="n">var_value</span><span class="p">,</span> <span class="o">*</span><span class="n">init_args</span><span class="p">,</span> <span class="o">**</span><span class="n">init_kwargs</span>
+        <span class="p">)</span>
         <span class="c1"># Set additional attributes</span>
         <span class="n">instance</span><span class="o">.</span><span class="n">_init_arg0</span> <span class="o">=</span> <span class="n">var_value</span>
         <span class="n">instance</span><span class="o">.</span><span class="n">_env_name</span> <span class="o">=</span> <span class="n">env_var_name</span>
@@ -208,25 +208,6 @@
         <span class="k">return</span> <span class="n">instance</span></div>
 </div>
 
-
-
-<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">_create_subclass</span><span class="p">(</span><span class="n">typ</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;EnvironmentVariable[T]&quot;</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns a mixed subclass of `typ` and :class:`EnvironmentVariable` that does 2 things:</span>
-<span class="sd">     - modifies the __repr__ method so its clear an object&#39;s value was set with an env var while when inspecting variables</span>
-<span class="sd">     - ensures the instance will type check as an :class:`EnvironmentVariable` object without losing information about its actual type</span>
-
-<span class="sd">    Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">subclass_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;EnvironmentVariable_</span><span class="si">{</span><span class="n">typ</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="c1"># You can&#39;t subclass a boolean but its just an int anyway</span>
-    <span class="n">subclass_bases</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span> <span class="k">if</span> <span class="n">typ</span> <span class="ow">is</span> <span class="nb">bool</span> <span class="k">else</span> <span class="n">typ</span><span class="p">,</span> <span class="n">EnvironmentVariable</span><span class="p">[</span><span class="n">typ</span><span class="p">])</span>
-    <span class="bp">cls</span> <span class="o">=</span> <span class="n">new_class</span><span class="p">(</span><span class="n">subclass_name</span><span class="p">,</span> <span class="n">subclass_bases</span><span class="p">,</span> <span class="p">{})</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="fm">__repr__</span> <span class="o">=</span> <span class="n">EnvironmentVariable</span><span class="o">.</span><span class="fm">__repr__</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="fm">__str__</span> <span class="o">=</span> <span class="n">EnvironmentVariable</span><span class="o">.</span><span class="fm">__str__</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">_base_type</span> <span class="o">=</span> <span class="n">typ</span>
-    <span class="k">return</span> <span class="bp">cls</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_register_new_env</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="n">EnvironmentVariable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
