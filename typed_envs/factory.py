@@ -1,6 +1,5 @@
 import logging
 import os
-from functools import lru_cache
 from contextlib import suppress
 from types import new_class
 from typing import Any, Callable, Optional, Type, TypeVar
