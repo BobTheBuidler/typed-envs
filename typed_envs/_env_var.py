@@ -67,9 +67,7 @@ class EnvironmentVariable(Generic[T]):
         # NOTE: If this returns True, base type's `__str__` method calls `__repr__` and our custom `__repr__` breaks it.
         if string_from_base == repr(self):
             # We broke it but it's all good, we can fix it with some special case logic.
-            return (
-                str(bool(self)) if base_type is bool else base_type.__repr__(self)
-            )
+            return str(bool(self)) if base_type is bool else base_type.__repr__(self)
         return (
             base_type.__str__(self)
             if "object at 0x" in string_from_base
