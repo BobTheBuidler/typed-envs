@@ -69,7 +69,10 @@ class EnvironmentVariable(Generic[T]):
         try:
             super().__init__(*args, **kwargs)
         except TypeError as e:
-            if str(e) == "object.__init__() takes exactly one argument (the instance to initialize)":
+            if (
+                str(e)
+                == "object.__init__() takes exactly one argument (the instance to initialize)"
+            ):
                 super().__init__()
             else:
                 raise
