@@ -50,6 +50,7 @@ def test_str_env():
     assert isinstance(env, EnvironmentVariable[str])
     env.upper()
     env.lower()
+    env.encode()
     with pytest.raises(TypeError):
         env + 10
 
