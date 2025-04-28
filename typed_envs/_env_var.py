@@ -41,7 +41,7 @@ class EnvironmentVariable(Generic[T]):
         .. code-block:: python
 
             >>> some_var
-            <EnvironmentVariable[name=`SET_WITH_THIS_ENV`, type=int, default_value=10, current_value=10, using_default=True]>
+            EnvironmentVariable[int](name=`SET_WITH_THIS_ENV`, default_value=10, using_default=True)
             >>> str(some_var)
             "10"
             >>> some_var + 5
@@ -91,13 +91,19 @@ class EnvironmentVariable(Generic[T]):
         )
 
     def __repr__(self) -> str:
-        return "EnvironmentVariable[{}](name=`{}`, default_value={}, current_value={}, using_default={}])".format(
-            self.__args__.__qualname__,
-            self._env_name,
-            self._default_value,
-            self._init_arg0,
-            self._using_default,
-        )
+        if self._using_default:
+            return "EnvironmentVariable[{}](name=`{}`, default_value={}, using_default=True])".format(
+                self.__args__.__qualname__,
+                self._env_name,
+                self._default_value,
+            )
+        else:
+            return "EnvironmentVariable[{}](name=`{}`, default_value={}, current_value={}])".format(
+                self.__args__.__qualname__,
+                self._env_name,
+                self._default_value,
+                self._init_arg0,
+            )
 
     def __class_getitem__(cls, type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
         """
