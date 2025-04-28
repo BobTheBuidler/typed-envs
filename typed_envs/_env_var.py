@@ -66,7 +66,13 @@ class EnvironmentVariable(Generic[T]):
             raise RuntimeError(
                 "You should not initialize these directly, please use the factory"
             )
-        super().__init__(*args, **kwargs)
+        try:
+            super().__init__(*args, **kwargs)
+        except TypeError as e:
+            if str(e) == "object.__init__() takes exactly one argument (the instance to initialize)":
+                super().__init__()
+            else:
+                raise
 
     def __str__(self) -> str:
         base_type = self.__args__
