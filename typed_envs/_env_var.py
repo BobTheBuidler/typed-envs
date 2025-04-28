@@ -87,7 +87,7 @@ class EnvironmentVariable(Generic[T]):
     ) -> Type["EnvironmentVariable[T]"]:
         typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
         typed_cls_dict = typed_class_dict = {
-            "__args__": type_args,
+            "__args__": (type_arg,),
             "__module__": untyped_cls.__module__,
             "__qualname__": untyped_cls.__qualname__,
             "__doc__": untyped_cls.__doc__,
