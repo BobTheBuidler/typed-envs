@@ -62,16 +62,16 @@ class EnvironmentVariable(Generic[T]):
     __origin__: Type[T]
 
     def __str__(self) -> str:
-        base_type = self._base_type
+        base_type = self.__args__
         string_from_base = base_type.__str__(self)
         # NOTE: If this returns True, base type's `__str__` method calls `__repr__` and our custom `__repr__` breaks it.
-        if string_from_base == self.__repr__():
+        if string_from_base == repr(self):
             # We broke it but it's all good, we can fix it with some special case logic.
             return (
-                str(bool(self)) if base_type is bool else self._base_type.__repr__(self)
+                str(bool(self)) if base_type is bool else base_type.__repr__(self)
             )
         return (
-            self._base_type.__str__(self)
+            base_type.__str__(self)
             if "object at 0x" in string_from_base
             else string_from_base
         )
@@ -79,7 +79,7 @@ class EnvironmentVariable(Generic[T]):
     def __repr__(self) -> str:
         return "<EnvironmentVariable[name=`{}`, type={}, default_value={}, current_value={}, using_default={}]>".format(
             self._env_name,
-            self._base_type.__qualname__,
+            self.__args__.__qualname__,
             self._default_value,
             self._init_arg0,
             self._using_default,
