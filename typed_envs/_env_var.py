@@ -1,4 +1,6 @@
+from functools import lru_cache
 from typing import Generic, TypeVar, Type, Any, final
+
 
 T = TypeVar("T")
 
