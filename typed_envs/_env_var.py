@@ -52,11 +52,12 @@ class EnvironmentVariable(Generic[T]):
     """
 
     # TODO: give these docstrings
-    _base_type: Type[T]
     _default_value: Any
     _using_default: bool
     _env_name: str
     _init_arg0: Any
+
+    __origin__: Type[T]
 
     def __str__(self) -> str:
         base_type = self._base_type
