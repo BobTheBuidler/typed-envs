@@ -20,6 +20,7 @@ def test_int_env():
     env = create_env("TEST", int, 10)
     assert isinstance(env, int)
     assert isinstance(env, EnvironmentVariable)
+    assert isinstance(env, EnvironmentVariable[int])
     env + 10
     env - 10
     env * 10
@@ -44,6 +45,7 @@ def test_str_env():
     env = create_env("TEST", str, 10)
     assert isinstance(env, str)
     assert isinstance(env, EnvironmentVariable)
+    assert isinstance(env, EnvironmentVariable[str])
     env.upper()
     env.lower()
     with pytest.raises(TypeError):
@@ -65,6 +67,7 @@ def test_complex_env():
     env = create_env("TEST", asyncio.Semaphore, default=10, string_converter=int)
     assert isinstance(env, asyncio.Semaphore)
     assert isinstance(env, EnvironmentVariable)
+    assert isinstance(env, EnvironmentVariable[asyncio.Semaphore])
     assert hasattr(env, "acquire")
     assert hasattr(env, "release")
 
@@ -89,6 +92,7 @@ def test_bool_conversion():
     with pytest.raises(AssertionError):
         assert isinstance(env, bool)
     assert isinstance(env, int)
+    assert isinstance(env, EnvironmentVariable[bool])
     assert env
 
 
@@ -113,4 +117,5 @@ def test_falsey_bool_conversion(value):
     with pytest.raises(AssertionError):
         assert isinstance(env, bool)
     assert isinstance(env, int)
+    assert isinstance(env, EnvironmentVariable[bool])
     assert not env
