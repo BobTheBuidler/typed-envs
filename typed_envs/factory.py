@@ -1,6 +1,5 @@
 import logging
 import os
-from functools import lru_cache
 from contextlib import suppress
 from types import new_class
 from typing import Any, Callable, Optional, Type, TypeVar
@@ -100,8 +99,9 @@ class EnvVarFactory:
         ):
             var_value = string_converter(var_value)
 
-        subclass = _create_subclass(env_var_type)
-        instance = subclass(var_value, *init_args, **init_kwargs)
+        instance = EnvironmentVariable[env_var_type](
+            var_value, *init_args, **init_kwargs
+        )
         # Set additional attributes
         instance._init_arg0 = var_value
         instance._env_name = env_var_name
