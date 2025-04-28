@@ -63,7 +63,9 @@ class EnvironmentVariable(Generic[T]):
 
     def __init__(self, *args, **kwargs) -> None:
         if type(self) is EnvironmentVariable:
-            raise RuntimeError("You should not initialize these directly, please use the factory")
+            raise RuntimeError(
+                "You should not initialize these directly, please use the factory"
+            )
         super().__init__(*args, **kwargs)
 
     def __str__(self) -> str:
