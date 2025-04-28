@@ -91,7 +91,7 @@ class EnvironmentVariable(Generic[T]):
         Returns a mixed subclass of `type_arg` and :class:`EnvironmentVariable` that does 2 things:
          - modifies the __repr__ method so its clear an object's value was set with an env var while when inspecting variables
          - ensures the instance will type check as an :class:`EnvironmentVariable` object without losing information about its actual type
-    
+
         Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
         """
         typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
