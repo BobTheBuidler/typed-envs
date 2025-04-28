@@ -1,8 +1,9 @@
-from typing import Generic, TypeVar, Type, Any
+from typing import Generic, TypeVar, Type, Any, final
 
 T = TypeVar("T")
 
 
+@final
 class EnvironmentVariable(Generic[T]):
     """
     Base class for creating custom wrapper subclasses on the fly.
@@ -80,3 +81,18 @@ class EnvironmentVariable(Generic[T]):
             self._init_arg0,
             self._using_default,
         )
+    
+    def __class_getitem__(generic_cls: Type[T], tuple type_arg) -> Type["EnvironmentVariable[T]"]:
+        typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
+        typed_cls_dict = typed_class_dict = {
+            "__args__": type_args, 
+            "__module__": untyped_cls.__module__,
+            "__qualname__": untyped_cls.__qualname__,
+            "__doc__": untyped_cls.__doc__,
+            "__annotations__": untyped_cls.__annotations__,
+            "__origin__": untyped_cls,
+            "__parameters__": type_arg.__parameters__,
+        }
+        typed_cls = type(typed_cls_name, (untyped_cls, ), typed_cls_dict)
+        return typed_cls
+
