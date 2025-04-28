@@ -61,6 +61,11 @@ class EnvironmentVariable(Generic[T]):
 
     __origin__: Type[T]
 
+    def __init__(self, *args, **kwargs) -> None:
+        if type(self) is EnvironmentVariable:
+            raise RuntimeError("You should not initialize these directly, please use the factory")
+        super().__init__(*args, **kwargs)
+
     def __str__(self) -> str:
         base_type = self.__args__
         string_from_base = base_type.__str__(self)
@@ -75,9 +80,9 @@ class EnvironmentVariable(Generic[T]):
         )
 
     def __repr__(self) -> str:
-        return "<EnvironmentVariable[name=`{}`, type={}, default_value={}, current_value={}, using_default={}]>".format(
-            self._env_name,
+        return "EnvironmentVariable[{}](name=`{}`, default_value={}, current_value={}, using_default={}])".format(
             self.__args__.__qualname__,
+            self._env_name,
             self._default_value,
             self._init_arg0,
             self._using_default,
