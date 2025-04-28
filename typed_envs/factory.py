@@ -100,7 +100,9 @@ class EnvVarFactory:
         ):
             var_value = string_converter(var_value)
 
-        instance = EnvironmentVariable[env_var_type](var_value, *init_args, **init_kwargs)
+        instance = EnvironmentVariable[env_var_type](
+            var_value, *init_args, **init_kwargs
+        )
         # Set additional attributes
         instance._init_arg0 = var_value
         instance._env_name = env_var_name
