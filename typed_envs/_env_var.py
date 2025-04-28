@@ -85,10 +85,7 @@ class EnvironmentVariable(Generic[T]):
             self._using_default,
         )
 
-    @lru_cache(maxsize=None)
-    def __class_getitem__(
-        generic_cls, *type_args: Type[T]
-    ) -> Type["EnvironmentVariable[T]"]:
+    def __class_getitem__(cls, type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
         """
         Returns a mixed subclass of `type_arg` and :class:`EnvironmentVariable` that does 2 things:
          - modifies the __repr__ method so its clear an object's value was set with an env var while when inspecting variables
@@ -96,21 +93,32 @@ class EnvironmentVariable(Generic[T]):
 
         Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
         """
-        type_arg = type_args[0]
-        typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
-        typed_cls_bases = (int if typ is bool else typ, EnvironmentVariable)
-        typed_cls_dict = typed_class_dict = {
-            "__repr__": EnvironmentVariable.__repr__,
-            "__str__": EnvironmentVariable.__str__,
-            "__args__": type_args,
-            "__module__": generic_cls.__module__,
-            "__qualname__": generic_cls.__qualname__,
-            "__doc__": generic_cls.__doc__,
-            "__origin__": generic_cls,
-        }
-        if hasattr(generic_cls, "__parameters__"):
-            typed_cls_dict["__annotations__"] = generic_cls.__annotations__
-        if hasattr(generic_cls, "__parameters__"):
-            typed_cls_dict["__parameters__"] = generic_cls.__parameters__
-        typed_cls = type(typed_cls_name, typed_cls_bases, typed_cls_dict)
-        return typed_cls
+        return _build_subclass(type_arg)
+
+
+@lru_cache(maxsize=None)
+def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
+    """
+    Returns a mixed subclass of `type_arg` and :class:`EnvironmentVariable` that does 2 things:
+     - modifies the __repr__ method so its clear an object's value was set with an env var while when inspecting variables
+     - ensures the instance will type check as an :class:`EnvironmentVariable` object without losing information about its actual type
+
+    Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
+    """
+    typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
+    typed_cls_bases = (int if typ is bool else typ, EnvironmentVariable)
+    typed_cls_dict = typed_class_dict = {
+        "__repr__": EnvironmentVariable.__repr__,
+        "__str__": EnvironmentVariable.__str__,
+        "__args__": type_args,
+        "__module__": generic_cls.__module__,
+        "__qualname__": generic_cls.__qualname__,
+        "__doc__": generic_cls.__doc__,
+        "__origin__": generic_cls,
+    }
+    if hasattr(generic_cls, "__parameters__"):
+        typed_cls_dict["__annotations__"] = generic_cls.__annotations__
+    if hasattr(generic_cls, "__parameters__"):
+        typed_cls_dict["__parameters__"] = generic_cls.__parameters__
+    typed_cls = type(typed_cls_name, typed_cls_bases, typed_cls_dict)
+    return typed_cls
