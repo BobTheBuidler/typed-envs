@@ -129,25 +129,6 @@ class EnvVarFactory:
         return instance
 
 
-@lru_cache(maxsize=None)
-def _create_subclass(typ: Type[T]) -> Type["EnvironmentVariable[T]"]:
-    """
-    Returns a mixed subclass of `typ` and :class:`EnvironmentVariable` that does 2 things:
-     - modifies the __repr__ method so its clear an object's value was set with an env var while when inspecting variables
-     - ensures the instance will type check as an :class:`EnvironmentVariable` object without losing information about its actual type
-
-    Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
-    """
-    subclass_name = f"EnvironmentVariable_{typ.__name__}"
-    # You can't subclass a boolean but its just an int anyway
-    subclass_bases = (int if typ is bool else typ, EnvironmentVariable[typ])
-    cls = new_class(subclass_name, subclass_bases, {})
-    cls.__repr__ = EnvironmentVariable.__repr__
-    cls.__str__ = EnvironmentVariable.__str__
-    cls._base_type = typ
-    return cls
-
-
 def _register_new_env(name: str, instance: EnvironmentVariable) -> None:
     registry.ENVIRONMENT[name] = instance
     if instance._using_default:
