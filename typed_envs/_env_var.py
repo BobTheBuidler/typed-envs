@@ -81,11 +81,13 @@ class EnvironmentVariable(Generic[T]):
             self._init_arg0,
             self._using_default,
         )
-    
-    def __class_getitem__(generic_cls, type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
+
+    def __class_getitem__(
+        generic_cls, type_arg: Type[T]
+    ) -> Type["EnvironmentVariable[T]"]:
         typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
         typed_cls_dict = typed_class_dict = {
-            "__args__": type_args, 
+            "__args__": type_args,
             "__module__": untyped_cls.__module__,
             "__qualname__": untyped_cls.__qualname__,
             "__doc__": untyped_cls.__doc__,
@@ -93,6 +95,5 @@ class EnvironmentVariable(Generic[T]):
             "__origin__": untyped_cls,
             "__parameters__": type_arg.__parameters__,
         }
-        typed_cls = type(typed_cls_name, (untyped_cls, ), typed_cls_dict)
+        typed_cls = type(typed_cls_name, (untyped_cls,), typed_cls_dict)
         return typed_cls
-
