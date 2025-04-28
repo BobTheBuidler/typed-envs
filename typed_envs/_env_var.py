@@ -87,7 +87,7 @@ class EnvironmentVariable(Generic[T]):
 
     @lru_cache(maxsize=None)
     def __class_getitem__(
-        generic_cls, type_arg: Type[T]
+        generic_cls, *type_args: Type[T]
     ) -> Type["EnvironmentVariable[T]"]:
         """
         Returns a mixed subclass of `type_arg` and :class:`EnvironmentVariable` that does 2 things:
