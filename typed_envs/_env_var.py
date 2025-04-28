@@ -106,7 +106,7 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
     """
     typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
-    typed_cls_bases = (int if typ is bool else typ, EnvironmentVariable)
+    typed_cls_bases = (int if type_arg is bool else type_arg, EnvironmentVariable)
     typed_cls_dict = typed_class_dict = {
         "__repr__": EnvironmentVariable.__repr__,
         "__str__": EnvironmentVariable.__str__,
