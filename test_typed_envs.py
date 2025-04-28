@@ -18,6 +18,7 @@ def test_int_env():
         - :class:`EnvironmentVariable`
     """
     env = create_env("TEST", int, 10)
+    assert type(env).__name__ == "EnvironmentVariable[int]"
     assert isinstance(env, int)
     assert isinstance(env, EnvironmentVariable)
     assert isinstance(env, EnvironmentVariable[int])
@@ -43,6 +44,7 @@ def test_str_env():
         - :class:`EnvironmentVariable`
     """
     env = create_env("TEST", str, 10)
+    assert type(env).__name__ == "EnvironmentVariable[str]"
     assert isinstance(env, str)
     assert isinstance(env, EnvironmentVariable)
     assert isinstance(env, EnvironmentVariable[str])
@@ -65,6 +67,7 @@ def test_complex_env():
         - :class:`asyncio.Semaphore`
     """
     env = create_env("TEST", asyncio.Semaphore, default=10, string_converter=int)
+    assert type(env).__name__ == "EnvironmentVariable[Semaphore]"
     assert isinstance(env, asyncio.Semaphore)
     assert isinstance(env, EnvironmentVariable)
     assert isinstance(env, EnvironmentVariable[asyncio.Semaphore])
@@ -88,6 +91,7 @@ def test_bool_conversion():
         - :class:`EnvironmentVariable`
     """
     env = create_env("TEST", bool, default="test")
+    assert type(env).__name__ == "EnvironmentVariable[bool]"
     # You can't subclass a bool so its the only type that breaks our type checking
     with pytest.raises(AssertionError):
         assert isinstance(env, bool)
@@ -113,6 +117,7 @@ def test_falsey_bool_conversion(value):
         - :class:`EnvironmentVariable`
     """
     env = create_env("TEST", bool, default=value)
+    assert type(env).__name__ == "EnvironmentVariable[bool]"
     # You can't subclass a bool so its the only type that breaks our type checking
     with pytest.raises(AssertionError):
         assert isinstance(env, bool)
