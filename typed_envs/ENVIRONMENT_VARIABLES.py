@@ -1,22 +1,23 @@
-from typed_envs.factory import EnvVarFactory
-
-_factory = EnvVarFactory("TYPEDENVS")
-
-SHUTUP = _factory.create_env("SHUTUP", bool, False, verbose=False)
-
 """
 This module demonstrates the creation of environment variables using the
 :class:`~typed_envs.factory.EnvVarFactory` class with a specified prefix.
+"""
 
-The :class:`~typed_envs.factory.EnvVarFactory` is initialized with the prefix
-"TYPEDENVS", which is automatically added to the environment variable names
-created by this factory.
+from typing import Final
 
-Attributes:
-    SHUTUP (EnvironmentVariable[bool]): An environment variable named
-        "TYPEDENVS_SHUTUP" of type :class:`bool`. It defaults to `False` if
-        not set in the environment. If the environment variable is set to any
-        non-empty string, it will be interpreted as `True`.
+from typed_envs.factory import EnvVarFactory
+
+
+_factory: Final = EnvVarFactory("TYPEDENVS")
+"""The :class:`~typed_envs.factory.EnvVarFactory` is initialized with the
+prefix "TYPEDENVS", which is automatically added to the environment variable
+names created by this factory.
+"""
+
+SHUTUP: Final = _factory.create_env("SHUTUP", bool, False, verbose=False)
+"""An environment variable named "TYPEDENVS_SHUTUP" of type :class:`bool`.
+It defaults to `False` if not set in the environment. If the environment
+variable is set to any non-empty string, it will be interpreted as `True`.
 
 Examples:
     To access the `SHUTUP` environment variable, you can use it as a regular
