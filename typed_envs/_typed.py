@@ -4,6 +4,9 @@ from typing import Final, Type, TypeVar
 from typed_envs._env_var import EnvironmentVariable
 
 
+T = TypeVar("T")
+
+
 __TYPED_CLS_DICT_CONSTANTS: Final = {
     "__repr__": EnvironmentVariable.__repr__,
     "__str__": EnvironmentVariable.__str__,
