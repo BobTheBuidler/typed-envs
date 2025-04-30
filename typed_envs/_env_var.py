@@ -1,12 +1,15 @@
 from functools import lru_cache
 from typing import ClassVar, Final, Generic, TypeVar, Type, Any, final
 
+from mypy_extensions import mypyc_attr
+
 
 T = TypeVar("T")
 
 
 # NOTE: though this lib does create specialized subclasses, users should consider this class as @final
 @final
+@mypyc_attr(allow_interpreted_subclasses=True)
 class EnvironmentVariable(Generic[T]):
     """
     Base class for creating custom wrapper subclasses on the fly.
