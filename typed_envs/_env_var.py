@@ -151,4 +151,10 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     try:
         return type(typed_cls_name, typed_cls_bases, typed_cls_dict)
     except TypeError as e:
-        raise TypeError(*e.args, typed_cls_name, f"bases: {typed_cls_bases}", type(bases[0]), type(bases[1])) from None
+        raise TypeError(
+            *e.args,
+            typed_cls_name,
+            f"bases: {typed_cls_bases}",
+            type(bases[0]),
+            type(bases[1]),
+        ) from None
