@@ -1,4 +1,4 @@
-from typing import Any, Callable, Optional, Type, TypeVar
+from typing import Any, Optional, Type, TypeVar
 
 from typed_envs._env_var import EnvironmentVariable
 from typed_envs.factory import EnvVarFactory, logger, default_factory
@@ -7,6 +7,8 @@ from typed_envs.registry import (
     _ENVIRONMENT_VARIABLES_SET_BY_USER,
     _ENVIRONMENT_VARIABLES_USING_DEFAULTS,
 )
+from typed_envs.typing import StringConverter
+
 
 description = """\
 typed_envs is used to create specialized `EnvironmentVariable` objects that behave exactly the same as any other instance of the `typ` used to create them.
@@ -55,7 +57,7 @@ def create_env(
     typ: Type[T],
     default: Any,
     *init_args,
-    string_converter: Optional[Callable[[str], Any]] = None,
+    string_converter: Optional[StringConverter] = None,
     verbose: bool = True,
     **init_kwargs
 ) -> "EnvironmentVariable[T]":
