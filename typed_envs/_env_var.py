@@ -115,13 +115,6 @@ class EnvironmentVariable(Generic[T]):
         return super().__class_getitem__(type_arg)  # type: ignore [misc]
 
 
-__TYPED_CLS_DICT_CONSTANTS: Final = {
-    "__repr__": EnvironmentVariable.__repr__,
-    "__str__": EnvironmentVariable.__str__,
-    "__origin__": EnvironmentVariable,
-}
-
-
 @lru_cache(maxsize=None)
 def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     """
@@ -131,18 +124,6 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
 
     Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
     """
-    typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
-    typed_cls_bases = (int if type_arg is bool else type_arg, EnvironmentVariable)
-    typed_cls_dict = {
-        **__TYPED_CLS_DICT_CONSTANTS,
-        "__args__": type_arg,
-        "__module__": type_arg.__module__,
-        "__qualname__": f"EnvironmentVariable[{type_arg.__qualname__}]",
-        "__doc__": type_arg.__doc__,
-    }
-    if hasattr(type_arg, "__annotations__"):
-        typed_cls_dict["__annotations__"] = type_arg.__annotations__
-    if hasattr(type_arg, "__parameters__"):
-        typed_cls_dict["__parameters__"] = type_arg.__parameters__
+    from typed_envs import _typed
 
-    return type(typed_cls_name, typed_cls_bases, typed_cls_dict)
+    return _typed.build_subclass(type_arg)  # type: ignore [arg-type]
