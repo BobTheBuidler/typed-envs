@@ -59,7 +59,7 @@ class EnvironmentVariable(Generic[T]):
     _env_name: str
     _init_arg0: Any
 
-    __origin__: Type[T]
+    __origin__: Type[EnvironmentVariable]
 
     def __init__(self, *args, **kwargs) -> None:
         if type(self) is EnvironmentVariable:
@@ -69,12 +69,8 @@ class EnvironmentVariable(Generic[T]):
         try:
             super().__init__(*args, **kwargs)
         except TypeError as e:
-            if (
-                str(e)
-                == "object.__init__() takes exactly one argument (the instance to initialize)"
-            ):
-                super().__init__()
-            else:
+            expected = "object.__init__() takes exactly one argument (the instance to initialize)"
+            if str(e) != expected:
                 raise
 
     def __str__(self) -> str:
@@ -113,7 +109,16 @@ class EnvironmentVariable(Generic[T]):
 
         Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
         """
-        return _build_subclass(type_arg)  # type: ignore [arg-type]
+        if cls is EnvironmentVariable:
+            return _build_subclass(type_arg)  # type: ignore [arg-type]
+        return super().__class_getitem__(type_arg)
+
+
+__TYPED_CLS_DICT_CONSTANTS: Final = {
+    "__repr__": EnvironmentVariable.__repr__,
+    "__str__": EnvironmentVariable.__str__,
+    "__origin__": EnvironmentVariable,
+}
 
 
 @lru_cache(maxsize=None)
@@ -127,15 +132,13 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     """
     typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
     typed_cls_bases = (int if type_arg is bool else type_arg, EnvironmentVariable)
-    typed_cls_dict = typed_class_dict = {
-        "__repr__": EnvironmentVariable.__repr__,
-        "__str__": EnvironmentVariable.__str__,
-        "__args__": type_arg,
-        "__module__": type_arg.__module__,
-        "__qualname__": f"EnvironmentVariable[{type_arg.__qualname__}]",
-        "__doc__": type_arg.__doc__,
-        "__origin__": EnvironmentVariable,
-    }
+    typed_cls_dict = __TYPED_CLS_DICT_CONSTANTS.copy()
+    typed_cls_dict.update(
+        __args__ = type_arg,
+        __module__ = type_arg.__module__,
+        __qualname__ = f"EnvironmentVariable[{type_arg.__qualname__}]",
+        __doc__ = type_arg.__doc__,
+        )
     if hasattr(type_arg, "__annotations__"):
         typed_cls_dict["__annotations__"] = type_arg.__annotations__
     if hasattr(type_arg, "__parameters__"):
