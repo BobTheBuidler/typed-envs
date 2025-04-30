@@ -132,16 +132,16 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     """
     typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
     typed_cls_bases = (int if type_arg is bool else type_arg, EnvironmentVariable)
-    typed_cls_dict = __TYPED_CLS_DICT_CONSTANTS.copy()
-    typed_cls_dict.update(
-        __args__=type_arg,
-        __module__=type_arg.__module__,
-        __qualname__=f"EnvironmentVariable[{type_arg.__qualname__}]",
-        __doc__=type_arg.__doc__,
-    )
+    typed_cls_dict = {
+        **__TYPED_CLS_DICT_CONSTANTS,
+        "__args__": type_arg,
+        "__module__": type_arg.__module__,
+        "__qualname__": f"EnvironmentVariable[{type_arg.__qualname__}]",
+        "__doc__": type_arg.__doc__,
+    }
     if hasattr(type_arg, "__annotations__"):
         typed_cls_dict["__annotations__"] = type_arg.__annotations__
     if hasattr(type_arg, "__parameters__"):
         typed_cls_dict["__parameters__"] = type_arg.__parameters__
-    typed_cls = type(typed_cls_name, typed_cls_bases, typed_cls_dict)
-    return typed_cls
+    
+    return type(typed_cls_name, typed_cls_bases, typed_cls_dict)
