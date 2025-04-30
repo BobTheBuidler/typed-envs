@@ -92,7 +92,7 @@ class EnvVarFactory:
         # Validate name
         if not isinstance(env_var_name, str):
             raise TypeError("env_var_name must be string, not {env_var_name}")
-            
+
         if not env_var_name:
             raise ValueError("env_var_name must not be empty")
 
