@@ -4,7 +4,6 @@ from typed_envs._env_var import EnvironmentVariable
 from typed_envs.typing import EnvRegistry, VarName
 
 
-
 ENVIRONMENT: Final[EnvRegistry] = EnvRegistry({})
 _ENVIRONMENT_VARIABLES_SET_BY_USER: Final[EnvRegistry] = EnvRegistry({})
 _ENVIRONMENT_VARIABLES_USING_DEFAULTS: Final[EnvRegistry] = EnvRegistry({})
