@@ -139,14 +139,17 @@ class EnvVarFactory:
                     )
         _register_new_env(env_var_name, instance)
         return instance
-    
-    def register_string_converter(self, register_for: Type, converter: StringConverter) -> None:
+
+    def register_string_converter(
+        self, register_for: Type, converter: StringConverter
+    ) -> None:
         if register_for in self.__default_string_converters:
-            raise ValueError(f"There is already a string converter registered for {register_for}")
+            raise ValueError(
+                f"There is already a string converter registered for {register_for}"
+            )
         elif not callable(converter):
             raise ValueError("converter must be callable")
         self.__default_string_converters[register_for]
-
 
 
 def _register_new_env(name: str, instance: EnvironmentVariable) -> None:
