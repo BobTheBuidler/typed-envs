@@ -115,7 +115,7 @@ class EnvironmentVariable(Generic[T]):
         """
         if cls is EnvironmentVariable:
             return _build_subclass(type_arg)  # type: ignore [arg-type]
-        return super().__class_getitem__(type_arg)
+        return super().__class_getitem__(type_arg)  # type: ignore [misc]
 
 
 __TYPED_CLS_DICT_CONSTANTS: Final = {
