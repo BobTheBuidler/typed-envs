@@ -1,8 +1,7 @@
 import logging
 import os
 from contextlib import suppress
-from types import new_class
-from typing import Any, Optional, Type, TypeVar
+from typing import Any, Dict, Final, Optional, Type, TypeVar
 
 from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
@@ -21,7 +20,17 @@ class EnvVarFactory:
         Args:
             env_var_prefix: An optional string prefix to be added to environment variable names.
         """
-        self.prefix = env_var_prefix
+        self.prefix: Final = env_var_prefix
+        self.__use_prefix: Final = env_var_prefix is not None
+        self.__default_string_converters: Final[Dict[Type, StringConverter]] = {}
+
+    @property
+    def default_string_converters(self) -> Dict[Type, StringConverter]:
+        return self.__default_string_converters.copy()
+
+    @property
+    def use_prefix(self) -> bool:
+        return self.__use_prefix
 
     def create_env(
         self,
@@ -80,7 +89,7 @@ class EnvVarFactory:
         See Also:
             - :func:`typed_envs.create_env` for creating environment variables without a prefix.
         """
-        if self.prefix:
+        if self.__use_prefix:
             env_var_name = f"{self.prefix}_{env_var_name}"
         var_value = os.environ.get(env_var_name)
         using_default = var_value is None
@@ -95,7 +104,9 @@ class EnvVarFactory:
                 var_value = bool(var_value)
         if any(iter_typ in env_var_type.__bases__ for iter_typ in [list, tuple, set]):
             var_value = var_value.split(",")
-        if string_converter and not (
+        if string_converter is None:
+            string_converter = self.__default_string_converters.get(env_var_type)
+        if string_converter is not None and not (
             using_default and isinstance(default, env_var_type)
         ):
             var_value = string_converter(var_value)
@@ -128,6 +139,14 @@ class EnvVarFactory:
                     )
         _register_new_env(env_var_name, instance)
         return instance
+    
+    def register_string_converter(self, register_for: Type, converter: StringConverter) -> None:
+        if register_for in self.__default_string_converters:
+            raise ValueError(f"There is already a string converter registered for {register_for}")
+        elif not callable(converter):
+            raise ValueError("converter must be callable")
+        self.__default_string_converters[register_for]
+
 
 
 def _register_new_env(name: str, instance: EnvironmentVariable) -> None:
