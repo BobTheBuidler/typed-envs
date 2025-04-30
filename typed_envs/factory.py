@@ -5,7 +5,9 @@ from typing import Any, Dict, Final, Optional, Type, TypeVar
 
 from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
-from typed_envs.typing import StringConverter
+from typed_envs.registry import _register_new_env
+from typed_envs.typing import StringConverter, VarName
+
 
 T = TypeVar("T")
 
@@ -34,13 +36,13 @@ class EnvVarFactory:
 
     def create_env(
         self,
-        env_var_name: Optional[str],
+        env_var_name: str,
         env_var_type: Type[T],
         default: Any,
         *init_args,
         string_converter: Optional[StringConverter] = None,
         verbose: bool = True,
-        **init_kwargs,
+        **init_kwargs: Any,
     ) -> "EnvironmentVariable[T]":
         """
         Creates a new :class:`EnvironmentVariable` object with the specified parameters.
@@ -89,9 +91,21 @@ class EnvVarFactory:
         See Also:
             - :func:`typed_envs.create_env` for creating environment variables without a prefix.
         """
+        # Validate name
+        if not isinstance(env_var_name, str):
+            raise TypeError("env_var_name must be string, not {env_var_name}")
+
+        if not env_var_name:
+            raise ValueError("env_var_name must not be empty")
+
+        # Get full name
         if self.__use_prefix:
-            env_var_name = f"{self.prefix}_{env_var_name}"
-        var_value = os.environ.get(env_var_name)
+            full_name = VarName(f"{self.prefix}_{env_var_name}")
+        else:
+            full_name = VarName(env_var_name)
+
+        # Get value
+        var_value = os.environ.get(full_name)
         using_default = var_value is None
         var_value = var_value or default
         if env_var_type is bool:
@@ -104,6 +118,8 @@ class EnvVarFactory:
                 var_value = bool(var_value)
         if any(iter_typ in env_var_type.__bases__ for iter_typ in [list, tuple, set]):
             var_value = var_value.split(",")
+
+        # Convert value, if applicable
         if string_converter is None:
             string_converter = self.__default_string_converters.get(env_var_type)
         if string_converter is not None and not (
@@ -111,12 +127,13 @@ class EnvVarFactory:
         ):
             var_value = string_converter(var_value)
 
-        instance = EnvironmentVariable[env_var_type](
+        # Create environment variable
+        instance = EnvironmentVariable[env_var_type](  # type: ignore [valid-type]
             var_value, *init_args, **init_kwargs
         )
         # Set additional attributes
         instance._init_arg0 = var_value
-        instance._env_name = env_var_name
+        instance._env_name = full_name
         instance._default_value = default
         instance._using_default = using_default
 
@@ -128,16 +145,16 @@ class EnvVarFactory:
             except RecursionError:
                 logger.debug(
                     "unable to properly display your `%s` %s env due to RecursionError",
-                    env_var_name,
+                    full_name,
                     instance.__class__.__base__,
                 )
                 with suppress(RecursionError):
                     logger.debug(
                         "Here is your `%s` env in string form: %s",
-                        env_var_name,
+                        full_name,
                         str(instance),
                     )
-        _register_new_env(env_var_name, instance)
+        _register_new_env(full_name, instance)
         return instance
 
     def register_string_converter(
@@ -152,18 +169,10 @@ class EnvVarFactory:
         self.__default_string_converters[register_for]
 
 
-def _register_new_env(name: str, instance: EnvironmentVariable) -> None:
-    registry.ENVIRONMENT[name] = instance
-    if instance._using_default:
-        registry._ENVIRONMENT_VARIABLES_USING_DEFAULTS[name] = instance
-    else:
-        registry._ENVIRONMENT_VARIABLES_SET_BY_USER[name] = instance
-
-
 # NOTE: While we create the TYPEDENVS_SHUTUP object in the ENVIRONMENT_VARIABLES file as an example,
 #       we cannot use it here without creating a circular import.
 
-logger = logging.getLogger("typed_envs")
+logger: Final[logging.Logger] = logging.getLogger("typed_envs")
 
 from typed_envs import ENVIRONMENT_VARIABLES
 
@@ -176,4 +185,4 @@ else:
         logger.setLevel(logging.INFO)
 
 
-default_factory = EnvVarFactory()
+default_factory: Final[EnvVarFactory] = EnvVarFactory()

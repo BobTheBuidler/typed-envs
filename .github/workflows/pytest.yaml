@@ -36,7 +36,9 @@ jobs:
           python-version: ${{ matrix.pyversion }}
 
       - name: Install pytest
-        run: pip install pytest
+        run: |
+          pip install pytest
+          pip install .
       
       - name: Run test suite
         run: pytest

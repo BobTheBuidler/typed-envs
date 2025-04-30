@@ -3,18 +3,23 @@ This module demonstrates the creation of environment variables using the
 :class:`~typed_envs.factory.EnvVarFactory` class with a specified prefix.
 """
 
-from typing import Final
+from typing import TYPE_CHECKING, Final
 
 from typed_envs.factory import EnvVarFactory
 
+if TYPE_CHECKING:
+    from typed_envs._env_var import EnvironmentVariable
 
-_factory: Final = EnvVarFactory("TYPEDENVS")
+
+_factory: Final[EnvVarFactory] = EnvVarFactory("TYPEDENVS")
 """The :class:`~typed_envs.factory.EnvVarFactory` is initialized with the
 prefix "TYPEDENVS", which is automatically added to the environment variable
 names created by this factory.
 """
 
-SHUTUP: Final = _factory.create_env("SHUTUP", bool, False, verbose=False)
+SHUTUP: Final["EnvironmentVariable[bool]"] = _factory.create_env(
+    "SHUTUP", bool, False, verbose=False
+)
 """An environment variable named "TYPEDENVS_SHUTUP" of type :class:`bool`.
 It defaults to `False` if not set in the environment. If the environment
 variable is set to any non-empty string, it will be interpreted as `True`.
