@@ -34,7 +34,7 @@ class EnvVarFactory:
 
     def create_env(
         self,
-        env_var_name: Optional[VarName],
+        env_var_name: Optional[str],
         env_var_type: Type[T],
         default: Any,
         *init_args,
@@ -90,8 +90,10 @@ class EnvVarFactory:
             - :func:`typed_envs.create_env` for creating environment variables without a prefix.
         """
         if self.__use_prefix:
-            env_var_name = f"{self.prefix}_{env_var_name}"
-        var_value = os.environ.get(env_var_name)
+            full_name = VarName(f"{self.prefix}_{env_var_name}")
+        else:
+            full_name = VarName(env_var_name)
+        var_value = os.environ.get(full_name)
         using_default = var_value is None
         var_value = var_value or default
         if env_var_type is bool:
@@ -116,7 +118,7 @@ class EnvVarFactory:
         )
         # Set additional attributes
         instance._init_arg0 = var_value
-        instance._env_name = env_var_name
+        instance._env_name = full_name
         instance._default_value = default
         instance._using_default = using_default
 
@@ -128,16 +130,16 @@ class EnvVarFactory:
             except RecursionError:
                 logger.debug(
                     "unable to properly display your `%s` %s env due to RecursionError",
-                    env_var_name,
+                    full_name,
                     instance.__class__.__base__,
                 )
                 with suppress(RecursionError):
                     logger.debug(
                         "Here is your `%s` env in string form: %s",
-                        env_var_name,
+                        full_name,
                         str(instance),
                     )
-        _register_new_env(env_var_name, instance)
+        _register_new_env(full_name, instance)
         return instance
 
     def register_string_converter(
