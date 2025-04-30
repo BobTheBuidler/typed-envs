@@ -113,7 +113,7 @@ class EnvVarFactory:
         ):
             var_value = string_converter(var_value)
 
-        instance = EnvironmentVariable[env_var_type](
+        instance = EnvironmentVariable[env_var_type](  # type: ignore [valid-type]
             var_value, *init_args, **init_kwargs
         )
         # Set additional attributes
