@@ -1,5 +1,6 @@
 from functools import lru_cache
 from typing import ClassVar, Final, Generic, TypeVar, Type, Any, final
+from types import new_class
 
 
 T = TypeVar("T")
@@ -122,6 +123,13 @@ __TYPED_CLS_DICT_CONSTANTS: Final = {
 }
 
 
+__TYPED_CLS_DICT_CONSTANTS: Final = {
+    "__repr__": EnvironmentVariable.__repr__,
+    "__str__": EnvironmentVariable.__str__,
+    "__origin__": EnvironmentVariable,
+}
+
+
 @lru_cache(maxsize=None)
 def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     """
@@ -144,5 +152,5 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
         typed_cls_dict["__annotations__"] = type_arg.__annotations__
     if hasattr(type_arg, "__parameters__"):
         typed_cls_dict["__parameters__"] = type_arg.__parameters__
-
-    return type(typed_cls_name, typed_cls_bases, typed_cls_dict)
+    
+    return new_class(typed_cls_name, typed_cls_bases, typed_cls_dict)
