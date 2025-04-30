@@ -129,4 +129,4 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     """
     from typed_envs import _typed
 
-    return _typed.build_subclass(type_arg)
+    return _typed.build_subclass(type_arg)  # type: ignore [arg-type]
