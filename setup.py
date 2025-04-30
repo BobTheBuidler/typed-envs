@@ -24,13 +24,12 @@ setup(
     package_data={"typed_envs": ["py.typed"]},
     include_package_data=True,
     ext_modules=mypycify(
-        paths = [
-            "typed_envs/__init__.py"
-            "typed_envs/ENVIRONMENT_VARIABLES.py", 
-            "typed_envs/factory.py", 
+        paths=[
+            "typed_envs/__init__.py" "typed_envs/ENVIRONMENT_VARIABLES.py",
+            "typed_envs/factory.py",
             "typed_envs/registry.py",
             "typed_envs/typing.py",
         ],
-        debug_level = os.environ.get("MYPYC_DEBUG_LEVEL", "0"),
+        debug_level=os.environ.get("MYPYC_DEBUG_LEVEL", "0"),
     ),
 )
