@@ -1,6 +1,8 @@
 from typing import Final
 
-from typed_envs.typing import EnvRegistry
+from typed_envs._env_var import EnvironmentVariable
+from typed_envs.typing import EnvRegistry, VarName
+
 
 
 ENVIRONMENT: Final[EnvRegistry] = EnvRegistry({})
