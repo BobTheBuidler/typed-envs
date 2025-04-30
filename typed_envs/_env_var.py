@@ -89,13 +89,13 @@ class EnvironmentVariable(Generic[T]):
 
     def __repr__(self) -> str:
         if self._using_default:
-            return "EnvironmentVariable[{}](name=`{}`, default_value={}, using_default=True])".format(
+            return "EnvironmentVariable[{}](name=`{}`, default_value={}, using_default=True)".format(
                 self.__args__.__qualname__,
                 self._env_name,
                 self._default_value,
             )
         else:
-            return "EnvironmentVariable[{}](name=`{}`, default_value={}, current_value={}])".format(
+            return "EnvironmentVariable[{}](name=`{}`, default_value={}, current_value={})".format(
                 self.__args__.__qualname__,
                 self._env_name,
                 self._default_value,
