@@ -73,8 +73,7 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">suppress</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">new_class</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typed_envs</span><span class="w"> </span><span class="kn">import</span> <span class="n">registry</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typed_envs._env_var</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnvironmentVariable</span>
@@ -97,8 +96,18 @@
 <span class="sd">        Args:</span>
 <span class="sd">            env_var_prefix: An optional string prefix to be added to environment variable names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">env_var_prefix</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="n">env_var_prefix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__use_prefix</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="n">env_var_prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__default_string_converters</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Type</span><span class="p">,</span> <span class="n">StringConverter</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span></div>
 
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_string_converters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Type</span><span class="p">,</span> <span class="n">StringConverter</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__default_string_converters</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">use_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__use_prefix</span>
 
 <div class="viewcode-block" id="EnvVarFactory.create_env">
 <a class="viewcode-back" href="../../source/typed_envs.html#typed_envs.factory.EnvVarFactory.create_env">[docs]</a>
@@ -159,7 +168,7 @@
 <span class="sd">        See Also:</span>
 <span class="sd">            - :func:`typed_envs.create_env` for creating environment variables without a prefix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__use_prefix</span><span class="p">:</span>
             <span class="n">env_var_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">env_var_name</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">var_value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">env_var_name</span><span class="p">)</span>
         <span class="n">using_default</span> <span class="o">=</span> <span class="n">var_value</span> <span class="ow">is</span> <span class="kc">None</span>
@@ -174,7 +183,9 @@
                 <span class="n">var_value</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">var_value</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">iter_typ</span> <span class="ow">in</span> <span class="n">env_var_type</span><span class="o">.</span><span class="vm">__bases__</span> <span class="k">for</span> <span class="n">iter_typ</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">set</span><span class="p">]):</span>
             <span class="n">var_value</span> <span class="o">=</span> <span class="n">var_value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">string_converter</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span>
+        <span class="k">if</span> <span class="n">string_converter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">string_converter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__default_string_converters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">env_var_type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">string_converter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span>
             <span class="n">using_default</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">env_var_type</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="n">var_value</span> <span class="o">=</span> <span class="n">string_converter</span><span class="p">(</span><span class="n">var_value</span><span class="p">)</span>
@@ -207,6 +218,20 @@
                     <span class="p">)</span>
         <span class="n">_register_new_env</span><span class="p">(</span><span class="n">env_var_name</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">instance</span></div>
+
+
+<div class="viewcode-block" id="EnvVarFactory.register_string_converter">
+<a class="viewcode-back" href="../../source/typed_envs.html#typed_envs.factory.EnvVarFactory.register_string_converter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">register_string_converter</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">register_for</span><span class="p">:</span> <span class="n">Type</span><span class="p">,</span> <span class="n">converter</span><span class="p">:</span> <span class="n">StringConverter</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">register_for</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__default_string_converters</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;There is already a string converter registered for </span><span class="si">{</span><span class="n">register_for</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">converter</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;converter must be callable&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__default_string_converters</span><span class="p">[</span><span class="n">register_for</span><span class="p">]</span></div>
 </div>
 
 
