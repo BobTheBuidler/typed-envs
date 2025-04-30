@@ -26,8 +26,9 @@ setup(
     ext_modules=mypycify(
         paths=[
             "typed_envs/__init__.py",
+            "typed_envs/_env_var.py,
             "typed_envs/ENVIRONMENT_VARIABLES.py",
-            "typed_envs/factory.py",
+            # TODO: fix mypyc IR error "typed_envs/factory.py",
             "typed_envs/registry.py",
             "typed_envs/typing.py",
             "--pretty",
