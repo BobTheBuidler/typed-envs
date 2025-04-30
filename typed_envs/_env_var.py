@@ -155,6 +155,6 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
             *e.args,
             typed_cls_name,
             f"bases: {typed_cls_bases}",
-            type(bases[0]),
-            type(bases[1]),
+            type(typed_cls_bases[0]),
+            type(typed_cls_bases[1]),
         ) from None
