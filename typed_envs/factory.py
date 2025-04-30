@@ -5,7 +5,9 @@ from typing import Any, Dict, Final, Optional, Type, TypeVar
 
 from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
+from typed_envs.registry import _register_new_env
 from typed_envs.typing import StringConverter, VarName
+
 
 T = TypeVar("T")
 
@@ -165,14 +167,6 @@ class EnvVarFactory:
         elif not callable(converter):
             raise ValueError("converter must be callable")
         self.__default_string_converters[register_for]
-
-
-def _register_new_env(name: VarName, instance: EnvironmentVariable) -> None:
-    registry.ENVIRONMENT[name] = instance
-    if instance._using_default:
-        registry._ENVIRONMENT_VARIABLES_USING_DEFAULTS[name] = instance
-    else:
-        registry._ENVIRONMENT_VARIABLES_SET_BY_USER[name] = instance
 
 
 # NOTE: While we create the TYPEDENVS_SHUTUP object in the ENVIRONMENT_VARIABLES file as an example,
