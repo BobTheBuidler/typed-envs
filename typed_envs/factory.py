@@ -5,7 +5,7 @@ from typing import Any, Dict, Final, Optional, Type, TypeVar
 
 from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
-from typed_envs.typing import StringConverter
+from typed_envs.typing import StringConverter, VarName
 
 T = TypeVar("T")
 
@@ -34,13 +34,13 @@ class EnvVarFactory:
 
     def create_env(
         self,
-        env_var_name: Optional[str],
+        env_var_name: Optional[VarName],
         env_var_type: Type[T],
         default: Any,
         *init_args,
         string_converter: Optional[StringConverter] = None,
         verbose: bool = True,
-        **init_kwargs,
+        **init_kwargs: Any,
     ) -> "EnvironmentVariable[T]":
         """
         Creates a new :class:`EnvironmentVariable` object with the specified parameters.
@@ -163,7 +163,7 @@ class EnvVarFactory:
         self.__default_string_converters[register_for]
 
 
-def _register_new_env(name: str, instance: EnvironmentVariable) -> None:
+def _register_new_env(name: VarName, instance: EnvironmentVariable) -> None:
     registry.ENVIRONMENT[name] = instance
     if instance._using_default:
         registry._ENVIRONMENT_VARIABLES_USING_DEFAULTS[name] = instance
