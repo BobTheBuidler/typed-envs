@@ -113,7 +113,7 @@ class EnvironmentVariable(Generic[T]):
 
         Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
         """
-        return _build_subclass(type_arg)
+        return _build_subclass(type_arg)  # type: ignore [arg-type]
 
 
 @lru_cache(maxsize=None)
