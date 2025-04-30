@@ -7,3 +7,6 @@ dist/
 .eggs/
 *.egg-info
 cache/
+*.o
+*.so
+*.pyd
