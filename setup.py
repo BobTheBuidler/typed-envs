@@ -21,7 +21,6 @@ setup(
     author_email="bobthebuidlerdefi@gmail.com",
     license="MIT",
     setup_requires=["setuptools_scm"],
-    install_requires=["mypy_extensions"],
     package_data={"typed_envs": ["py.typed"]},
     include_package_data=True,
     ext_modules=mypycify(
