@@ -30,6 +30,8 @@ setup(
             "typed_envs/factory.py",
             "typed_envs/registry.py",
             "typed_envs/typing.py",
+            "--pretty",
+            "--install-types",
             "--disable-error-code=assignment",
             "--disable-error-code=attr-defined",
         ],
