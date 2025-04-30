@@ -27,7 +27,7 @@ setup(
         paths=[
             "typed_envs/__init__.py",
             "typed_envs/ENVIRONMENT_VARIABLES.py",
-            "typed_envs/factory.py",
+            # TODO: fix "typed_envs/factory.py",
             "typed_envs/registry.py",
             "typed_envs/typing.py",
             "--pretty",
