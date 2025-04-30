@@ -53,7 +53,7 @@ T = TypeVar("T")
 
 
 def create_env(
-    name: Optional[str],
+    name: str,
     typ: Type[T],
     default: Any,
     *init_args,
@@ -67,7 +67,7 @@ def create_env(
     Functionally, :class:`EnvironmentVariable` objects will work exactly the same as any instance of specified `typ`.
 
     Args:
-        name: The name of the environment variable. If None, the variable will not be set from the environment.
+        name: The name of the environment variable.
         typ: The type of the environment variable. This determines the type of the value that the environment variable will hold.
         default: The default value for the environment variable if not specified in the current environment.
         *init_args: Additional positional arguments for initialization of the environment variable.
