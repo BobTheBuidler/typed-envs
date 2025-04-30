@@ -9,7 +9,7 @@ T = TypeVar("T")
 
 # NOTE: though this lib does create specialized subclasses, users should consider this class as @final
 @final
-#@mypyc_attr(support_interpreted_subclasses=True)
+# @mypyc_attr(support_interpreted_subclasses=True)
 class EnvironmentVariable(Generic[T]):
     """
     Base class for creating custom wrapper subclasses on the fly.
