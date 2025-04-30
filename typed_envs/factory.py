@@ -34,7 +34,7 @@ class EnvVarFactory:
 
     def create_env(
         self,
-        env_var_name: Optional[str],
+        env_var_name: str,
         env_var_type: Type[T],
         default: Any,
         *init_args,
@@ -89,10 +89,20 @@ class EnvVarFactory:
         See Also:
             - :func:`typed_envs.create_env` for creating environment variables without a prefix.
         """
+        # Validate name
+        if not isinstance(env_var_name, str):
+            raise TypeError("env_var_name must be string, not {env_var_name}")
+            
+        if not env_var_name:
+            raise ValueError("env_var_name must not be empty")
+
+        # Get full name
         if self.__use_prefix:
             full_name = VarName(f"{self.prefix}_{env_var_name}")
         else:
             full_name = VarName(env_var_name)
+
+        # Get value
         var_value = os.environ.get(full_name)
         using_default = var_value is None
         var_value = var_value or default
@@ -106,6 +116,8 @@ class EnvVarFactory:
                 var_value = bool(var_value)
         if any(iter_typ in env_var_type.__bases__ for iter_typ in [list, tuple, set]):
             var_value = var_value.split(",")
+
+        # Convert value, if applicable
         if string_converter is None:
             string_converter = self.__default_string_converters.get(env_var_type)
         if string_converter is not None and not (
@@ -113,6 +125,7 @@ class EnvVarFactory:
         ):
             var_value = string_converter(var_value)
 
+        # Create environment variable
         instance = EnvironmentVariable[env_var_type](  # type: ignore [valid-type]
             var_value, *init_args, **init_kwargs
         )
