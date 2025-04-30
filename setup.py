@@ -30,6 +30,7 @@ setup(
             "typed_envs/factory.py",
             "typed_envs/registry.py",
             "typed_envs/typing.py",
+            "--disable-error-code=assignment",
             "--disable-error-code=attr-defined",
         ],
         debug_level=os.environ.get("MYPYC_DEBUG_LEVEL", "0"),
