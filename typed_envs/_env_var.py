@@ -152,5 +152,5 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
         typed_cls_dict["__annotations__"] = type_arg.__annotations__
     if hasattr(type_arg, "__parameters__"):
         typed_cls_dict["__parameters__"] = type_arg.__parameters__
-    
+
     return new_class(typed_cls_name, typed_cls_bases, typed_cls_dict)
