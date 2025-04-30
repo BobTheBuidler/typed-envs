@@ -28,6 +28,14 @@ typed\_envs.registry module
    :undoc-members:
    :show-inheritance:
 
+typed\_envs.typing module
+-------------------------
+
+.. automodule:: typed_envs.typing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
