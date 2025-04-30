@@ -23,16 +23,6 @@ def build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
 
     Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
     """
-    from typed_envs import _typed
-
-    return _typed.build_subclass(type_arg)
-    """
-    Returns a mixed subclass of `type_arg` and :class:`EnvironmentVariable` that does 2 things:
-     - modifies the __repr__ method so its clear an object's value was set with an env var while when inspecting variables
-     - ensures the instance will type check as an :class:`EnvironmentVariable` object without losing information about its actual type
-
-    Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
-    """
     typed_cls_name = f"EnvironmentVariable[{type_arg.__name__}]"
     typed_cls_bases = (int if type_arg is bool else type_arg, EnvironmentVariable)
     typed_cls_dict = {
