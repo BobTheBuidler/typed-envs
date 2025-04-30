@@ -98,28 +98,14 @@
 </section>
 <section id="module-typed_envs.ENVIRONMENT_VARIABLES">
 <span id="typed-envs-environment-variables-module"></span><h2>typed_envs.ENVIRONMENT_VARIABLES module<a class="headerlink" href="#module-typed_envs.ENVIRONMENT_VARIABLES" title="Link to this heading"></a></h2>
+<p>This module demonstrates the creation of environment variables using the
+<a class="reference internal" href="#typed_envs.factory.EnvVarFactory" title="typed_envs.factory.EnvVarFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvVarFactory</span></code></a> class with a specified prefix.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="typed_envs.ENVIRONMENT_VARIABLES.SHUTUP">
-<span class="sig-prename descclassname"><span class="pre">typed_envs.ENVIRONMENT_VARIABLES.</span></span><span class="sig-name descname"><span class="pre">SHUTUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">EnvironmentVariable[bool](name=`TYPEDENVS_SHUTUP`,</span> <span class="pre">default_value=False,</span> <span class="pre">using_default=True])</span></em><a class="headerlink" href="#typed_envs.ENVIRONMENT_VARIABLES.SHUTUP" title="Link to this definition"></a></dt>
-<dd><p>This module demonstrates the creation of environment variables using the
-<a class="reference internal" href="#typed_envs.factory.EnvVarFactory" title="typed_envs.factory.EnvVarFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvVarFactory</span></code></a> class with a specified prefix.</p>
-<p>The <a class="reference internal" href="#typed_envs.factory.EnvVarFactory" title="typed_envs.factory.EnvVarFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvVarFactory</span></code></a> is initialized with the prefix
-“TYPEDENVS”, which is automatically added to the environment variable names
-created by this factory.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-prename descclassname"><span class="pre">typed_envs.ENVIRONMENT_VARIABLES.</span></span><span class="sig-name descname"><span class="pre">SHUTUP</span></span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
-<dd><p>An environment variable named
-“TYPEDENVS_SHUTUP” of type <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>. It defaults to <cite>False</cite> if
-not set in the environment. If the environment variable is set to any
-non-empty string, it will be interpreted as <cite>True</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>EnvironmentVariable[<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
+<span class="sig-prename descclassname"><span class="pre">typed_envs.ENVIRONMENT_VARIABLES.</span></span><span class="sig-name descname"><span class="pre">SHUTUP</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Final" title="(in Python v3.13)"><span class="pre">Final</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">EnvironmentVariable[bool](name=`TYPEDENVS_SHUTUP`,</span> <span class="pre">default_value=False,</span> <span class="pre">using_default=True])</span></em><a class="headerlink" href="#typed_envs.ENVIRONMENT_VARIABLES.SHUTUP" title="Link to this definition"></a></dt>
+<dd><p>An environment variable named “TYPEDENVS_SHUTUP” of type <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>.
+It defaults to <cite>False</cite> if not set in the environment. If the environment
+variable is set to any non-empty string, it will be interpreted as <cite>True</cite>.</p>
 <p class="rubric">Examples</p>
 <p>To access the <cite>SHUTUP</cite> environment variable, you can use it as a regular
 boolean:</p>
