@@ -2,10 +2,11 @@ import logging
 import os
 from contextlib import suppress
 from types import new_class
-from typing import Any, Callable, Optional, Type, TypeVar
+from typing import Any, Optional, Type, TypeVar
 
 from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
+from typed_envs.typing import StringConverter
 
 T = TypeVar("T")
 
@@ -28,7 +29,7 @@ class EnvVarFactory:
         env_var_type: Type[T],
         default: Any,
         *init_args,
-        string_converter: Optional[Callable[[str], Any]] = None,
+        string_converter: Optional[StringConverter] = None,
         verbose: bool = True,
         **init_kwargs,
     ) -> "EnvironmentVariable[T]":

@@ -1,10 +1,11 @@
-from typing import TYPE_CHECKING, Dict
+from typed_envs.typing import EnvRegistry
 
-if TYPE_CHECKING:
-    from typed_envs._env_var import EnvironmentVariable
+ENVIRONMENT: EnvRegistry = {}
+_ENVIRONMENT_VARIABLES_SET_BY_USER: EnvRegistry = {}
+_ENVIRONMENT_VARIABLES_USING_DEFAULTS: EnvRegistry = {}
 
-_EnvsRegistry = Dict[str, "EnvironmentVariable"]
-
-ENVIRONMENT: _EnvsRegistry = {}
-_ENVIRONMENT_VARIABLES_SET_BY_USER: _EnvsRegistry = {}
-_ENVIRONMENT_VARIABLES_USING_DEFAULTS: _EnvsRegistry = {}
+__all__ = [
+    "ENVIRONMENT",
+    "_ENVIRONMENT_VARIABLES_SET_BY_USER",
+    "_ENVIRONMENT_VARIABLES_USING_DEFAULTS",
+]
