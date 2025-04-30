@@ -17,7 +17,9 @@ prefix "TYPEDENVS", which is automatically added to the environment variable
 names created by this factory.
 """
 
-SHUTUP: Final["EnvironmentVariable[bool]"] = _factory.create_env("SHUTUP", bool, False, verbose=False)
+SHUTUP: Final["EnvironmentVariable[bool]"] = _factory.create_env(
+    "SHUTUP", bool, False, verbose=False
+)
 """An environment variable named "TYPEDENVS_SHUTUP" of type :class:`bool`.
 It defaults to `False` if not set in the environment. If the environment
 variable is set to any non-empty string, it will be interpreted as `True`.
