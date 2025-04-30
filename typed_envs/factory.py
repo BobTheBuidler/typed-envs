@@ -151,17 +151,6 @@ class EnvVarFactory:
             raise ValueError("converter must be callable")
         self.__default_string_converters[register_for]
 
-    def register_string_converter(
-        self, register_for: Type, converter: StringConverter
-    ) -> None:
-        if register_for in self.__default_string_converters:
-            raise ValueError(
-                f"There is already a string converter registered for {register_for}"
-            )
-        elif not callable(converter):
-            raise ValueError("converter must be callable")
-        self.__default_string_converters[register_for]
-
 
 def _register_new_env(name: VarName, instance: EnvironmentVariable) -> None:
     registry.ENVIRONMENT[name] = instance
@@ -174,7 +163,7 @@ def _register_new_env(name: VarName, instance: EnvironmentVariable) -> None:
 # NOTE: While we create the TYPEDENVS_SHUTUP object in the ENVIRONMENT_VARIABLES file as an example,
 #       we cannot use it here without creating a circular import.
 
-logger = logging.getLogger("typed_envs")
+logger: Final[logging.Logger] = logging.getLogger("typed_envs")
 
 from typed_envs import ENVIRONMENT_VARIABLES
 
@@ -187,4 +176,4 @@ else:
         logger.setLevel(logging.INFO)
 
 
-default_factory = EnvVarFactory()
+default_factory: Final[EnvVarFactory] = EnvVarFactory()
