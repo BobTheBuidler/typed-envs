@@ -27,6 +27,7 @@ setup(
         paths=[
             "typed_envs/__init__.py",
             # TODO: implement a proxy wrapper instead of hacky subclasses "typed_envs/_env_var.py",
+            "typed_envs/_typed.py",
             "typed_envs/ENVIRONMENT_VARIABLES.py",
             # TODO: fix mypyc IR error "typed_envs/factory.py",
             "typed_envs/registry.py",
