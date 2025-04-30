@@ -1,5 +1,5 @@
 from functools import lru_cache
-from typing import Generic, TypeVar, Type, Any, final
+from typing import ClassVar, Generic, TypeVar, Type, Any, final
 
 
 T = TypeVar("T")
@@ -59,7 +59,7 @@ class EnvironmentVariable(Generic[T]):
     _env_name: str
     _init_arg0: Any
 
-    __origin__: Type[EnvironmentVariable]
+    __origin__: ClassVar[Type["EnvironmentVariable"]]
 
     def __init__(self, *args, **kwargs) -> None:
         if type(self) is EnvironmentVariable:
