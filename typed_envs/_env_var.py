@@ -128,4 +128,5 @@ def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
     Aside from these two things, subclass instances will function exactly the same as any other instance of `typ`.
     """
     from typed_envs import _typed
+
     return _typed.build_subclass(type_arg)
