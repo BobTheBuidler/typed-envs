@@ -1,3 +1,5 @@
+import pytest
+
 from typed_envs import EnvVarFactory
 
 
