@@ -166,7 +166,7 @@ class EnvVarFactory:
             )
         elif not callable(converter):
             raise ValueError("converter must be callable")
-        self.__default_string_converters[register_for]
+        self.__default_string_converters[register_for] = converter
 
 
 # NOTE: While we create the TYPEDENVS_SHUTUP object in the ENVIRONMENT_VARIABLES file as an example,
