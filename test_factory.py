@@ -14,6 +14,6 @@ def test_register_string_converter():
     assert factory.default_string_converters[MyType] is int
 
     # Cannot register if one is already registered
-    with pytest.raises(ValueError)
+    with pytest.raises(ValueError):
         factory.register_string_converter(MyType, int)
   
