@@ -33,9 +33,6 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel cibuildwheel
 
       - name: Build wheels
-        env:
-          # skip building wheels for PyPy
-          CIBW_SKIP: pp*
         run: |
           python -m cibuildwheel --output-dir wheelhouse
 
