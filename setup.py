@@ -25,6 +25,7 @@ setup(
     ],
     description=description,
     long_description=description + description_addon,
+    python_requires=">=3.8,<3.14",
     packages=find_packages(),
     use_scm_version={
         "root": ".",
