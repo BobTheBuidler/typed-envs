@@ -6,7 +6,7 @@ from typed_envs import description, description_addon
 
 
 setup(
-    name="typed-envs",
+    name="typed_envs",
     url="https://github.com/BobTheBuidler/typed-envs",
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
