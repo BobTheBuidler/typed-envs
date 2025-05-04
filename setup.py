@@ -20,7 +20,7 @@ setup(
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
     license="MIT",
-    python_requires=">=3.7",
+    python_requires=">=3.8,<3.14",
     setup_requires=["setuptools_scm"],
     package_data={"typed_envs": ["py.typed"]},
     include_package_data=True,
