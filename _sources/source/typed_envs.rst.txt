@@ -9,37 +9,37 @@ typed\_envs.ENVIRONMENT\_VARIABLES module
 
 .. automodule:: typed_envs.ENVIRONMENT_VARIABLES
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 typed\_envs.factory module
 --------------------------
 
 .. automodule:: typed_envs.factory
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 typed\_envs.registry module
 ---------------------------
 
 .. automodule:: typed_envs.registry
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 typed\_envs.typing module
 -------------------------
 
 .. automodule:: typed_envs.typing
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: typed_envs
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
