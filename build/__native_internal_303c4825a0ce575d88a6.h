@@ -6,7 +6,7 @@
 
 int CPyGlobalsInit(void);
 
-extern PyObject *CPyStatics[77];
+extern PyObject *CPyStatics[78];
 extern const char * const CPyLit_Str[];
 extern const char * const CPyLit_Bytes[];
 extern const char * const CPyLit_Int[];
@@ -14,22 +14,22 @@ extern const double CPyLit_Float[];
 extern const double CPyLit_Complex[];
 extern const int CPyLit_Tuple[];
 extern const int CPyLit_FrozenSet[];
-extern CPyModule *CPyModule_typed_envs__internal;
+extern CPyModule *CPyModule_typed_envs_internal;
 extern CPyModule *CPyModule_typed_envs;
 extern PyObject *CPyStatic_typed_envs___globals;
 extern CPyModule *CPyModule_builtins;
 extern CPyModule *CPyModule_typing;
 extern CPyModule *CPyModule_typed_envs____env_var;
 extern CPyModule *CPyModule_typed_envs___factory;
-extern CPyModule *CPyModule_typed_envs___registry__internal;
+extern CPyModule *CPyModule_typed_envs___registry_internal;
 extern CPyModule *CPyModule_typed_envs___registry;
-extern CPyModule *CPyModule_typed_envs___typing__internal;
+extern CPyModule *CPyModule_typed_envs___typing_internal;
 extern CPyModule *CPyModule_typed_envs___typing;
-extern CPyModule *CPyModule_typed_envs____typed__internal;
+extern CPyModule *CPyModule_typed_envs____typed_internal;
 extern CPyModule *CPyModule_typed_envs____typed;
 extern PyObject *CPyStatic__typed___globals;
 extern CPyModule *CPyModule_functools;
-extern CPyModule *CPyModule_typed_envs___ENVIRONMENT_VARIABLES__internal;
+extern CPyModule *CPyModule_typed_envs___ENVIRONMENT_VARIABLES_internal;
 extern CPyModule *CPyModule_typed_envs___ENVIRONMENT_VARIABLES;
 extern PyObject *CPyStatic_ENVIRONMENT_VARIABLES___globals;
 extern PyObject *CPyStatic_registry___globals;
