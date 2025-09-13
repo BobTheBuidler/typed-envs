@@ -2,7 +2,7 @@ env/
 .mypy_cache/
 .pytest_cache/
 __pycache__/
-build/
+build/**/*.py
 dist/
 .eggs/
 *.egg-info
