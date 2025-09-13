@@ -2,7 +2,8 @@ env/
 .mypy_cache/
 .pytest_cache/
 __pycache__/
-build/
+build/**/*.py
+build/**/*.typed
 dist/
 .eggs/
 *.egg-info
