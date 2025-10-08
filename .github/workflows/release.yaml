@@ -106,6 +106,7 @@ jobs:
           path: wheelhouse/windows
 
       - name: Publish sdist and wheels to PyPI
+        if: ${{ github.event_name != 'workflow_dispatch' }}
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
