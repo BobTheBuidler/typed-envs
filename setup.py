@@ -1,9 +1,30 @@
 import os
+import sys
 from setuptools import find_packages, setup
 from mypyc.build import mypycify
 
 from typed_envs import description, description_addon
 
+if sys.implementation.name == "cpython":
+    paths=[
+        "typed_envs/__init__.py",
+        # TODO: implement a proxy wrapper instead of hacky subclasses "typed_envs/_env_var.py",
+        "typed_envs/_typed.py",
+        "typed_envs/ENVIRONMENT_VARIABLES.py",
+        # TODO: fix mypyc IR error "typed_envs/factory.py",
+        "typed_envs/registry.py",
+        "typed_envs/typing.py",
+        "--pretty",
+        "--install-types",
+        "--disable-error-code=assignment",
+        "--disable-error-code=attr-defined",
+    ]
+    ext_modules = mypycify(
+        paths=compiled_paths,
+        debug_level=os.environ.get("MYPYC_DEBUG_LEVEL", "0"),
+    )
+else:
+    ext_modules = []
 
 setup(
     name="typed_envs",
@@ -21,7 +42,6 @@ setup(
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
         "Programming Language :: Python :: 3.14",
-        "Programming Language :: Python :: Implementation :: CPython",
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries",
     ],
@@ -38,20 +58,5 @@ setup(
     setup_requires=["setuptools_scm"],
     package_data={"typed_envs": ["py.typed"]},
     include_package_data=True,
-    ext_modules=mypycify(
-        paths=[
-            "typed_envs/__init__.py",
-            # TODO: implement a proxy wrapper instead of hacky subclasses "typed_envs/_env_var.py",
-            "typed_envs/_typed.py",
-            "typed_envs/ENVIRONMENT_VARIABLES.py",
-            # TODO: fix mypyc IR error "typed_envs/factory.py",
-            "typed_envs/registry.py",
-            "typed_envs/typing.py",
-            "--pretty",
-            "--install-types",
-            "--disable-error-code=assignment",
-            "--disable-error-code=attr-defined",
-        ],
-        debug_level=os.environ.get("MYPYC_DEBUG_LEVEL", "0"),
-    ),
+    ext_modules=ext_modules,
 )
