@@ -6,7 +6,10 @@ from mypyc.build import mypycify
 from typed_envs import description, description_addon
 
 if sys.implementation.name == "cpython":
-    paths=[
+    
+    MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
+    
+    paths_to_compile = [
         "typed_envs/__init__.py",
         # TODO: implement a proxy wrapper instead of hacky subclasses "typed_envs/_env_var.py",
         "typed_envs/_typed.py",
@@ -19,10 +22,8 @@ if sys.implementation.name == "cpython":
         "--disable-error-code=assignment",
         "--disable-error-code=attr-defined",
     ]
-    ext_modules = mypycify(
-        paths=compiled_paths,
-        debug_level=os.environ.get("MYPYC_DEBUG_LEVEL", "0"),
-    )
+    
+    ext_modules = mypycify(paths=paths_to_compile, debug_level=MYPYC_DEBUG_LEVEL)
 else:
     ext_modules = []
 
