@@ -58,7 +58,7 @@ jobs:
         run: python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload wheels
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: wheels-${{ matrix.os }}
           path: wheelhouse/*.whl
@@ -88,19 +88,19 @@ jobs:
           python setup.py sdist
 
       - name: Download wheel artifacts (Ubuntu)
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: "wheels-ubuntu-latest"
           path: wheelhouse/ubuntu
 
       - name: Download wheel artifacts (macOS)
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: "wheels-macos-latest"
           path: wheelhouse/macos
 
       - name: Download wheel artifacts (Windows)
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: "wheels-windows-latest"
           path: wheelhouse/windows
