@@ -115,7 +115,7 @@ class EnvironmentVariable(Generic[T]):
         return super().__class_getitem__(type_arg)  # type: ignore [misc]
 
     # helpers for mypy
-    
+
     def __int__(self) -> int:
         return NotImplemented
 
