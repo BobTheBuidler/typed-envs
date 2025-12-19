@@ -114,6 +114,11 @@ class EnvironmentVariable(Generic[T]):
             return _build_subclass(type_arg)  # type: ignore [arg-type]
         return super().__class_getitem__(type_arg)  # type: ignore [misc]
 
+    # helpers for mypy
+    
+    def __int__(self) -> int:
+        return NotImplemented
+
 
 @lru_cache(maxsize=None)
 def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
