@@ -1,5 +1,5 @@
 from functools import lru_cache
-from typing import Final, Type, TypeVar
+from typing import Final, TypeVar
 
 from typed_envs._env_var import EnvironmentVariable
 
