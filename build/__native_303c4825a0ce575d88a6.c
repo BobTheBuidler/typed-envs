@@ -1,3 +1,6 @@
+#ifndef DIFFCHECK_PLACEHOLDER
+#define DIFFCHECK_PLACEHOLDER 0
+#endif
 #include "init.c"
 #include "getargs.c"
 #include "getargsfast.c"
@@ -94,22 +97,22 @@ CPyL2: ;
     cpy_r_verbose = 1;
 CPyL4: ;
     cpy_r_r1 = CPyStatic_typed_envs___globals;
-    cpy_r_r2 = CPyStatics[3]; /* 'default_factory' */
+    cpy_r_r2 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'default_factory' */
     cpy_r_r3 = CPyDict_GetItem(cpy_r_r1, cpy_r_r2);
     if (unlikely(cpy_r_r3 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "create_env", 104, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL15;
     }
-    cpy_r_r4 = CPyStatics[4]; /* 'create_env' */
+    cpy_r_r4 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'create_env' */
     cpy_r_r5 = CPyObject_GetAttr(cpy_r_r3, cpy_r_r4);
     CPy_DECREF(cpy_r_r3);
     if (unlikely(cpy_r_r5 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "create_env", 104, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL15;
     }
     cpy_r_r6 = PyList_New(3);
     if (unlikely(cpy_r_r6 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "create_env", 104, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL16;
     }
     cpy_r_r7 = (CPyPtr)&((PyListObject *)cpy_r_r6)->ob_item;
@@ -124,30 +127,30 @@ CPyL4: ;
     *(PyObject * *)cpy_r_r10 = cpy_r_default;
     cpy_r_r11 = CPyList_Extend(cpy_r_r6, cpy_r_init_args);
     if (unlikely(cpy_r_r11 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "create_env", 104, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL17;
     } else
         goto CPyL18;
 CPyL8: ;
-    cpy_r_r12 = CPyStatics[5]; /* 'string_converter' */
-    cpy_r_r13 = CPyStatics[6]; /* 'verbose' */
+    cpy_r_r12 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'string_converter' */
+    cpy_r_r13 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'verbose' */
     cpy_r_r14 = cpy_r_verbose ? Py_True : Py_False;
     cpy_r_r15 = CPyDict_Build(2, cpy_r_r12, cpy_r_string_converter, cpy_r_r13, cpy_r_r14);
     CPy_DECREF(cpy_r_string_converter);
     if (unlikely(cpy_r_r15 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "create_env", 104, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL19;
     }
     cpy_r_r16 = CPyDict_UpdateInDisplay(cpy_r_r15, cpy_r_init_kwargs);
     cpy_r_r17 = cpy_r_r16 >= 0;
     if (unlikely(!cpy_r_r17)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "create_env", 104, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL20;
     }
     cpy_r_r18 = PyList_AsTuple(cpy_r_r6);
     CPy_DECREF_NO_IMM(cpy_r_r6);
     if (unlikely(cpy_r_r18 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "create_env", 104, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL21;
     }
     cpy_r_r19 = PyObject_Call(cpy_r_r5, cpy_r_r18, cpy_r_r15);
@@ -155,7 +158,7 @@ CPyL8: ;
     CPy_DECREF(cpy_r_r18);
     CPy_DECREF(cpy_r_r15);
     if (unlikely(cpy_r_r19 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "create_env", 104, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL13;
     }
     return cpy_r_r19;
@@ -249,7 +252,7 @@ __LL1: ;
 fail: ;
     CPy_DECREF(obj_init_args);
     CPy_DECREF(obj_init_kwargs);
-    CPy_AddTraceback("typed_envs/__init__.py", "create_env", 55, CPyStatic_typed_envs___globals);
+    CPy_AddTraceback("typed_envs/__init__.py", "create_env", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
     return NULL;
 }
 
@@ -326,7 +329,7 @@ char CPyDef_typed_envs_____top_level__(void) {
     cpy_r_r1 = (PyObject *)&_Py_NoneStruct;
     cpy_r_r2 = cpy_r_r0 != cpy_r_r1;
     if (cpy_r_r2) goto CPyL3;
-    cpy_r_r3 = CPyStatics[7]; /* 'builtins' */
+    cpy_r_r3 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'builtins' */
     cpy_r_r4 = PyImport_Import(cpy_r_r3);
     if (unlikely(cpy_r_r4 == NULL)) {
         CPy_AddTraceback("typed_envs/__init__.py", "<module>", -1, CPyStatic_typed_envs___globals);
@@ -336,63 +339,63 @@ char CPyDef_typed_envs_____top_level__(void) {
     CPy_INCREF(CPyModule_builtins);
     CPy_DECREF(cpy_r_r4);
 CPyL3: ;
-    cpy_r_r5 = CPyStatics[63]; /* ('Any', 'Optional', 'Type', 'TypeVar') */
-    cpy_r_r6 = CPyStatics[12]; /* 'typing' */
+    cpy_r_r5 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('Any', 'Optional', 'Type', 'TypeVar') */
+    cpy_r_r6 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typing' */
     cpy_r_r7 = CPyStatic_typed_envs___globals;
     cpy_r_r8 = CPyImport_ImportFromMany(cpy_r_r6, cpy_r_r5, cpy_r_r5, cpy_r_r7);
     if (unlikely(cpy_r_r8 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 1, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     CPyModule_typing = cpy_r_r8;
     CPy_INCREF(CPyModule_typing);
     CPy_DECREF(cpy_r_r8);
-    cpy_r_r9 = CPyStatics[64]; /* ('EnvironmentVariable',) */
-    cpy_r_r10 = CPyStatics[14]; /* 'typed_envs._env_var' */
+    cpy_r_r9 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('EnvironmentVariable',) */
+    cpy_r_r10 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs._env_var' */
     cpy_r_r11 = CPyStatic_typed_envs___globals;
     cpy_r_r12 = CPyImport_ImportFromMany(cpy_r_r10, cpy_r_r9, cpy_r_r9, cpy_r_r11);
     if (unlikely(cpy_r_r12 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 3, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     CPyModule_typed_envs____env_var = cpy_r_r12;
     CPy_INCREF(CPyModule_typed_envs____env_var);
     CPy_DECREF(cpy_r_r12);
-    cpy_r_r13 = CPyStatics[65]; /* ('EnvVarFactory', 'logger', 'default_factory') */
-    cpy_r_r14 = CPyStatics[17]; /* 'typed_envs.factory' */
+    cpy_r_r13 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('EnvVarFactory', 'logger', 'default_factory') */
+    cpy_r_r14 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs.factory' */
     cpy_r_r15 = CPyStatic_typed_envs___globals;
     cpy_r_r16 = CPyImport_ImportFromMany(cpy_r_r14, cpy_r_r13, cpy_r_r13, cpy_r_r15);
     if (unlikely(cpy_r_r16 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 4, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     CPyModule_typed_envs___factory = cpy_r_r16;
     CPy_INCREF(CPyModule_typed_envs___factory);
     CPy_DECREF(cpy_r_r16);
-    cpy_r_r17 = CPyStatics[66]; /* ('ENVIRONMENT', '_ENVIRONMENT_VARIABLES_SET_BY_USER',
+    cpy_r_r17 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('ENVIRONMENT', '_ENVIRONMENT_VARIABLES_SET_BY_USER',
                                    '_ENVIRONMENT_VARIABLES_USING_DEFAULTS') */
-    cpy_r_r18 = CPyStatics[21]; /* 'typed_envs.registry' */
+    cpy_r_r18 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs.registry' */
     cpy_r_r19 = CPyStatic_typed_envs___globals;
     cpy_r_r20 = CPyImport_ImportFromMany(cpy_r_r18, cpy_r_r17, cpy_r_r17, cpy_r_r19);
     if (unlikely(cpy_r_r20 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 5, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     CPyModule_typed_envs___registry = cpy_r_r20;
     CPy_INCREF(CPyModule_typed_envs___registry);
     CPy_DECREF(cpy_r_r20);
-    cpy_r_r21 = CPyStatics[67]; /* ('StringConverter',) */
-    cpy_r_r22 = CPyStatics[23]; /* 'typed_envs.typing' */
+    cpy_r_r21 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('StringConverter',) */
+    cpy_r_r22 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs.typing' */
     cpy_r_r23 = CPyStatic_typed_envs___globals;
     cpy_r_r24 = CPyImport_ImportFromMany(cpy_r_r22, cpy_r_r21, cpy_r_r21, cpy_r_r23);
     if (unlikely(cpy_r_r24 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 10, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     CPyModule_typed_envs___typing = cpy_r_r24;
     CPy_INCREF(CPyModule_typed_envs___typing);
     CPy_DECREF(cpy_r_r24);
-    cpy_r_r25 = CPyStatics[24]; /* ('typed_envs is used to create specialized '
+    cpy_r_r25 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('typed_envs is used to create specialized '
                                    '`EnvironmentVariable` objects that behave exactly the '
                                    'same as any other instance of the `typ` used to create '
                                    'them.\n'
@@ -404,14 +407,14 @@ CPyL3: ;
                                    '    - enhancing __repr__ of the returned instance with '
                                    'extra contextual information\n') */
     cpy_r_r26 = CPyStatic_typed_envs___globals;
-    cpy_r_r27 = CPyStatics[25]; /* 'description' */
+    cpy_r_r27 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'description' */
     cpy_r_r28 = CPyDict_SetItem(cpy_r_r26, cpy_r_r27, cpy_r_r25);
     cpy_r_r29 = cpy_r_r28 >= 0;
     if (unlikely(!cpy_r_r29)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 13, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
-    cpy_r_r30 = CPyStatics[26]; /* ('\n'
+    cpy_r_r30 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('\n'
                                    'In the example below, `some_var` can be used just like '
                                    'as any other `int` object.\n'
                                    '\n'
@@ -446,19 +449,19 @@ CPyL3: ;
                                    '```\n'
                                    '\n') */
     cpy_r_r31 = CPyStatic_typed_envs___globals;
-    cpy_r_r32 = CPyStatics[27]; /* 'description_addon' */
+    cpy_r_r32 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'description_addon' */
     cpy_r_r33 = CPyDict_SetItem(cpy_r_r31, cpy_r_r32, cpy_r_r30);
     cpy_r_r34 = cpy_r_r33 >= 0;
     if (unlikely(!cpy_r_r34)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 22, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
-    cpy_r_r35 = CPyStatics[28]; /* 'T' */
+    cpy_r_r35 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'T' */
     cpy_r_r36 = CPyStatic_typed_envs___globals;
-    cpy_r_r37 = CPyStatics[11]; /* 'TypeVar' */
+    cpy_r_r37 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'TypeVar' */
     cpy_r_r38 = CPyDict_GetItem(cpy_r_r36, cpy_r_r37);
     if (unlikely(cpy_r_r38 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 52, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     PyObject *cpy_r_r39[1] = {cpy_r_r35};
@@ -466,26 +469,26 @@ CPyL3: ;
     cpy_r_r41 = PyObject_Vectorcall(cpy_r_r38, cpy_r_r40, 1, 0);
     CPy_DECREF(cpy_r_r38);
     if (unlikely(cpy_r_r41 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 52, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     cpy_r_r42 = CPyStatic_typed_envs___globals;
-    cpy_r_r43 = CPyStatics[28]; /* 'T' */
+    cpy_r_r43 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'T' */
     cpy_r_r44 = CPyDict_SetItem(cpy_r_r42, cpy_r_r43, cpy_r_r41);
     CPy_DECREF(cpy_r_r41);
     cpy_r_r45 = cpy_r_r44 >= 0;
     if (unlikely(!cpy_r_r45)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 52, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
-    cpy_r_r46 = CPyStatics[4]; /* 'create_env' */
-    cpy_r_r47 = CPyStatics[15]; /* 'EnvVarFactory' */
-    cpy_r_r48 = CPyStatics[18]; /* 'ENVIRONMENT' */
-    cpy_r_r49 = CPyStatics[19]; /* '_ENVIRONMENT_VARIABLES_SET_BY_USER' */
-    cpy_r_r50 = CPyStatics[20]; /* '_ENVIRONMENT_VARIABLES_USING_DEFAULTS' */
+    cpy_r_r46 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'create_env' */
+    cpy_r_r47 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvVarFactory' */
+    cpy_r_r48 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'ENVIRONMENT' */
+    cpy_r_r49 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '_ENVIRONMENT_VARIABLES_SET_BY_USER' */
+    cpy_r_r50 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '_ENVIRONMENT_VARIABLES_USING_DEFAULTS' */
     cpy_r_r51 = PyList_New(5);
     if (unlikely(cpy_r_r51 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 115, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     cpy_r_r52 = (CPyPtr)&((PyListObject *)cpy_r_r51)->ob_item;
@@ -505,28 +508,28 @@ CPyL3: ;
     cpy_r_r57 = cpy_r_r53 + 32;
     *(PyObject * *)cpy_r_r57 = cpy_r_r50;
     cpy_r_r58 = CPyStatic_typed_envs___globals;
-    cpy_r_r59 = CPyStatics[29]; /* '__all__' */
+    cpy_r_r59 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__all__' */
     cpy_r_r60 = CPyDict_SetItem(cpy_r_r58, cpy_r_r59, cpy_r_r51);
     CPy_DECREF_NO_IMM(cpy_r_r51);
     cpy_r_r61 = cpy_r_r60 >= 0;
     if (unlikely(!cpy_r_r61)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 115, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     }
     cpy_r_r62 = CPyStatic_typed_envs___globals;
-    cpy_r_r63 = CPyStatics[13]; /* 'EnvironmentVariable' */
+    cpy_r_r63 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvironmentVariable' */
     cpy_r_r64 = CPyDict_GetItem(cpy_r_r62, cpy_r_r63);
     if (unlikely(cpy_r_r64 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 124, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     } else
         goto CPyL19;
 CPyL16: ;
     cpy_r_r65 = CPyStatic_typed_envs___globals;
-    cpy_r_r66 = CPyStatics[16]; /* 'logger' */
+    cpy_r_r66 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'logger' */
     cpy_r_r67 = CPyDict_GetItem(cpy_r_r65, cpy_r_r66);
     if (unlikely(cpy_r_r67 == NULL)) {
-        CPy_AddTraceback("typed_envs/__init__.py", "<module>", 125, CPyStatic_typed_envs___globals);
+        CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL18;
     } else
         goto CPyL20;
@@ -694,10 +697,10 @@ PyObject *CPyDef__typed___build_subclass(PyObject *cpy_r_type_arg) {
     PyObject *cpy_r_r99;
     char cpy_r_r100;
     PyObject *cpy_r_r101;
-    cpy_r_r0 = CPyStatics[30]; /* 'EnvironmentVariable[' */
+    cpy_r_r0 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvironmentVariable[' */
     cpy_r_r1 = CPy_GetName(cpy_r_type_arg);
     if (unlikely(cpy_r_r1 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 26, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL57;
     }
     if (likely(PyUnicode_Check(cpy_r_r1)))
@@ -706,11 +709,11 @@ PyObject *CPyDef__typed___build_subclass(PyObject *cpy_r_type_arg) {
         CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 26, CPyStatic__typed___globals, "str", cpy_r_r1);
         goto CPyL57;
     }
-    cpy_r_r3 = CPyStatics[31]; /* ']' */
+    cpy_r_r3 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ']' */
     cpy_r_r4 = CPyStr_Build(3, cpy_r_r0, cpy_r_r2, cpy_r_r3);
     CPy_DECREF(cpy_r_r2);
     if (unlikely(cpy_r_r4 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 26, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL57;
     }
     cpy_r_r5 = (PyObject *)&PyBool_Type;
@@ -725,10 +728,10 @@ CPyL5: ;
     cpy_r_r8 = cpy_r_type_arg;
 CPyL6: ;
     cpy_r_r9 = CPyStatic__typed___globals;
-    cpy_r_r10 = CPyStatics[13]; /* 'EnvironmentVariable' */
+    cpy_r_r10 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvironmentVariable' */
     cpy_r_r11 = CPyDict_GetItem(cpy_r_r9, cpy_r_r10);
     if (unlikely(cpy_r_r11 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 27, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL58;
     }
     cpy_r_r12.f0 = cpy_r_r8;
@@ -742,17 +745,17 @@ CPyL8: ;
     PyErr_SetString(PyExc_NameError, "value for final name \"__TYPED_CLS_DICT_CONSTANTS\" was not set");
     cpy_r_r14 = 0;
     if (unlikely(!cpy_r_r14)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 29, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL57;
     }
     CPy_Unreachable();
 CPyL10: ;
-    cpy_r_r15 = CPyStatics[32]; /* '__args__' */
-    cpy_r_r16 = CPyStatics[33]; /* '__module__' */
-    cpy_r_r17 = CPyStatics[33]; /* '__module__' */
+    cpy_r_r15 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__args__' */
+    cpy_r_r16 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__module__' */
+    cpy_r_r17 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__module__' */
     cpy_r_r18 = CPyObject_GetAttr(cpy_r_type_arg, cpy_r_r17);
     if (unlikely(cpy_r_r18 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 31, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL60;
     }
     if (likely(PyUnicode_Check(cpy_r_r18)))
@@ -761,12 +764,12 @@ CPyL10: ;
         CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 31, CPyStatic__typed___globals, "str", cpy_r_r18);
         goto CPyL60;
     }
-    cpy_r_r20 = CPyStatics[34]; /* '__qualname__' */
-    cpy_r_r21 = CPyStatics[30]; /* 'EnvironmentVariable[' */
-    cpy_r_r22 = CPyStatics[34]; /* '__qualname__' */
+    cpy_r_r20 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__qualname__' */
+    cpy_r_r21 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvironmentVariable[' */
+    cpy_r_r22 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__qualname__' */
     cpy_r_r23 = CPyObject_GetAttr(cpy_r_type_arg, cpy_r_r22);
     if (unlikely(cpy_r_r23 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 32, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL61;
     }
     if (likely(PyUnicode_Check(cpy_r_r23)))
@@ -775,18 +778,18 @@ CPyL10: ;
         CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 32, CPyStatic__typed___globals, "str", cpy_r_r23);
         goto CPyL61;
     }
-    cpy_r_r25 = CPyStatics[31]; /* ']' */
+    cpy_r_r25 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ']' */
     cpy_r_r26 = CPyStr_Build(3, cpy_r_r21, cpy_r_r24, cpy_r_r25);
     CPy_DECREF(cpy_r_r24);
     if (unlikely(cpy_r_r26 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 32, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL61;
     }
-    cpy_r_r27 = CPyStatics[35]; /* '__doc__' */
-    cpy_r_r28 = CPyStatics[35]; /* '__doc__' */
+    cpy_r_r27 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__doc__' */
+    cpy_r_r28 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__doc__' */
     cpy_r_r29 = CPyObject_GetAttr(cpy_r_type_arg, cpy_r_r28);
     if (unlikely(cpy_r_r29 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 33, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL62;
     }
     if (PyUnicode_Check(cpy_r_r29))
@@ -806,49 +809,49 @@ CPyL10: ;
 __LL2: ;
     cpy_r_r31 = PyDict_New();
     if (unlikely(cpy_r_r31 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 28, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL63;
     }
     cpy_r_r32 = CPyDict_UpdateInDisplay(cpy_r_r31, cpy_r_r13);
     cpy_r_r33 = cpy_r_r32 >= 0;
     if (unlikely(!cpy_r_r33)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 28, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL64;
     }
     cpy_r_r34 = CPyDict_SetItem(cpy_r_r31, cpy_r_r15, cpy_r_type_arg);
     cpy_r_r35 = cpy_r_r34 >= 0;
     if (unlikely(!cpy_r_r35)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 28, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL64;
     }
     cpy_r_r36 = CPyDict_SetItem(cpy_r_r31, cpy_r_r16, cpy_r_r19);
     CPy_DECREF(cpy_r_r19);
     cpy_r_r37 = cpy_r_r36 >= 0;
     if (unlikely(!cpy_r_r37)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 28, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL65;
     }
     cpy_r_r38 = CPyDict_SetItem(cpy_r_r31, cpy_r_r20, cpy_r_r26);
     CPy_DECREF(cpy_r_r26);
     cpy_r_r39 = cpy_r_r38 >= 0;
     if (unlikely(!cpy_r_r39)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 28, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL66;
     }
     cpy_r_r40 = CPyDict_SetItem(cpy_r_r31, cpy_r_r27, cpy_r_r30);
     CPy_DECREF(cpy_r_r30);
     cpy_r_r41 = cpy_r_r40 >= 0;
     if (unlikely(!cpy_r_r41)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 28, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL67;
     }
-    cpy_r_r42 = CPyStatics[36]; /* '__annotations__' */
+    cpy_r_r42 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__annotations__' */
     cpy_r_r43 = PyObject_HasAttr(cpy_r_type_arg, cpy_r_r42);
     if (!cpy_r_r43) goto CPyL27;
-    cpy_r_r44 = CPyStatics[36]; /* '__annotations__' */
+    cpy_r_r44 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__annotations__' */
     cpy_r_r45 = CPyObject_GetAttr(cpy_r_type_arg, cpy_r_r44);
     if (unlikely(cpy_r_r45 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 36, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL68;
     }
     if (likely(PyDict_Check(cpy_r_r45)))
@@ -857,30 +860,30 @@ __LL2: ;
         CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 36, CPyStatic__typed___globals, "dict", cpy_r_r45);
         goto CPyL68;
     }
-    cpy_r_r47 = CPyStatics[36]; /* '__annotations__' */
+    cpy_r_r47 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__annotations__' */
     cpy_r_r48 = CPyDict_SetItem(cpy_r_r31, cpy_r_r47, cpy_r_r46);
     CPy_DECREF(cpy_r_r46);
     cpy_r_r49 = cpy_r_r48 >= 0;
     if (unlikely(!cpy_r_r49)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 36, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL68;
     }
 CPyL27: ;
-    cpy_r_r50 = CPyStatics[37]; /* '__parameters__' */
+    cpy_r_r50 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__parameters__' */
     cpy_r_r51 = PyObject_HasAttr(cpy_r_type_arg, cpy_r_r50);
     if (!cpy_r_r51) goto CPyL30;
-    cpy_r_r52 = CPyStatics[37]; /* '__parameters__' */
+    cpy_r_r52 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__parameters__' */
     cpy_r_r53 = CPyObject_GetAttr(cpy_r_type_arg, cpy_r_r52);
     if (unlikely(cpy_r_r53 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 38, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL68;
     }
-    cpy_r_r54 = CPyStatics[37]; /* '__parameters__' */
+    cpy_r_r54 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__parameters__' */
     cpy_r_r55 = CPyDict_SetItem(cpy_r_r31, cpy_r_r54, cpy_r_r53);
     CPy_DECREF(cpy_r_r53);
     cpy_r_r56 = cpy_r_r55 >= 0;
     if (unlikely(!cpy_r_r56)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 38, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL68;
     }
 CPyL30: ;
@@ -898,7 +901,7 @@ CPyL30: ;
     cpy_r_r60 = (PyObject **)&cpy_r_r59;
     cpy_r_r61 = PyObject_Vectorcall(cpy_r_r57, cpy_r_r60, 3, 0);
     if (unlikely(cpy_r_r61 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 41, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL69;
     } else
         goto CPyL70;
@@ -910,21 +913,21 @@ CPyL31: ;
 CPyL32: ;
     cpy_r_r62 = CPy_CatchError();
     cpy_r_r63 = CPyModule_builtins;
-    cpy_r_r64 = CPyStatics[38]; /* 'TypeError' */
+    cpy_r_r64 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'TypeError' */
     cpy_r_r65 = CPyObject_GetAttr(cpy_r_r63, cpy_r_r64);
     if (unlikely(cpy_r_r65 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 42, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL71;
     }
     cpy_r_r66 = CPy_ExceptionMatches(cpy_r_r65);
     CPy_DecRef(cpy_r_r65);
     if (!cpy_r_r66) goto CPyL72;
     cpy_r_r67 = CPy_GetExcValue();
-    cpy_r_r68 = CPyStatics[39]; /* 'args' */
+    cpy_r_r68 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'args' */
     cpy_r_r69 = CPyObject_GetAttr(cpy_r_r67, cpy_r_r68);
     CPy_DecRef(cpy_r_r67);
     if (unlikely(cpy_r_r69 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 44, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL71;
     }
     if (likely(PyTuple_Check(cpy_r_r69)))
@@ -933,7 +936,7 @@ CPyL32: ;
         CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 44, CPyStatic__typed___globals, "tuple", cpy_r_r69);
         goto CPyL71;
     }
-    cpy_r_r71 = CPyStatics[40]; /* 'bases: ' */
+    cpy_r_r71 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'bases: ' */
     CPy_INCREF(cpy_r_r12.f0);
     CPy_INCREF(cpy_r_r12.f1);
     cpy_r_r72 = PyTuple_New(2);
@@ -946,22 +949,22 @@ CPyL32: ;
     cpy_r_r73 = PyObject_Str(cpy_r_r72);
     CPy_DecRef(cpy_r_r72);
     if (unlikely(cpy_r_r73 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 46, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL73;
     }
     cpy_r_r74 = CPyStr_Build(2, cpy_r_r71, cpy_r_r73);
     CPy_DecRef(cpy_r_r73);
     if (unlikely(cpy_r_r74 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 46, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL73;
     }
-    cpy_r_r75 = CPyStatics[41]; /* 'typed: ' */
+    cpy_r_r75 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed: ' */
     cpy_r_r76 = (PyObject *)&PyType_Type;
     cpy_r_r77 = CPyModule_builtins;
-    cpy_r_r78 = CPyStatics[42]; /* 'map' */
+    cpy_r_r78 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'map' */
     cpy_r_r79 = CPyObject_GetAttr(cpy_r_r77, cpy_r_r78);
     if (unlikely(cpy_r_r79 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 47, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL74;
     }
     cpy_r_r80 = PyTuple_New(2);
@@ -976,44 +979,44 @@ CPyL32: ;
     cpy_r_r83 = PyObject_Vectorcall(cpy_r_r79, cpy_r_r82, 2, 0);
     CPy_DecRef(cpy_r_r79);
     if (unlikely(cpy_r_r83 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 47, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL75;
     }
     CPy_DecRef(cpy_r_r80);
     cpy_r_r84 = PySequence_Tuple(cpy_r_r83);
     CPy_DecRef(cpy_r_r83);
     if (unlikely(cpy_r_r84 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 47, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL76;
     }
     cpy_r_r85 = PyObject_Str(cpy_r_r84);
     CPy_DecRef(cpy_r_r84);
     if (unlikely(cpy_r_r85 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 47, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL76;
     }
     cpy_r_r86 = CPyStr_Build(2, cpy_r_r75, cpy_r_r85);
     CPy_DecRef(cpy_r_r85);
     if (unlikely(cpy_r_r86 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 47, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL76;
     }
     cpy_r_r87 = CPyModule_builtins;
-    cpy_r_r88 = CPyStatics[38]; /* 'TypeError' */
+    cpy_r_r88 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'TypeError' */
     cpy_r_r89 = CPyObject_GetAttr(cpy_r_r87, cpy_r_r88);
     if (unlikely(cpy_r_r89 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL77;
     }
     cpy_r_r90 = PyList_New(0);
     if (unlikely(cpy_r_r90 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL78;
     }
     cpy_r_r91 = CPyList_Extend(cpy_r_r90, cpy_r_r70);
     CPy_DecRef(cpy_r_r70);
     if (unlikely(cpy_r_r91 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL79;
     } else
         goto CPyL80;
@@ -1022,40 +1025,40 @@ CPyL46: ;
     CPy_DecRef(cpy_r_r4);
     cpy_r_r93 = cpy_r_r92 >= 0;
     if (unlikely(!cpy_r_r93)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL81;
     }
     cpy_r_r94 = PyList_Append(cpy_r_r90, cpy_r_r74);
     CPy_DecRef(cpy_r_r74);
     cpy_r_r95 = cpy_r_r94 >= 0;
     if (unlikely(!cpy_r_r95)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL82;
     }
     cpy_r_r96 = PyList_Append(cpy_r_r90, cpy_r_r86);
     CPy_DecRef(cpy_r_r86);
     cpy_r_r97 = cpy_r_r96 >= 0;
     if (unlikely(!cpy_r_r97)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL83;
     }
     cpy_r_r98 = PyList_AsTuple(cpy_r_r90);
     CPy_DecRef(cpy_r_r90);
     if (unlikely(cpy_r_r98 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL84;
     }
     cpy_r_r99 = PyObject_CallObject(cpy_r_r89, cpy_r_r98);
     CPy_DecRef(cpy_r_r89);
     CPy_DecRef(cpy_r_r98);
     if (unlikely(cpy_r_r99 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL55;
     }
     CPy_Raise(cpy_r_r99);
     CPy_DecRef(cpy_r_r99);
     if (unlikely(!0)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL55;
     } else
         goto CPyL85;
@@ -1257,7 +1260,7 @@ PyObject *CPyPy__typed___build_subclass(PyObject *self, PyObject *const *args, s
     PyObject *retval = CPyDef__typed___build_subclass(arg_type_arg);
     return retval;
 fail: ;
-    CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", 18, CPyStatic__typed___globals);
+    CPy_AddTraceback("typed_envs/_typed.py", "build_subclass", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
     return NULL;
 }
 
@@ -1331,7 +1334,7 @@ char CPyDef__typed_____top_level__(void) {
     cpy_r_r1 = (PyObject *)&_Py_NoneStruct;
     cpy_r_r2 = cpy_r_r0 != cpy_r_r1;
     if (cpy_r_r2) goto CPyL3;
-    cpy_r_r3 = CPyStatics[7]; /* 'builtins' */
+    cpy_r_r3 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'builtins' */
     cpy_r_r4 = PyImport_Import(cpy_r_r3);
     if (unlikely(cpy_r_r4 == NULL)) {
         CPy_AddTraceback("typed_envs/_typed.py", "<module>", -1, CPyStatic__typed___globals);
@@ -1341,45 +1344,45 @@ char CPyDef__typed_____top_level__(void) {
     CPy_INCREF(CPyModule_builtins);
     CPy_DECREF(cpy_r_r4);
 CPyL3: ;
-    cpy_r_r5 = CPyStatics[68]; /* ('lru_cache',) */
-    cpy_r_r6 = CPyStatics[44]; /* 'functools' */
+    cpy_r_r5 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('lru_cache',) */
+    cpy_r_r6 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'functools' */
     cpy_r_r7 = CPyStatic__typed___globals;
     cpy_r_r8 = CPyImport_ImportFromMany(cpy_r_r6, cpy_r_r5, cpy_r_r5, cpy_r_r7);
     if (unlikely(cpy_r_r8 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 1, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     CPyModule_functools = cpy_r_r8;
     CPy_INCREF(CPyModule_functools);
     CPy_DECREF(cpy_r_r8);
-    cpy_r_r9 = CPyStatics[69]; /* ('Final', 'Type', 'TypeVar') */
-    cpy_r_r10 = CPyStatics[12]; /* 'typing' */
+    cpy_r_r9 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('Final', 'Type', 'TypeVar') */
+    cpy_r_r10 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typing' */
     cpy_r_r11 = CPyStatic__typed___globals;
     cpy_r_r12 = CPyImport_ImportFromMany(cpy_r_r10, cpy_r_r9, cpy_r_r9, cpy_r_r11);
     if (unlikely(cpy_r_r12 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 2, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     CPyModule_typing = cpy_r_r12;
     CPy_INCREF(CPyModule_typing);
     CPy_DECREF(cpy_r_r12);
-    cpy_r_r13 = CPyStatics[64]; /* ('EnvironmentVariable',) */
-    cpy_r_r14 = CPyStatics[14]; /* 'typed_envs._env_var' */
+    cpy_r_r13 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('EnvironmentVariable',) */
+    cpy_r_r14 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs._env_var' */
     cpy_r_r15 = CPyStatic__typed___globals;
     cpy_r_r16 = CPyImport_ImportFromMany(cpy_r_r14, cpy_r_r13, cpy_r_r13, cpy_r_r15);
     if (unlikely(cpy_r_r16 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 4, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     CPyModule_typed_envs____env_var = cpy_r_r16;
     CPy_INCREF(CPyModule_typed_envs____env_var);
     CPy_DECREF(cpy_r_r16);
-    cpy_r_r17 = CPyStatics[28]; /* 'T' */
+    cpy_r_r17 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'T' */
     cpy_r_r18 = CPyStatic__typed___globals;
-    cpy_r_r19 = CPyStatics[11]; /* 'TypeVar' */
+    cpy_r_r19 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'TypeVar' */
     cpy_r_r20 = CPyDict_GetItem(cpy_r_r18, cpy_r_r19);
     if (unlikely(cpy_r_r20 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 7, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     PyObject *cpy_r_r21[1] = {cpy_r_r17};
@@ -1387,54 +1390,54 @@ CPyL3: ;
     cpy_r_r23 = PyObject_Vectorcall(cpy_r_r20, cpy_r_r22, 1, 0);
     CPy_DECREF(cpy_r_r20);
     if (unlikely(cpy_r_r23 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 7, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     cpy_r_r24 = CPyStatic__typed___globals;
-    cpy_r_r25 = CPyStatics[28]; /* 'T' */
+    cpy_r_r25 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'T' */
     cpy_r_r26 = CPyDict_SetItem(cpy_r_r24, cpy_r_r25, cpy_r_r23);
     CPy_DECREF(cpy_r_r23);
     cpy_r_r27 = cpy_r_r26 >= 0;
     if (unlikely(!cpy_r_r27)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 7, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
-    cpy_r_r28 = CPyStatics[46]; /* '__repr__' */
+    cpy_r_r28 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__repr__' */
     cpy_r_r29 = CPyStatic__typed___globals;
-    cpy_r_r30 = CPyStatics[13]; /* 'EnvironmentVariable' */
+    cpy_r_r30 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvironmentVariable' */
     cpy_r_r31 = CPyDict_GetItem(cpy_r_r29, cpy_r_r30);
     if (unlikely(cpy_r_r31 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 11, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
-    cpy_r_r32 = CPyStatics[46]; /* '__repr__' */
+    cpy_r_r32 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__repr__' */
     cpy_r_r33 = CPyObject_GetAttr(cpy_r_r31, cpy_r_r32);
     CPy_DECREF(cpy_r_r31);
     if (unlikely(cpy_r_r33 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 11, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
-    cpy_r_r34 = CPyStatics[47]; /* '__str__' */
+    cpy_r_r34 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__str__' */
     cpy_r_r35 = CPyStatic__typed___globals;
-    cpy_r_r36 = CPyStatics[13]; /* 'EnvironmentVariable' */
+    cpy_r_r36 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvironmentVariable' */
     cpy_r_r37 = CPyDict_GetItem(cpy_r_r35, cpy_r_r36);
     if (unlikely(cpy_r_r37 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 12, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL23;
     }
-    cpy_r_r38 = CPyStatics[47]; /* '__str__' */
+    cpy_r_r38 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__str__' */
     cpy_r_r39 = CPyObject_GetAttr(cpy_r_r37, cpy_r_r38);
     CPy_DECREF(cpy_r_r37);
     if (unlikely(cpy_r_r39 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 12, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL23;
     }
-    cpy_r_r40 = CPyStatics[48]; /* '__origin__' */
+    cpy_r_r40 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__origin__' */
     cpy_r_r41 = CPyStatic__typed___globals;
-    cpy_r_r42 = CPyStatics[13]; /* 'EnvironmentVariable' */
+    cpy_r_r42 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvironmentVariable' */
     cpy_r_r43 = CPyDict_GetItem(cpy_r_r41, cpy_r_r42);
     if (unlikely(cpy_r_r43 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 13, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL24;
     }
     cpy_r_r44 = CPyDict_Build(3, cpy_r_r28, cpy_r_r33, cpy_r_r34, cpy_r_r39, cpy_r_r40, cpy_r_r43);
@@ -1442,42 +1445,42 @@ CPyL3: ;
     CPy_DECREF(cpy_r_r39);
     CPy_DECREF(cpy_r_r43);
     if (unlikely(cpy_r_r44 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 10, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     CPyStatic__typed_____TYPED_CLS_DICT_CONSTANTS = cpy_r_r44;
     CPy_INCREF(CPyStatic__typed_____TYPED_CLS_DICT_CONSTANTS);
     cpy_r_r45 = CPyStatic__typed___globals;
-    cpy_r_r46 = CPyStatics[49]; /* '__TYPED_CLS_DICT_CONSTANTS' */
+    cpy_r_r46 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__TYPED_CLS_DICT_CONSTANTS' */
     cpy_r_r47 = CPyDict_SetItem(cpy_r_r45, cpy_r_r46, cpy_r_r44);
     CPy_DECREF(cpy_r_r44);
     cpy_r_r48 = cpy_r_r47 >= 0;
     if (unlikely(!cpy_r_r48)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 10, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     cpy_r_r49 = CPyStatic__typed___globals;
-    cpy_r_r50 = CPyStatics[50]; /* 'build_subclass' */
+    cpy_r_r50 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'build_subclass' */
     cpy_r_r51 = CPyDict_GetItem(cpy_r_r49, cpy_r_r50);
     if (unlikely(cpy_r_r51 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 17, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     cpy_r_r52 = CPyStatic__typed___globals;
-    cpy_r_r53 = CPyStatics[43]; /* 'lru_cache' */
+    cpy_r_r53 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'lru_cache' */
     cpy_r_r54 = CPyDict_GetItem(cpy_r_r52, cpy_r_r53);
     if (unlikely(cpy_r_r54 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 17, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL25;
     }
     cpy_r_r55 = Py_None;
     PyObject *cpy_r_r56[1] = {cpy_r_r55};
     cpy_r_r57 = (PyObject **)&cpy_r_r56;
-    cpy_r_r58 = CPyStatics[70]; /* ('maxsize',) */
+    cpy_r_r58 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('maxsize',) */
     cpy_r_r59 = PyObject_Vectorcall(cpy_r_r54, cpy_r_r57, 0, cpy_r_r58);
     CPy_DECREF(cpy_r_r54);
     if (unlikely(cpy_r_r59 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 17, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL25;
     }
     PyObject *cpy_r_r60[1] = {cpy_r_r51};
@@ -1485,17 +1488,17 @@ CPyL3: ;
     cpy_r_r62 = PyObject_Vectorcall(cpy_r_r59, cpy_r_r61, 1, 0);
     CPy_DECREF(cpy_r_r59);
     if (unlikely(cpy_r_r62 == NULL)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 17, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL25;
     }
     CPy_DECREF(cpy_r_r51);
     cpy_r_r63 = CPyStatic__typed___globals;
-    cpy_r_r64 = CPyStatics[50]; /* 'build_subclass' */
+    cpy_r_r64 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'build_subclass' */
     cpy_r_r65 = PyDict_SetItem(cpy_r_r63, cpy_r_r64, cpy_r_r62);
     CPy_DECREF(cpy_r_r62);
     cpy_r_r66 = cpy_r_r65 >= 0;
     if (unlikely(!cpy_r_r66)) {
-        CPy_AddTraceback("typed_envs/_typed.py", "<module>", 17, CPyStatic__typed___globals);
+        CPy_AddTraceback("typed_envs/_typed.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic__typed___globals);
         goto CPyL22;
     }
     return 1;
@@ -1608,7 +1611,7 @@ char CPyDef_ENVIRONMENT_VARIABLES_____top_level__(void) {
     cpy_r_r1 = (PyObject *)&_Py_NoneStruct;
     cpy_r_r2 = cpy_r_r0 != cpy_r_r1;
     if (cpy_r_r2) goto CPyL3;
-    cpy_r_r3 = CPyStatics[7]; /* 'builtins' */
+    cpy_r_r3 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'builtins' */
     cpy_r_r4 = PyImport_Import(cpy_r_r3);
     if (unlikely(cpy_r_r4 == NULL)) {
         CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", -1, CPyStatic_ENVIRONMENT_VARIABLES___globals);
@@ -1618,34 +1621,34 @@ char CPyDef_ENVIRONMENT_VARIABLES_____top_level__(void) {
     CPy_INCREF(CPyModule_builtins);
     CPy_DECREF(cpy_r_r4);
 CPyL3: ;
-    cpy_r_r5 = CPyStatics[71]; /* ('TYPE_CHECKING', 'Final') */
-    cpy_r_r6 = CPyStatics[12]; /* 'typing' */
+    cpy_r_r5 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('TYPE_CHECKING', 'Final') */
+    cpy_r_r6 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typing' */
     cpy_r_r7 = CPyStatic_ENVIRONMENT_VARIABLES___globals;
     cpy_r_r8 = CPyImport_ImportFromMany(cpy_r_r6, cpy_r_r5, cpy_r_r5, cpy_r_r7);
     if (unlikely(cpy_r_r8 == NULL)) {
-        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", 6, CPyStatic_ENVIRONMENT_VARIABLES___globals);
+        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_ENVIRONMENT_VARIABLES___globals);
         goto CPyL15;
     }
     CPyModule_typing = cpy_r_r8;
     CPy_INCREF(CPyModule_typing);
     CPy_DECREF(cpy_r_r8);
-    cpy_r_r9 = CPyStatics[72]; /* ('EnvVarFactory',) */
-    cpy_r_r10 = CPyStatics[17]; /* 'typed_envs.factory' */
+    cpy_r_r9 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('EnvVarFactory',) */
+    cpy_r_r10 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs.factory' */
     cpy_r_r11 = CPyStatic_ENVIRONMENT_VARIABLES___globals;
     cpy_r_r12 = CPyImport_ImportFromMany(cpy_r_r10, cpy_r_r9, cpy_r_r9, cpy_r_r11);
     if (unlikely(cpy_r_r12 == NULL)) {
-        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", 8, CPyStatic_ENVIRONMENT_VARIABLES___globals);
+        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_ENVIRONMENT_VARIABLES___globals);
         goto CPyL15;
     }
     CPyModule_typed_envs___factory = cpy_r_r12;
     CPy_INCREF(CPyModule_typed_envs___factory);
     CPy_DECREF(cpy_r_r12);
-    cpy_r_r13 = CPyStatics[53]; /* 'TYPEDENVS' */
+    cpy_r_r13 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'TYPEDENVS' */
     cpy_r_r14 = CPyStatic_ENVIRONMENT_VARIABLES___globals;
-    cpy_r_r15 = CPyStatics[15]; /* 'EnvVarFactory' */
+    cpy_r_r15 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvVarFactory' */
     cpy_r_r16 = CPyDict_GetItem(cpy_r_r14, cpy_r_r15);
     if (unlikely(cpy_r_r16 == NULL)) {
-        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", 14, CPyStatic_ENVIRONMENT_VARIABLES___globals);
+        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_ENVIRONMENT_VARIABLES___globals);
         goto CPyL15;
     }
     PyObject *cpy_r_r17[1] = {cpy_r_r13};
@@ -1653,18 +1656,18 @@ CPyL3: ;
     cpy_r_r19 = PyObject_Vectorcall(cpy_r_r16, cpy_r_r18, 1, 0);
     CPy_DECREF(cpy_r_r16);
     if (unlikely(cpy_r_r19 == NULL)) {
-        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", 14, CPyStatic_ENVIRONMENT_VARIABLES___globals);
+        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_ENVIRONMENT_VARIABLES___globals);
         goto CPyL15;
     }
     CPyStatic_ENVIRONMENT_VARIABLES____factory = cpy_r_r19;
     CPy_INCREF(CPyStatic_ENVIRONMENT_VARIABLES____factory);
     cpy_r_r20 = CPyStatic_ENVIRONMENT_VARIABLES___globals;
-    cpy_r_r21 = CPyStatics[54]; /* '_factory' */
+    cpy_r_r21 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '_factory' */
     cpy_r_r22 = CPyDict_SetItem(cpy_r_r20, cpy_r_r21, cpy_r_r19);
     CPy_DECREF(cpy_r_r19);
     cpy_r_r23 = cpy_r_r22 >= 0;
     if (unlikely(!cpy_r_r23)) {
-        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", 14, CPyStatic_ENVIRONMENT_VARIABLES___globals);
+        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_ENVIRONMENT_VARIABLES___globals);
         goto CPyL15;
     }
     cpy_r_r24 = CPyStatic_ENVIRONMENT_VARIABLES____factory;
@@ -1672,33 +1675,33 @@ CPyL3: ;
     PyErr_SetString(PyExc_NameError, "value for final name \"_factory\" was not set");
     cpy_r_r25 = 0;
     if (unlikely(!cpy_r_r25)) {
-        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", 20, CPyStatic_ENVIRONMENT_VARIABLES___globals);
+        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_ENVIRONMENT_VARIABLES___globals);
         goto CPyL15;
     }
     CPy_Unreachable();
 CPyL12: ;
-    cpy_r_r26 = CPyStatics[55]; /* 'SHUTUP' */
+    cpy_r_r26 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'SHUTUP' */
     cpy_r_r27 = (PyObject *)&PyBool_Type;
-    cpy_r_r28 = CPyStatics[4]; /* 'create_env' */
+    cpy_r_r28 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'create_env' */
     cpy_r_r29 = 0 ? Py_True : Py_False;
     cpy_r_r30 = 0 ? Py_True : Py_False;
     PyObject *cpy_r_r31[5] = {cpy_r_r24, cpy_r_r26, cpy_r_r27, cpy_r_r29, cpy_r_r30};
     cpy_r_r32 = (PyObject **)&cpy_r_r31;
-    cpy_r_r33 = CPyStatics[73]; /* ('verbose',) */
+    cpy_r_r33 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('verbose',) */
     cpy_r_r34 = PyObject_VectorcallMethod(cpy_r_r28, cpy_r_r32, 9223372036854775812ULL, cpy_r_r33);
     if (unlikely(cpy_r_r34 == NULL)) {
-        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", 20, CPyStatic_ENVIRONMENT_VARIABLES___globals);
+        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_ENVIRONMENT_VARIABLES___globals);
         goto CPyL15;
     }
     CPyStatic_ENVIRONMENT_VARIABLES___SHUTUP = cpy_r_r34;
     CPy_INCREF(CPyStatic_ENVIRONMENT_VARIABLES___SHUTUP);
     cpy_r_r35 = CPyStatic_ENVIRONMENT_VARIABLES___globals;
-    cpy_r_r36 = CPyStatics[55]; /* 'SHUTUP' */
+    cpy_r_r36 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'SHUTUP' */
     cpy_r_r37 = CPyDict_SetItem(cpy_r_r35, cpy_r_r36, cpy_r_r34);
     CPy_DECREF(cpy_r_r34);
     cpy_r_r38 = cpy_r_r37 >= 0;
     if (unlikely(!cpy_r_r38)) {
-        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", 20, CPyStatic_ENVIRONMENT_VARIABLES___globals);
+        CPy_AddTraceback("typed_envs/ENVIRONMENT_VARIABLES.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_ENVIRONMENT_VARIABLES___globals);
         goto CPyL15;
     }
     return 1;
@@ -1783,7 +1786,7 @@ char CPyDef_registry____register_new_env(PyObject *cpy_r_name, PyObject *cpy_r_i
     PyErr_SetString(PyExc_NameError, "value for final name \"ENVIRONMENT\" was not set");
     cpy_r_r1 = 0;
     if (unlikely(!cpy_r_r1)) {
-        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 13, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL16;
     }
     CPy_Unreachable();
@@ -1791,13 +1794,13 @@ CPyL3: ;
     cpy_r_r2 = CPyDict_SetItem(cpy_r_r0, cpy_r_name, cpy_r_instance);
     cpy_r_r3 = cpy_r_r2 >= 0;
     if (unlikely(!cpy_r_r3)) {
-        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 13, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL16;
     }
-    cpy_r_r4 = CPyStatics[56]; /* '_using_default' */
+    cpy_r_r4 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '_using_default' */
     cpy_r_r5 = CPyObject_GetAttr(cpy_r_instance, cpy_r_r4);
     if (unlikely(cpy_r_r5 == NULL)) {
-        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 14, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL16;
     }
     if (unlikely(!PyBool_Check(cpy_r_r5))) {
@@ -1806,7 +1809,7 @@ CPyL3: ;
         cpy_r_r6 = cpy_r_r5 == Py_True;
     CPy_DECREF(cpy_r_r5);
     if (unlikely(cpy_r_r6 == 2)) {
-        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 14, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL16;
     }
     if (!cpy_r_r6) goto CPyL11;
@@ -1815,7 +1818,7 @@ CPyL3: ;
     PyErr_SetString(PyExc_NameError, "value for final name \"_ENVIRONMENT_VARIABLES_USING_DEFAULTS\" was not set");
     cpy_r_r8 = 0;
     if (unlikely(!cpy_r_r8)) {
-        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 15, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL16;
     }
     CPy_Unreachable();
@@ -1823,7 +1826,7 @@ CPyL10: ;
     cpy_r_r9 = CPyDict_SetItem(cpy_r_r7, cpy_r_name, cpy_r_instance);
     cpy_r_r10 = cpy_r_r9 >= 0;
     if (unlikely(!cpy_r_r10)) {
-        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 15, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL16;
     } else
         goto CPyL15;
@@ -1833,7 +1836,7 @@ CPyL11: ;
     PyErr_SetString(PyExc_NameError, "value for final name \"_ENVIRONMENT_VARIABLES_SET_BY_USER\" was not set");
     cpy_r_r12 = 0;
     if (unlikely(!cpy_r_r12)) {
-        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 17, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL16;
     }
     CPy_Unreachable();
@@ -1841,7 +1844,7 @@ CPyL14: ;
     cpy_r_r13 = CPyDict_SetItem(cpy_r_r11, cpy_r_name, cpy_r_instance);
     cpy_r_r14 = cpy_r_r13 >= 0;
     if (unlikely(!cpy_r_r14)) {
-        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 17, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL16;
     }
 CPyL15: ;
@@ -1875,7 +1878,7 @@ PyObject *CPyPy_registry____register_new_env(PyObject *self, PyObject *const *ar
     CPy_INCREF(retbox);
     return retbox;
 fail: ;
-    CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", 12, CPyStatic_registry___globals);
+    CPy_AddTraceback("typed_envs/registry.py", "_register_new_env", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
     return NULL;
 }
 
@@ -1929,7 +1932,7 @@ char CPyDef_registry_____top_level__(void) {
     cpy_r_r1 = (PyObject *)&_Py_NoneStruct;
     cpy_r_r2 = cpy_r_r0 != cpy_r_r1;
     if (cpy_r_r2) goto CPyL3;
-    cpy_r_r3 = CPyStatics[7]; /* 'builtins' */
+    cpy_r_r3 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'builtins' */
     cpy_r_r4 = PyImport_Import(cpy_r_r3);
     if (unlikely(cpy_r_r4 == NULL)) {
         CPy_AddTraceback("typed_envs/registry.py", "<module>", -1, CPyStatic_registry___globals);
@@ -1939,34 +1942,34 @@ char CPyDef_registry_____top_level__(void) {
     CPy_INCREF(CPyModule_builtins);
     CPy_DECREF(cpy_r_r4);
 CPyL3: ;
-    cpy_r_r5 = CPyStatics[74]; /* ('Final',) */
-    cpy_r_r6 = CPyStatics[12]; /* 'typing' */
+    cpy_r_r5 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('Final',) */
+    cpy_r_r6 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typing' */
     cpy_r_r7 = CPyStatic_registry___globals;
     cpy_r_r8 = CPyImport_ImportFromMany(cpy_r_r6, cpy_r_r5, cpy_r_r5, cpy_r_r7);
     if (unlikely(cpy_r_r8 == NULL)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 1, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     CPyModule_typing = cpy_r_r8;
     CPy_INCREF(CPyModule_typing);
     CPy_DECREF(cpy_r_r8);
-    cpy_r_r9 = CPyStatics[64]; /* ('EnvironmentVariable',) */
-    cpy_r_r10 = CPyStatics[14]; /* 'typed_envs._env_var' */
+    cpy_r_r9 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('EnvironmentVariable',) */
+    cpy_r_r10 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs._env_var' */
     cpy_r_r11 = CPyStatic_registry___globals;
     cpy_r_r12 = CPyImport_ImportFromMany(cpy_r_r10, cpy_r_r9, cpy_r_r9, cpy_r_r11);
     if (unlikely(cpy_r_r12 == NULL)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 3, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     CPyModule_typed_envs____env_var = cpy_r_r12;
     CPy_INCREF(CPyModule_typed_envs____env_var);
     CPy_DECREF(cpy_r_r12);
-    cpy_r_r13 = CPyStatics[75]; /* ('EnvRegistry', 'VarName') */
-    cpy_r_r14 = CPyStatics[23]; /* 'typed_envs.typing' */
+    cpy_r_r13 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('EnvRegistry', 'VarName') */
+    cpy_r_r14 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs.typing' */
     cpy_r_r15 = CPyStatic_registry___globals;
     cpy_r_r16 = CPyImport_ImportFromMany(cpy_r_r14, cpy_r_r13, cpy_r_r13, cpy_r_r15);
     if (unlikely(cpy_r_r16 == NULL)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 4, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     CPyModule_typed_envs___typing = cpy_r_r16;
@@ -1974,58 +1977,58 @@ CPyL3: ;
     CPy_DECREF(cpy_r_r16);
     cpy_r_r17 = PyDict_New();
     if (unlikely(cpy_r_r17 == NULL)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 7, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     CPyStatic_registry___ENVIRONMENT = cpy_r_r17;
     CPy_INCREF(CPyStatic_registry___ENVIRONMENT);
     cpy_r_r18 = CPyStatic_registry___globals;
-    cpy_r_r19 = CPyStatics[18]; /* 'ENVIRONMENT' */
+    cpy_r_r19 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'ENVIRONMENT' */
     cpy_r_r20 = CPyDict_SetItem(cpy_r_r18, cpy_r_r19, cpy_r_r17);
     CPy_DECREF(cpy_r_r17);
     cpy_r_r21 = cpy_r_r20 >= 0;
     if (unlikely(!cpy_r_r21)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 7, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     cpy_r_r22 = PyDict_New();
     if (unlikely(cpy_r_r22 == NULL)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 8, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     CPyStatic_registry____ENVIRONMENT_VARIABLES_SET_BY_USER = cpy_r_r22;
     CPy_INCREF(CPyStatic_registry____ENVIRONMENT_VARIABLES_SET_BY_USER);
     cpy_r_r23 = CPyStatic_registry___globals;
-    cpy_r_r24 = CPyStatics[19]; /* '_ENVIRONMENT_VARIABLES_SET_BY_USER' */
+    cpy_r_r24 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '_ENVIRONMENT_VARIABLES_SET_BY_USER' */
     cpy_r_r25 = CPyDict_SetItem(cpy_r_r23, cpy_r_r24, cpy_r_r22);
     CPy_DECREF(cpy_r_r22);
     cpy_r_r26 = cpy_r_r25 >= 0;
     if (unlikely(!cpy_r_r26)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 8, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     cpy_r_r27 = PyDict_New();
     if (unlikely(cpy_r_r27 == NULL)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 9, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     CPyStatic_registry____ENVIRONMENT_VARIABLES_USING_DEFAULTS = cpy_r_r27;
     CPy_INCREF(CPyStatic_registry____ENVIRONMENT_VARIABLES_USING_DEFAULTS);
     cpy_r_r28 = CPyStatic_registry___globals;
-    cpy_r_r29 = CPyStatics[20]; /* '_ENVIRONMENT_VARIABLES_USING_DEFAULTS' */
+    cpy_r_r29 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '_ENVIRONMENT_VARIABLES_USING_DEFAULTS' */
     cpy_r_r30 = CPyDict_SetItem(cpy_r_r28, cpy_r_r29, cpy_r_r27);
     CPy_DECREF(cpy_r_r27);
     cpy_r_r31 = cpy_r_r30 >= 0;
     if (unlikely(!cpy_r_r31)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 9, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
-    cpy_r_r32 = CPyStatics[18]; /* 'ENVIRONMENT' */
-    cpy_r_r33 = CPyStatics[19]; /* '_ENVIRONMENT_VARIABLES_SET_BY_USER' */
-    cpy_r_r34 = CPyStatics[20]; /* '_ENVIRONMENT_VARIABLES_USING_DEFAULTS' */
+    cpy_r_r32 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'ENVIRONMENT' */
+    cpy_r_r33 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '_ENVIRONMENT_VARIABLES_SET_BY_USER' */
+    cpy_r_r34 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '_ENVIRONMENT_VARIABLES_USING_DEFAULTS' */
     cpy_r_r35 = PyList_New(3);
     if (unlikely(cpy_r_r35 == NULL)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 20, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     cpy_r_r36 = (CPyPtr)&((PyListObject *)cpy_r_r35)->ob_item;
@@ -2039,12 +2042,12 @@ CPyL3: ;
     cpy_r_r39 = cpy_r_r37 + 16;
     *(PyObject * *)cpy_r_r39 = cpy_r_r34;
     cpy_r_r40 = CPyStatic_registry___globals;
-    cpy_r_r41 = CPyStatics[29]; /* '__all__' */
+    cpy_r_r41 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__all__' */
     cpy_r_r42 = CPyDict_SetItem(cpy_r_r40, cpy_r_r41, cpy_r_r35);
     CPy_DECREF_NO_IMM(cpy_r_r35);
     cpy_r_r43 = cpy_r_r42 >= 0;
     if (unlikely(!cpy_r_r43)) {
-        CPy_AddTraceback("typed_envs/registry.py", "<module>", 20, CPyStatic_registry___globals);
+        CPy_AddTraceback("typed_envs/registry.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_registry___globals);
         goto CPyL15;
     }
     return 1;
@@ -2174,7 +2177,7 @@ char CPyDef_typing_____top_level__(void) {
     cpy_r_r1 = (PyObject *)&_Py_NoneStruct;
     cpy_r_r2 = cpy_r_r0 != cpy_r_r1;
     if (cpy_r_r2) goto CPyL3;
-    cpy_r_r3 = CPyStatics[7]; /* 'builtins' */
+    cpy_r_r3 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'builtins' */
     cpy_r_r4 = PyImport_Import(cpy_r_r3);
     if (unlikely(cpy_r_r4 == NULL)) {
         CPy_AddTraceback("typed_envs/typing.py", "<module>", -1, CPyStatic_typing___globals);
@@ -2184,24 +2187,24 @@ char CPyDef_typing_____top_level__(void) {
     CPy_INCREF(CPyModule_builtins);
     CPy_DECREF(cpy_r_r4);
 CPyL3: ;
-    cpy_r_r5 = CPyStatics[76]; /* ('TYPE_CHECKING', 'Any', 'Callable', 'Dict', 'NewType') */
-    cpy_r_r6 = CPyStatics[12]; /* 'typing' */
+    cpy_r_r5 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('TYPE_CHECKING', 'Any', 'Callable', 'Dict', 'NewType') */
+    cpy_r_r6 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typing' */
     cpy_r_r7 = CPyStatic_typing___globals;
     cpy_r_r8 = CPyImport_ImportFromMany(cpy_r_r6, cpy_r_r5, cpy_r_r5, cpy_r_r7);
     if (unlikely(cpy_r_r8 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 1, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     CPyModule_typing = cpy_r_r8;
     CPy_INCREF(CPyModule_typing);
     CPy_DECREF(cpy_r_r8);
-    cpy_r_r9 = CPyStatics[58]; /* 'VarName' */
+    cpy_r_r9 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'VarName' */
     cpy_r_r10 = (PyObject *)&PyUnicode_Type;
     cpy_r_r11 = CPyStatic_typing___globals;
-    cpy_r_r12 = CPyStatics[61]; /* 'NewType' */
+    cpy_r_r12 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'NewType' */
     cpy_r_r13 = CPyDict_GetItem(cpy_r_r11, cpy_r_r12);
     if (unlikely(cpy_r_r13 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 7, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     PyObject *cpy_r_r14[2] = {cpy_r_r9, cpy_r_r10};
@@ -2209,25 +2212,25 @@ CPyL3: ;
     cpy_r_r16 = PyObject_Vectorcall(cpy_r_r13, cpy_r_r15, 2, 0);
     CPy_DECREF(cpy_r_r13);
     if (unlikely(cpy_r_r16 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 7, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     cpy_r_r17 = CPyStatic_typing___globals;
-    cpy_r_r18 = CPyStatics[58]; /* 'VarName' */
+    cpy_r_r18 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'VarName' */
     cpy_r_r19 = CPyDict_SetItem(cpy_r_r17, cpy_r_r18, cpy_r_r16);
     CPy_DECREF(cpy_r_r16);
     cpy_r_r20 = cpy_r_r19 >= 0;
     if (unlikely(!cpy_r_r20)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 7, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
-    cpy_r_r21 = CPyStatics[62]; /* 'VarValue' */
+    cpy_r_r21 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'VarValue' */
     cpy_r_r22 = (PyObject *)&PyUnicode_Type;
     cpy_r_r23 = CPyStatic_typing___globals;
-    cpy_r_r24 = CPyStatics[61]; /* 'NewType' */
+    cpy_r_r24 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'NewType' */
     cpy_r_r25 = CPyDict_GetItem(cpy_r_r23, cpy_r_r24);
     if (unlikely(cpy_r_r25 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 8, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     PyObject *cpy_r_r26[2] = {cpy_r_r21, cpy_r_r22};
@@ -2235,34 +2238,34 @@ CPyL3: ;
     cpy_r_r28 = PyObject_Vectorcall(cpy_r_r25, cpy_r_r27, 2, 0);
     CPy_DECREF(cpy_r_r25);
     if (unlikely(cpy_r_r28 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 8, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     cpy_r_r29 = CPyStatic_typing___globals;
-    cpy_r_r30 = CPyStatics[62]; /* 'VarValue' */
+    cpy_r_r30 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'VarValue' */
     cpy_r_r31 = CPyDict_SetItem(cpy_r_r29, cpy_r_r30, cpy_r_r28);
     CPy_DECREF(cpy_r_r28);
     cpy_r_r32 = cpy_r_r31 >= 0;
     if (unlikely(!cpy_r_r32)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 8, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
-    cpy_r_r33 = CPyStatics[57]; /* 'EnvRegistry' */
+    cpy_r_r33 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvRegistry' */
     cpy_r_r34 = CPyStatic_typing___globals;
-    cpy_r_r35 = CPyStatics[60]; /* 'Dict' */
+    cpy_r_r35 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'Dict' */
     cpy_r_r36 = CPyDict_GetItem(cpy_r_r34, cpy_r_r35);
     if (unlikely(cpy_r_r36 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 10, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     cpy_r_r37 = CPyStatic_typing___globals;
-    cpy_r_r38 = CPyStatics[58]; /* 'VarName' */
+    cpy_r_r38 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'VarName' */
     cpy_r_r39 = CPyDict_GetItem(cpy_r_r37, cpy_r_r38);
     if (unlikely(cpy_r_r39 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 10, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL24;
     }
-    cpy_r_r40 = CPyStatics[13]; /* 'EnvironmentVariable' */
+    cpy_r_r40 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvironmentVariable' */
     CPy_INCREF(cpy_r_r40);
     cpy_r_r41.f0 = cpy_r_r39;
     cpy_r_r41.f1 = cpy_r_r40;
@@ -2277,14 +2280,14 @@ CPyL3: ;
     CPy_DECREF(cpy_r_r36);
     CPy_DECREF(cpy_r_r42);
     if (unlikely(cpy_r_r43 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 10, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     cpy_r_r44 = CPyStatic_typing___globals;
-    cpy_r_r45 = CPyStatics[61]; /* 'NewType' */
+    cpy_r_r45 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'NewType' */
     cpy_r_r46 = CPyDict_GetItem(cpy_r_r44, cpy_r_r45);
     if (unlikely(cpy_r_r46 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 10, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL25;
     }
     PyObject *cpy_r_r47[2] = {cpy_r_r33, cpy_r_r43};
@@ -2292,30 +2295,30 @@ CPyL3: ;
     cpy_r_r49 = PyObject_Vectorcall(cpy_r_r46, cpy_r_r48, 2, 0);
     CPy_DECREF(cpy_r_r46);
     if (unlikely(cpy_r_r49 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 10, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL25;
     }
     CPy_DECREF(cpy_r_r43);
     cpy_r_r50 = CPyStatic_typing___globals;
-    cpy_r_r51 = CPyStatics[57]; /* 'EnvRegistry' */
+    cpy_r_r51 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'EnvRegistry' */
     cpy_r_r52 = CPyDict_SetItem(cpy_r_r50, cpy_r_r51, cpy_r_r49);
     CPy_DECREF(cpy_r_r49);
     cpy_r_r53 = cpy_r_r52 >= 0;
     if (unlikely(!cpy_r_r53)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 10, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     cpy_r_r54 = CPyStatic_typing___globals;
-    cpy_r_r55 = CPyStatics[59]; /* 'Callable' */
+    cpy_r_r55 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'Callable' */
     cpy_r_r56 = CPyDict_GetItem(cpy_r_r54, cpy_r_r55);
     if (unlikely(cpy_r_r56 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 12, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     cpy_r_r57 = (PyObject *)&PyUnicode_Type;
     cpy_r_r58 = PyList_New(1);
     if (unlikely(cpy_r_r58 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 12, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL26;
     }
     cpy_r_r59 = (CPyPtr)&((PyListObject *)cpy_r_r58)->ob_item;
@@ -2323,10 +2326,10 @@ CPyL3: ;
     CPy_INCREF(cpy_r_r57);
     *(PyObject * *)cpy_r_r60 = cpy_r_r57;
     cpy_r_r61 = CPyStatic_typing___globals;
-    cpy_r_r62 = CPyStatics[8]; /* 'Any' */
+    cpy_r_r62 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'Any' */
     cpy_r_r63 = CPyDict_GetItem(cpy_r_r61, cpy_r_r62);
     if (unlikely(cpy_r_r63 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 12, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL27;
     }
     cpy_r_r64.f0 = cpy_r_r58;
@@ -2342,16 +2345,16 @@ CPyL3: ;
     CPy_DECREF(cpy_r_r56);
     CPy_DECREF(cpy_r_r65);
     if (unlikely(cpy_r_r66 == NULL)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 12, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     cpy_r_r67 = CPyStatic_typing___globals;
-    cpy_r_r68 = CPyStatics[22]; /* 'StringConverter' */
+    cpy_r_r68 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'StringConverter' */
     cpy_r_r69 = CPyDict_SetItem(cpy_r_r67, cpy_r_r68, cpy_r_r66);
     CPy_DECREF(cpy_r_r66);
     cpy_r_r70 = cpy_r_r69 >= 0;
     if (unlikely(!cpy_r_r70)) {
-        CPy_AddTraceback("typed_envs/typing.py", "<module>", 12, CPyStatic_typing___globals);
+        CPy_AddTraceback("typed_envs/typing.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typing___globals);
         goto CPyL23;
     }
     return 1;
@@ -2410,7 +2413,7 @@ int CPyGlobalsInit(void)
     return 0;
 }
 
-PyObject *CPyStatics[77];
+PyObject *CPyStatics[DIFFCHECK_PLACEHOLDER];
 const char * const CPyLit_Str[] = {
     "\006\017default_factory\ncreate_env\020string_converter\averbose\bbuiltins\003Any",
     "\006\bOptional\004Type\aTypeVar\006typing\023EnvironmentVariable\023typed_envs._env_var",
