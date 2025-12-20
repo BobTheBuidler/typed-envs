@@ -1,7 +1,7 @@
 import logging
 import os
 from contextlib import suppress
-from typing import Any, Dict, Final, Optional, Type, TypeVar
+from typing import Any, Final, Optional, TypeVar
 
 from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
