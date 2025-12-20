@@ -32,6 +32,12 @@ def build_subclass(type_arg: type[T]) -> type["EnvironmentVariable[T]"]:
         "__qualname__": f"EnvironmentVariable[{type_arg.__qualname__}]",
         "__doc__": type_arg.__doc__,
     }
+    if type_arg is str:
+        def __int__(self) -> int:
+            # I wanted to make mypy work with int(env_var) and I did!
+            # but it somehow broke __int__ itself and this fixes it
+            return int(str(self))
+        typed_cls_dict["__int__"] = __int__
     if hasattr(type_arg, "__annotations__"):
         typed_cls_dict["__annotations__"] = type_arg.__annotations__
     if hasattr(type_arg, "__parameters__"):
