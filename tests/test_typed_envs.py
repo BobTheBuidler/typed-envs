@@ -53,6 +53,7 @@ def test_str_env():
     env.encode()
     with pytest.raises(TypeError):
         env + 10
+    assert int(env) == 10
 
 
 def test_complex_env():
