@@ -1352,7 +1352,7 @@ CPyL3: ;
     CPyModule_functools = cpy_r_r8;
     CPy_INCREF(CPyModule_functools);
     CPy_DECREF(cpy_r_r8);
-    cpy_r_r9 = CPyStatics[68]; /* ('Final', 'Type', 'TypeVar') */
+    cpy_r_r9 = CPyStatics[68]; /* ('Final', 'TypeVar') */
     cpy_r_r10 = CPyStatics[12]; /* 'typing' */
     cpy_r_r11 = CPyStatic__typed___globals;
     cpy_r_r12 = CPyImport_ImportFromMany(cpy_r_r10, cpy_r_r9, cpy_r_r9, cpy_r_r11);
@@ -2427,8 +2427,8 @@ const double CPyLit_Float[] = {0};
 const double CPyLit_Complex[] = {0};
 const int CPyLit_Tuple[] = {
     14, 4, 8, 9, 10, 11, 1, 13, 3, 15, 16, 3, 3, 18, 19, 20, 1, 22, 1,
-    43, 3, 45, 10, 11, 1, 51, 2, 52, 45, 1, 15, 1, 6, 1, 45, 2, 57, 58, 4,
-    52, 8, 59, 60
+    43, 2, 45, 11, 1, 51, 2, 52, 45, 1, 15, 1, 6, 1, 45, 2, 57, 58, 4, 52,
+    8, 59, 60
 };
 const int CPyLit_FrozenSet[] = {0};
 CPyModule *CPyModule_typed_envs__internal = NULL;
