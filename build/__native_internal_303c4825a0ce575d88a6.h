@@ -6,7 +6,7 @@
 
 int CPyGlobalsInit(void);
 
-extern PyObject *CPyStatics[75];
+extern PyObject *CPyStatics[76];
 extern const char * const CPyLit_Str[];
 extern const char * const CPyLit_Bytes[];
 extern const char * const CPyLit_Int[];
@@ -38,6 +38,16 @@ extern PyObject *CPyDef_typed_envs___create_env(PyObject *cpy_r_name, PyObject *
 extern PyObject *CPyPy_typed_envs___create_env(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
 extern char CPyDef_typed_envs_____top_level__(void);
 extern PyObject *CPyStatic__typed_____TYPED_CLS_DICT_CONSTANTS;
+extern PyTypeObject *CPyType__typed___build_subclass_env;
+extern PyObject *CPyDef__typed___build_subclass_env(void);
+extern CPyThreadLocal typed_envs____typed___build_subclass_envObject *_typed___build_subclass_env_free_instance;
+extern PyTypeObject *CPyType__typed_____int___3_build_subclass_obj;
+extern PyObject *CPyDef__typed_____int___3_build_subclass_obj(void);
+extern CPyThreadLocal typed_envs____typed_____int___3_build_subclass_objObject *_typed_____int___3_build_subclass_obj_free_instance;
+extern PyObject *CPyDef__typed_____int___3_build_subclass_obj_____get__(PyObject *cpy_r___mypyc_self__, PyObject *cpy_r_instance, PyObject *cpy_r_owner);
+extern PyObject *CPyPy__typed_____int___3_build_subclass_obj_____get__(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
+extern CPyTagged CPyDef__typed_____int___3_build_subclass_obj_____call__(PyObject *cpy_r___mypyc_self__, PyObject *cpy_r_self);
+extern PyObject *CPyPy__typed_____int___3_build_subclass_obj_____call__(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
 extern PyObject *CPyDef__typed___build_subclass(PyObject *cpy_r_type_arg);
 extern PyObject *CPyPy__typed___build_subclass(PyObject *self, PyObject *const *args, size_t nargs, PyObject *kwnames);
 extern char CPyDef__typed_____top_level__(void);
