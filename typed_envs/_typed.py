@@ -33,7 +33,7 @@ def build_subclass(type_arg: type[T]) -> type["EnvironmentVariable[T]"]:
         "__doc__": type_arg.__doc__,
     }
     if type_arg is str:
-        def __int__(self) -> int:
+        def __int__(self: EnvironmentVariable[str]) -> int:
             # I wanted to make mypy work with int(env_var) and I did!
             # but it somehow broke __int__ itself and this fixes it
             return int(str(self))
