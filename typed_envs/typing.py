@@ -7,6 +7,6 @@ if TYPE_CHECKING:
 VarName = NewType("VarName", str)
 VarValue = NewType("VarValue", str)
 
-EnvRegistry = NewType("EnvRegistry", Dict[VarName, "EnvironmentVariable"])
+EnvRegistry = NewType("EnvRegistry", dict[VarName, "EnvironmentVariable"])
 
 StringConverter = Callable[[str], Any]

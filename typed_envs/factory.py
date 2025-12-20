@@ -24,10 +24,10 @@ class EnvVarFactory:
         """
         self.prefix: Final = env_var_prefix
         self.__use_prefix: Final = env_var_prefix is not None
-        self.__default_string_converters: Final[Dict[Type, StringConverter]] = {}
+        self.__default_string_converters: Final[dict[type, StringConverter]] = {}
 
     @property
-    def default_string_converters(self) -> Dict[Type, StringConverter]:
+    def default_string_converters(self) -> dict[type, StringConverter]:
         return self.__default_string_converters.copy()
 
     @property
@@ -37,7 +37,7 @@ class EnvVarFactory:
     def create_env(
         self,
         env_var_name: str,
-        env_var_type: Type[T],
+        env_var_type: type[T],
         default: Any,
         *init_args,
         string_converter: Optional[StringConverter] = None,
@@ -158,7 +158,7 @@ class EnvVarFactory:
         return instance
 
     def register_string_converter(
-        self, register_for: Type, converter: StringConverter
+        self, register_for: type, converter: StringConverter
     ) -> None:
         if register_for in self.__default_string_converters:
             raise ValueError(

@@ -60,7 +60,7 @@ class EnvironmentVariable(Generic[T]):
     _env_name: str
     _init_arg0: Any
 
-    __origin__: ClassVar[Type["EnvironmentVariable"]]
+    __origin__: ClassVar[type["EnvironmentVariable"]]
 
     def __init__(self, *args, **kwargs) -> None:
         if type(self) is EnvironmentVariable:
@@ -102,7 +102,7 @@ class EnvironmentVariable(Generic[T]):
                 self._init_arg0,
             )
 
-    def __class_getitem__(cls, type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
+    def __class_getitem__(cls, type_arg: type[T]) -> type["EnvironmentVariable[T]"]:
         """
         Returns a mixed subclass of `type_arg` and :class:`EnvironmentVariable` that does 2 things:
          - modifies the __repr__ method so its clear an object's value was set with an env var while when inspecting variables
@@ -121,7 +121,7 @@ class EnvironmentVariable(Generic[T]):
 
 
 @lru_cache(maxsize=None)
-def _build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
+def _build_subclass(type_arg: type[T]) -> type["EnvironmentVariable[T]"]:
     """
     Returns a mixed subclass of `type_arg` and :class:`EnvironmentVariable` that does 2 things:
      - modifies the __repr__ method so its clear an object's value was set with an env var while when inspecting variables
