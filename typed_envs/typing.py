@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Callable, Dict, NewType
+from typing import TYPE_CHECKING, Any, Callable, NewType
 
 if TYPE_CHECKING:
     from typed_envs._env_var import EnvironmentVariable
