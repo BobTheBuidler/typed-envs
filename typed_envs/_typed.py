@@ -1,5 +1,5 @@
 from functools import lru_cache
-from typing import Final, Type, TypeVar
+from typing import Final, TypeVar
 
 from typed_envs._env_var import EnvironmentVariable
 
@@ -15,7 +15,7 @@ __TYPED_CLS_DICT_CONSTANTS: Final = {
 
 
 @lru_cache(maxsize=None)
-def build_subclass(type_arg: Type[T]) -> Type["EnvironmentVariable[T]"]:
+def build_subclass(type_arg: type[T]) -> type["EnvironmentVariable[T]"]:
     """
     Returns a mixed subclass of `type_arg` and :class:`EnvironmentVariable` that does 2 things:
      - modifies the __repr__ method so its clear an object's value was set with an env var while when inspecting variables

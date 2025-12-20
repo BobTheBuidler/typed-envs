@@ -1,4 +1,4 @@
-from typing import Any, Optional, Type, TypeVar
+from typing import Any, Optional, TypeVar
 
 from typed_envs._env_var import EnvironmentVariable
 from typed_envs.factory import EnvVarFactory, logger, default_factory
@@ -54,7 +54,7 @@ T = TypeVar("T")
 
 def create_env(
     name: str,
-    typ: Type[T],
+    typ: type[T],
     default: Any,
     *init_args,
     string_converter: Optional[StringConverter] = None,

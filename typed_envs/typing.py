@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Callable, Dict, NewType
+from typing import TYPE_CHECKING, Any, Callable, NewType
 
 if TYPE_CHECKING:
     from typed_envs._env_var import EnvironmentVariable
@@ -7,6 +7,6 @@ if TYPE_CHECKING:
 VarName = NewType("VarName", str)
 VarValue = NewType("VarValue", str)
 
-EnvRegistry = NewType("EnvRegistry", Dict[VarName, "EnvironmentVariable"])
+EnvRegistry = NewType("EnvRegistry", dict[VarName, "EnvironmentVariable"])
 
 StringConverter = Callable[[str], Any]
