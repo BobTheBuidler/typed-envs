@@ -16,8 +16,8 @@
 #include "misc_ops.c"
 #include "generic_ops.c"
 #include "pythonsupport.c"
-#include "__native_303c4825a0ce575d88a6.h"
-#include "__native_internal_303c4825a0ce575d88a6.h"
+#include "__native_typed_envs.h"
+#include "__native_internal_typed_envs.h"
 static PyMethodDef typed_envsmodule_methods[] = {
     {"create_env", (PyCFunction)CPyPy_typed_envs___create_env, METH_FASTCALL | METH_KEYWORDS, PyDoc_STR("create_env(name, typ, default, *init_args, string_converter=None, verbose=True, **init_kwargs)\n--\n\n") /* docstring */},
     {NULL, NULL, 0, NULL}
@@ -2963,14 +2963,14 @@ PyObject *CPyPy_registry____register_new_env(PyObject *self, PyObject *const *ar
 char CPyDef_registry_____top_level__(void);
 char CPyDef_typing_____top_level__(void);
 
-static int exec_303c4825a0ce575d88a6__mypyc(PyObject *module)
+static int exec_typed_envs__mypyc(PyObject *module)
 {
     int res;
     PyObject *capsule;
     PyObject *tmp;
     
     extern PyObject *CPyInit_typed_envs(void);
-    capsule = PyCapsule_New((void *)CPyInit_typed_envs, "303c4825a0ce575d88a6__mypyc.init_typed_envs", NULL);
+    capsule = PyCapsule_New((void *)CPyInit_typed_envs, "typed_envs__mypyc.init_typed_envs", NULL);
     if (!capsule) {
         goto fail;
     }
@@ -2981,7 +2981,7 @@ static int exec_303c4825a0ce575d88a6__mypyc(PyObject *module)
     }
     
     extern PyObject *CPyInit_typed_envs____typed(void);
-    capsule = PyCapsule_New((void *)CPyInit_typed_envs____typed, "303c4825a0ce575d88a6__mypyc.init_typed_envs____typed", NULL);
+    capsule = PyCapsule_New((void *)CPyInit_typed_envs____typed, "typed_envs__mypyc.init_typed_envs____typed", NULL);
     if (!capsule) {
         goto fail;
     }
@@ -2992,7 +2992,7 @@ static int exec_303c4825a0ce575d88a6__mypyc(PyObject *module)
     }
     
     extern PyObject *CPyInit_typed_envs___ENVIRONMENT_VARIABLES(void);
-    capsule = PyCapsule_New((void *)CPyInit_typed_envs___ENVIRONMENT_VARIABLES, "303c4825a0ce575d88a6__mypyc.init_typed_envs___ENVIRONMENT_VARIABLES", NULL);
+    capsule = PyCapsule_New((void *)CPyInit_typed_envs___ENVIRONMENT_VARIABLES, "typed_envs__mypyc.init_typed_envs___ENVIRONMENT_VARIABLES", NULL);
     if (!capsule) {
         goto fail;
     }
@@ -3003,7 +3003,7 @@ static int exec_303c4825a0ce575d88a6__mypyc(PyObject *module)
     }
     
     extern PyObject *CPyInit_typed_envs___registry(void);
-    capsule = PyCapsule_New((void *)CPyInit_typed_envs___registry, "303c4825a0ce575d88a6__mypyc.init_typed_envs___registry", NULL);
+    capsule = PyCapsule_New((void *)CPyInit_typed_envs___registry, "typed_envs__mypyc.init_typed_envs___registry", NULL);
     if (!capsule) {
         goto fail;
     }
@@ -3014,7 +3014,7 @@ static int exec_303c4825a0ce575d88a6__mypyc(PyObject *module)
     }
     
     extern PyObject *CPyInit_typed_envs___typing(void);
-    capsule = PyCapsule_New((void *)CPyInit_typed_envs___typing, "303c4825a0ce575d88a6__mypyc.init_typed_envs___typing", NULL);
+    capsule = PyCapsule_New((void *)CPyInit_typed_envs___typing, "typed_envs__mypyc.init_typed_envs___typing", NULL);
     if (!capsule) {
         goto fail;
     }
@@ -3028,24 +3028,24 @@ static int exec_303c4825a0ce575d88a6__mypyc(PyObject *module)
     fail:
     return -1;
 }
-static PyModuleDef module_def_303c4825a0ce575d88a6__mypyc = {
+static PyModuleDef module_def_typed_envs__mypyc = {
     PyModuleDef_HEAD_INIT,
-    .m_name = "303c4825a0ce575d88a6__mypyc",
+    .m_name = "typed_envs__mypyc",
     .m_doc = NULL,
     .m_size = -1,
     .m_methods = NULL,
 };
-PyMODINIT_FUNC PyInit_303c4825a0ce575d88a6__mypyc(void) {
+PyMODINIT_FUNC PyInit_typed_envs__mypyc(void) {
     static PyObject *module = NULL;
     if (module) {
         Py_INCREF(module);
         return module;
     }
-    module = PyModule_Create(&module_def_303c4825a0ce575d88a6__mypyc);
+    module = PyModule_Create(&module_def_typed_envs__mypyc);
     if (!module) {
         return NULL;
     }
-    if (exec_303c4825a0ce575d88a6__mypyc(module) < 0) {
+    if (exec_typed_envs__mypyc(module) < 0) {
         Py_DECREF(module);
         return NULL;
     }

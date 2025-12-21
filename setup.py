@@ -23,7 +23,7 @@ if sys.implementation.name == "cpython":
         "--disable-error-code=attr-defined",
     ]
 
-    ext_modules = mypycify(paths=paths_to_compile, debug_level=MYPYC_DEBUG_LEVEL)
+    ext_modules = mypycify(paths=paths_to_compile, group_name="typed_envs", debug_level=MYPYC_DEBUG_LEVEL)
 else:
     ext_modules = []
 

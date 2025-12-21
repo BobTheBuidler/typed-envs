@@ -7,11 +7,11 @@ PyMODINIT_FUNC
 PyInit_typed_envs(void)
 {
     PyObject *tmp;
-    if (!(tmp = PyImport_ImportModule("303c4825a0ce575d88a6__mypyc"))) return NULL;
+    if (!(tmp = PyImport_ImportModule("typed_envs__mypyc"))) return NULL;
     PyObject *capsule = PyObject_GetAttrString(tmp, "init_typed_envs");
     Py_DECREF(tmp);
     if (capsule == NULL) return NULL;
-    void *init_func = PyCapsule_GetPointer(capsule, "303c4825a0ce575d88a6__mypyc.init_typed_envs");
+    void *init_func = PyCapsule_GetPointer(capsule, "typed_envs__mypyc.init_typed_envs");
     Py_DECREF(capsule);
     if (!init_func) {
         return NULL;
