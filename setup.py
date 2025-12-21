@@ -1,11 +1,11 @@
 import os
 import sys
 from setuptools import find_packages, setup
-from mypyc.build import mypycify
 
 from typed_envs import description, description_addon
 
 if sys.implementation.name == "cpython":
+    from mypyc.build import mypycify
 
     MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
 
@@ -29,6 +29,7 @@ else:
 
 setup(
     name="typed_envs",
+    version="0.2.3",
     url="https://github.com/BobTheBuidler/typed-envs",
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
@@ -49,13 +50,6 @@ setup(
     long_description=description + description_addon,
     python_requires=">=3.9,<4",
     packages=find_packages(),
-    use_scm_version={
-        "root": ".",
-        "relative_to": __file__,
-        "local_scheme": "no-local-version",
-        "version_scheme": "python-simplified-semver",
-    },
-    setup_requires=["setuptools_scm"],
     package_data={"typed_envs": ["py.typed"]},
     include_package_data=True,
     ext_modules=ext_modules,
