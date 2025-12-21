@@ -949,7 +949,7 @@ CPyTagged CPyDef__typed_____int___3_build_subclass_obj_____call__(PyObject *cpy_
     CPyTagged cpy_r_r4;
     cpy_r_r0 = ((typed_envs____typed_____int___3_build_subclass_objObject *)cpy_r___mypyc_self__)->___mypyc_env__;
     if (unlikely(cpy_r_r0 == NULL)) {
-        CPy_AttributeError("typed_envs/_typed.py", "__int__", "__int___build_subclass_obj", "__mypyc_env__", 36, CPyStatic__typed___globals);
+        CPy_AttributeError("typed_envs/_typed.py", "__int__", "__int___build_subclass_obj", "__mypyc_env__", 37, CPyStatic__typed___globals);
         goto CPyL5;
     }
     CPy_INCREF_NO_IMM(cpy_r_r0);
@@ -1308,7 +1308,7 @@ CPyL28: ;
     if (likely(PyDict_Check(cpy_r_r53)))
         cpy_r_r54 = cpy_r_r53;
     else {
-        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 42, CPyStatic__typed___globals, "dict", cpy_r_r53);
+        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 44, CPyStatic__typed___globals, "dict", cpy_r_r53);
         goto CPyL77;
     }
     cpy_r_r55 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__annotations__' */
@@ -1384,7 +1384,7 @@ CPyL37: ;
     if (likely(PyTuple_Check(cpy_r_r77)))
         cpy_r_r78 = cpy_r_r77;
     else {
-        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 50, CPyStatic__typed___globals, "tuple", cpy_r_r77);
+        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 52, CPyStatic__typed___globals, "tuple", cpy_r_r77);
         goto CPyL80;
     }
     cpy_r_r79 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'bases: ' */
