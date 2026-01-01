@@ -1,5 +1,5 @@
 from functools import lru_cache
-from typing import Any, ClassVar, Final, Generic, TypeVar, final
+from typing import Any, ClassVar, Generic, TypeVar, final
 
 
 T = TypeVar("T")

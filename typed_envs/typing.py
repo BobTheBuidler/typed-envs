@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Any, Callable, NewType
 
 if TYPE_CHECKING:
-    from typed_envs._env_var import EnvironmentVariable
+    pass
 
 
 VarName = NewType("VarName", str)
