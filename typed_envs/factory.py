@@ -3,7 +3,6 @@ import os
 from contextlib import suppress
 from typing import Any, Final, Optional, TypeVar
 
-from typed_envs import registry
 from typed_envs._env_var import EnvironmentVariable
 from typed_envs.registry import _register_new_env
 from typed_envs.typing import StringConverter, VarName
