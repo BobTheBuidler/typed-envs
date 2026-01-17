@@ -1,7 +1,7 @@
 import logging
 import os
 from contextlib import suppress
-from typing import Any, Final, Optional, TypeVar
+from typing import Any, Final, Optional, TypeVar, cast
 
 from typed_envs._env_var import EnvironmentVariable
 from typed_envs.registry import _register_new_env
@@ -42,7 +42,7 @@ class EnvVarFactory:
         string_converter: Optional[StringConverter] = None,
         verbose: bool = True,
         **init_kwargs: Any,
-    ) -> "EnvironmentVariable[T]":
+    ) -> T:
         """
         Creates a new :class:`EnvironmentVariable` object with the specified parameters.
 
@@ -154,7 +154,7 @@ class EnvVarFactory:
                         str(instance),
                     )
         _register_new_env(full_name, instance)
-        return instance
+        return cast(T, instance)
 
     def register_string_converter(
         self, register_for: type, converter: StringConverter

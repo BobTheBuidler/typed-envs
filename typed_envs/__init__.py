@@ -1,4 +1,4 @@
-from typing import Any, Optional, TypeVar
+from typing import Any, Optional, TypeVar, cast
 
 from typed_envs._env_var import EnvironmentVariable
 from typed_envs.factory import EnvVarFactory, logger, default_factory
@@ -60,7 +60,7 @@ def create_env(
     string_converter: Optional[StringConverter] = None,
     verbose: bool = True,
     **init_kwargs
-) -> "EnvironmentVariable[T]":
+) -> T:
     """
     Returns a new :class:`EnvironmentVariable` object with no prefix specified.
 
@@ -101,14 +101,17 @@ def create_env(
     See Also:
         :class:`EnvVarFactory` for creating environment variables with a prefix.
     """
-    return default_factory.create_env(
-        name,
-        typ,
-        default,
-        *init_args,
-        string_converter=string_converter,
-        verbose=verbose,
-        **init_kwargs
+    return cast(
+        T,
+        default_factory.create_env(
+            name,
+            typ,
+            default,
+            *init_args,
+            string_converter=string_converter,
+            verbose=verbose,
+            **init_kwargs
+        ),
     )
 
 
