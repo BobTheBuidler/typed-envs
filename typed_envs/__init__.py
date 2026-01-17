@@ -66,6 +66,14 @@ def create_env(
 
     Functionally, :class:`EnvironmentVariable` objects will work exactly the same as any instance of specified `typ`.
 
+    Typing note:
+        Mypy cannot natively model the dynamic subclass created by typed_envs.
+        If you want mypy to treat the return value as the underlying `typ`,
+        enable the typed_envs mypy plugin in your config:
+
+        [mypy]
+        plugins = typed_envs.mypy_plugin
+
     Args:
         name: The name of the environment variable.
         typ: The type of the environment variable. This determines the type of the value that the environment variable will hold.
