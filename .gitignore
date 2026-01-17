@@ -12,3 +12,4 @@ cache/
 *.o
 *.so
 *.pyd
+.worktrees
