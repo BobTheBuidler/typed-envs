@@ -1,5 +1,10 @@
 from functools import lru_cache
-from typing import Any, ClassVar, Generic, TypeVar, final
+from typing import Any, ClassVar, Generic, Hashable, TypeVar, cast, final
+
+try:
+    from typing import override
+except ImportError:  # pragma: no cover - fallback for Python < 3.12
+    from typing_extensions import override
 
 
 T = TypeVar("T")
@@ -60,9 +65,10 @@ class EnvironmentVariable(Generic[T]):
     _env_name: str
     _init_arg0: Any
 
-    __origin__: ClassVar[type["EnvironmentVariable"]]
+    __args__: ClassVar[type[object]]
+    __origin__: ClassVar[type["EnvironmentVariable[Any]"]]
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         if type(self) is EnvironmentVariable:
             raise RuntimeError(
                 "You should not initialize these directly, please use the factory"
@@ -74,6 +80,7 @@ class EnvironmentVariable(Generic[T]):
             if str(e) != expected:
                 raise
 
+    @override
     def __str__(self) -> str:
         base_type = self.__args__
         string_from_base = base_type.__str__(self)
@@ -87,6 +94,7 @@ class EnvironmentVariable(Generic[T]):
             else string_from_base
         )
 
+    @override
     def __repr__(self) -> str:
         if self._using_default:
             return "EnvironmentVariable[{}](name=`{}`, default_value={}, using_default=True)".format(
@@ -112,12 +120,15 @@ class EnvironmentVariable(Generic[T]):
         """
         if cls is EnvironmentVariable:
             return _build_subclass(type_arg)  # type: ignore [arg-type]
-        return super().__class_getitem__(type_arg)  # type: ignore [misc]
+        return cast(
+            type["EnvironmentVariable[T]"],
+            super().__class_getitem__(type_arg),  # type: ignore [misc]
+        )
 
     # helpers for mypy
 
     def __int__(self) -> int:
-        return NotImplemented
+        return cast(int, NotImplemented)
 
 
 @lru_cache(maxsize=None)
@@ -131,4 +142,7 @@ def _build_subclass(type_arg: type[T]) -> type["EnvironmentVariable[T]"]:
     """
     from typed_envs import _typed
 
-    return _typed.build_subclass(type_arg)  # type: ignore [arg-type]
+    return cast(
+        type["EnvironmentVariable[T]"],
+        _typed.build_subclass(cast(Hashable, type_arg)),
+    )
