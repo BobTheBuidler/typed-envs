@@ -76,6 +76,9 @@ def test_mypy_plugin_allows_underlying_types(tmp_path: Path) -> None:
         def takes_str(x: str) -> None:
             print(x)
 
+        explicit.bit_length()
+        explicit._env_name
+
         takes_int(some_var)
         takes_int(explicit)
         takes_str(other_var)

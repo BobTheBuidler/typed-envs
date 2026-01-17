@@ -68,7 +68,8 @@ def create_env(
 
     Typing note:
         Mypy cannot natively model the dynamic subclass created by typed_envs.
-        If you want mypy to treat `EnvironmentVariable[T]` as the underlying `T`,
+        If you want mypy to treat `EnvironmentVariable[T]` as having the methods
+        and attributes of both `EnvironmentVariable` and the underlying `T`,
         enable the typed_envs mypy plugin in your config:
 
         [mypy]
