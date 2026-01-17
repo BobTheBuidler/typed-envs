@@ -1,5 +1,6 @@
 from functools import lru_cache
-from typing import Any, ClassVar, Generic, Hashable, TypeVar, cast, final
+from typing import Any, ClassVar, Generic, TypeVar, cast, final
+from collections.abc import Hashable
 
 try:
     from typing import override
