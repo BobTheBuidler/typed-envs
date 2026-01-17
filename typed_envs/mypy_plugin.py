@@ -20,7 +20,8 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Callable, Iterable
+from typing import Callable
+from collections.abc import Iterable
 
 from mypy.mro import MroError, calculate_mro
 from mypy.nodes import Block, ClassDef, SymbolTable, SymbolTableNode, TypeInfo, MDEF
