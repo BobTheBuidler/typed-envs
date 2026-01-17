@@ -23,19 +23,23 @@ import json
 from typing import Callable, Iterable
 
 from mypy.mro import MroError, calculate_mro
-from mypy.nodes import Block, ClassDef, SymbolTable, TypeInfo
+from mypy.nodes import Block, ClassDef, SymbolTable, SymbolTableNode, TypeInfo, MDEF
 from mypy.plugin import AnalyzeTypeContext, FunctionContext, MethodContext, Plugin
 from mypy.types import (
     AnyType,
     CallableType,
     Instance,
+    LiteralType,
     NoneType,
     Overloaded,
     Type,
     TypeOfAny,
     TypeType,
     TypeVarType,
+    TypedDictType,
+    TupleType,
     UnionType,
+    UninhabitedType,
     get_proper_type,
 )
 
@@ -143,26 +147,60 @@ class TypedEnvsPlugin(Plugin):
             return UnionType.make_union([result, NoneType()])
         return result
 
-    def _envvar_intersection(self, api, arg: Type) -> Type:
+    def _envvar_intersection(
+        self, api, arg: Type, env_var_instance: Instance | None = None
+    ) -> Type:
         proper = get_proper_type(arg)
         if isinstance(proper, AnyType):
             return proper
+        if isinstance(proper, UninhabitedType):
+            return proper
         if isinstance(proper, UnionType):
-            items = [self._envvar_intersection(api, item) for item in proper.items]
+            items = [
+                self._envvar_intersection(api, item, env_var_instance)
+                for item in proper.items
+            ]
             return UnionType.make_union(items)
         if isinstance(proper, TypeVarType):
             if proper.values:
-                items = [self._envvar_intersection(api, item) for item in proper.values]
+                items = [
+                    self._envvar_intersection(api, item, env_var_instance)
+                    for item in proper.values
+                ]
                 return UnionType.make_union(items)
             bound = get_proper_type(proper.upper_bound)
             if isinstance(bound, Instance):
-                return self._build_envvar_instance(api, proper, bound)
+                return self._build_envvar_instance(
+                    api, proper, bound, env_var_instance
+                )
+            fallback = self._fallback_instance(bound)
+            if fallback is not None:
+                return self._build_envvar_instance(
+                    api, proper, fallback, env_var_instance
+                )
             return self._named_type(api, "typed_envs._env_var.EnvironmentVariable", [proper])
         if isinstance(proper, TypeType):
             proper = get_proper_type(proper.item)
+        if isinstance(proper, (LiteralType, TypedDictType, TupleType)):
+            fallback = self._fallback_instance(proper)
+            if fallback is not None:
+                return self._build_envvar_instance(
+                    api, proper, fallback, env_var_instance
+                )
         if isinstance(proper, Instance):
-            return self._build_envvar_instance(api, proper, proper)
+            return self._build_envvar_instance(
+                api, proper, proper, env_var_instance
+            )
         return self._named_type(api, "typed_envs._env_var.EnvironmentVariable", [proper])
+
+    def _fallback_instance(self, proper: Type) -> Instance | None:
+        fallback = getattr(proper, "fallback", None)
+        if isinstance(fallback, Instance):
+            return fallback
+        partial_fallback = getattr(proper, "partial_fallback", None)
+        if isinstance(partial_fallback, Instance):
+            return partial_fallback
+        return None
 
     def _build_envvar_instance(
         self,
@@ -180,8 +218,9 @@ class TypedEnvsPlugin(Plugin):
         if info is None:
             class_name = _typed_envvar_name(key)
             defn = ClassDef(class_name, Block([]))
-            defn.fullname = f"typed_envs.mypy_plugin.{class_name}"
-            info = TypeInfo(SymbolTable(), defn, "typed_envs.mypy_plugin")
+            module_id = self._module_id(api, env_var_instance)
+            defn.fullname = f"{module_id}.{class_name}"
+            info = TypeInfo(SymbolTable(), defn, module_id)
             defn.info = info
             info.bases = [env_var_instance, base]
             try:
@@ -191,8 +230,55 @@ class TypedEnvsPlugin(Plugin):
             except MroError:
                 obj_type = self._named_type(api, "builtins.object", []).type
                 info.mro = [info, env_var_instance.type, base.type, obj_type]
+            self._register_typeinfo(api, module_id, class_name, info)
             self._envvar_cache[key] = info
         return Instance(info, [])
+
+    def _module_id(self, api, env_var_instance: Instance) -> str:
+        module_id = getattr(api, "cur_mod_id", None)
+        if callable(module_id):
+            module_id = module_id()
+        if isinstance(module_id, str):
+            return module_id
+        cur_mod_node = getattr(api, "cur_mod_node", None)
+        if callable(cur_mod_node):
+            cur_mod_node = cur_mod_node()
+        if cur_mod_node is not None:
+            fullname = getattr(cur_mod_node, "fullname", None)
+            if isinstance(fullname, str):
+                return fullname
+        module_id = getattr(api, "module_name", None)
+        if isinstance(module_id, str):
+            return module_id
+        return env_var_instance.type.module_name
+
+    def _register_typeinfo(
+        self, api, module_id: str, class_name: str, info: TypeInfo
+    ) -> None:
+        add_node = getattr(api, "add_symbol_table_node", None)
+        if callable(add_node):
+            try:
+                add_node(class_name, SymbolTableNode(MDEF, info))
+                return
+            except Exception:
+                pass
+        lookup = getattr(api, "lookup_fully_qualified", None)
+        if callable(lookup):
+            try:
+                module_node = lookup(module_id)
+            except Exception:
+                module_node = None
+            if module_node is not None:
+                module = getattr(module_node, "node", None)
+                if module is not None and hasattr(module, "names"):
+                    if class_name not in module.names:
+                        module.names[class_name] = SymbolTableNode(MDEF, info)
+                    return
+        modules = getattr(api, "modules", None)
+        if isinstance(modules, dict):
+            module = modules.get(module_id)
+            if module is not None and class_name not in module.names:
+                module.names[class_name] = SymbolTableNode(MDEF, info)
 
     def _named_type(self, api, fullname: str, args: list[Type]) -> Instance:
         if hasattr(api, "named_generic_type"):
@@ -225,7 +311,7 @@ class TypedEnvsPlugin(Plugin):
                 type_arg,
                 env_var_instance,
             )
-        return self._envvar_intersection(ctx.api, type_arg)
+        return self._envvar_intersection(ctx.api, type_arg, env_var_instance)
 
     def _create_env_method_hook(self, ctx: MethodContext) -> Type:
         arg_type = _find_arg_type(ctx, ("env_var_type",))
@@ -242,7 +328,7 @@ class TypedEnvsPlugin(Plugin):
                 type_arg,
                 env_var_instance,
             )
-        return self._envvar_intersection(ctx.api, type_arg)
+        return self._envvar_intersection(ctx.api, type_arg, env_var_instance)
 
 
 def plugin(version: str) -> type[TypedEnvsPlugin]:
