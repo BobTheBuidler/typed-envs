@@ -125,9 +125,7 @@ class TypedEnvsPlugin(Plugin):
             return self._create_env_function_hook
         return None
 
-    def get_method_hook(
-        self, fullname: str
-    ) -> Callable[[MethodContext], Type] | None:
+    def get_method_hook(self, fullname: str) -> Callable[[MethodContext], Type] | None:
         if fullname in _CREATE_ENV_METHODS:
             return self._create_env_method_hook
         return None
@@ -171,15 +169,15 @@ class TypedEnvsPlugin(Plugin):
                 return UnionType.make_union(items)
             bound = get_proper_type(proper.upper_bound)
             if isinstance(bound, Instance):
-                return self._build_envvar_instance(
-                    api, proper, bound, env_var_instance
-                )
+                return self._build_envvar_instance(api, proper, bound, env_var_instance)
             fallback = self._fallback_instance(bound)
             if fallback is not None:
                 return self._build_envvar_instance(
                     api, proper, fallback, env_var_instance
                 )
-            return self._named_type(api, "typed_envs._env_var.EnvironmentVariable", [proper])
+            return self._named_type(
+                api, "typed_envs._env_var.EnvironmentVariable", [proper]
+            )
         if isinstance(proper, TypeType):
             proper = get_proper_type(proper.item)
         if isinstance(proper, (LiteralType, TypedDictType, TupleType)):
@@ -189,10 +187,10 @@ class TypedEnvsPlugin(Plugin):
                     api, proper, fallback, env_var_instance
                 )
         if isinstance(proper, Instance):
-            return self._build_envvar_instance(
-                api, proper, proper, env_var_instance
-            )
-        return self._named_type(api, "typed_envs._env_var.EnvironmentVariable", [proper])
+            return self._build_envvar_instance(api, proper, proper, env_var_instance)
+        return self._named_type(
+            api, "typed_envs._env_var.EnvironmentVariable", [proper]
+        )
 
     def _fallback_instance(self, proper: Type) -> Instance | None:
         fallback = getattr(proper, "fallback", None)
