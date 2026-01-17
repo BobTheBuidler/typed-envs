@@ -48,7 +48,7 @@ class EnvVarFactory:
 
         Typing note:
             Mypy cannot natively model the dynamic subclass created by typed_envs.
-            If you want mypy to treat the return value as the underlying `env_var_type`,
+            If you want mypy to treat `EnvironmentVariable[T]` as the underlying `T`,
             enable the typed_envs mypy plugin in your config:
 
             [mypy]

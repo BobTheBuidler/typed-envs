@@ -36,8 +36,8 @@ There are only 2 differences between `some_var` and `int(10)`:
 ### Mypy plugin
 
 Mypy cannot natively model the dynamic subclass created by typed_envs. If you
-want mypy to treat `create_env(...)` and `EnvVarFactory.create_env(...)` as
-returning the underlying type, enable the plugin:
+want mypy to treat `EnvironmentVariable[T]` as its underlying `T` (including
+for `create_env(...)` and `EnvVarFactory.create_env(...)`), enable the plugin:
 
 ```
 [mypy]

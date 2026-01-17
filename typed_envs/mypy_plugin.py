@@ -1,7 +1,7 @@
 """Mypy plugin for typed_envs.
 
-This plugin teaches mypy to treat typed_envs.create_env(...) and
-EnvVarFactory.create_env(...) as returning the *underlying* type argument,
+This plugin teaches mypy to treat EnvironmentVariable[T] as the underlying T,
+including for typed_envs.create_env(...) and EnvVarFactory.create_env(...),
 even though the runtime object is a dynamic EnvironmentVariable subclass.
 
 Enable in your mypy config:
@@ -20,11 +20,12 @@ from __future__ import annotations
 
 from typing import Callable, Iterable
 
-from mypy.plugin import FunctionContext, MethodContext, Plugin
+from mypy.plugin import AnalyzeTypeContext, FunctionContext, MethodContext, Plugin
 from mypy.types import (
     AnyType,
     CallableType,
     Instance,
+    NoneType,
     Overloaded,
     Type,
     TypeOfAny,
@@ -41,6 +42,10 @@ _CREATE_ENV_FUNCTIONS = {
 _CREATE_ENV_METHODS = {
     "typed_envs.factory.EnvVarFactory.create_env",
     "typed_envs.EnvVarFactory.create_env",
+}
+_ENV_VAR_TYPES = {
+    "typed_envs.EnvironmentVariable",
+    "typed_envs._env_var.EnvironmentVariable",
 }
 
 
@@ -80,6 +85,15 @@ def _unwrap_type_argument(arg_type: Type) -> Type | None:
     return None
 
 
+def _env_var_type_analyze(ctx: AnalyzeTypeContext) -> Type:
+    if len(ctx.type.args) != 1:
+        return AnyType(TypeOfAny.special_form)
+    analyzed = ctx.api.analyze_type(ctx.type.args[0])
+    if ctx.type.optional:
+        return UnionType.make_union([analyzed, NoneType()])
+    return analyzed
+
+
 def _create_env_function_hook(ctx: FunctionContext) -> Type:
     arg_type = _find_arg_type(ctx, ("typ",))
     if arg_type is None:
@@ -111,6 +125,13 @@ class TypedEnvsPlugin(Plugin):
     ) -> Callable[[MethodContext], Type] | None:
         if fullname in _CREATE_ENV_METHODS:
             return _create_env_method_hook
+        return None
+
+    def get_type_analyze_hook(
+        self, fullname: str
+    ) -> Callable[[AnalyzeTypeContext], Type] | None:
+        if fullname in _ENV_VAR_TYPES:
+            return _env_var_type_analyze
         return None
 
 

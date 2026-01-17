@@ -63,11 +63,12 @@ def _run_mypy(tmp_path: Path, source: str) -> tuple[str, str, int]:
 def test_mypy_plugin_allows_underlying_types(tmp_path: Path) -> None:
     source = """
         import typed_envs
-        from typed_envs import EnvVarFactory
+        from typed_envs import EnvVarFactory, EnvironmentVariable
 
         some_var = typed_envs.create_env("SOME_VAR", int, 10)
         factory = EnvVarFactory()
         other_var = factory.create_env("OTHER_VAR", str, "hi")
+        explicit: EnvironmentVariable[int] = some_var
 
         def takes_int(x: int) -> None:
             print(x)
@@ -76,6 +77,7 @@ def test_mypy_plugin_allows_underlying_types(tmp_path: Path) -> None:
             print(x)
 
         takes_int(some_var)
+        takes_int(explicit)
         takes_str(other_var)
         """
     stdout, stderr, exit_status = _run_mypy(tmp_path, source)
