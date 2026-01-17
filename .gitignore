@@ -1,7 +1,6 @@
 env/
 .mypy_cache/
 .pytest_cache/
-.worktrees
 __pycache__/
 build/**/*.py
 build/**/*.typed
@@ -13,3 +12,4 @@ cache/
 *.o
 *.so
 *.pyd
+.worktrees/
