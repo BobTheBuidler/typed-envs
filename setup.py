@@ -17,10 +17,6 @@ if sys.implementation.name == "cpython":
         # TODO: fix mypyc IR error "typed_envs/factory.py",
         "typed_envs/registry.py",
         "typed_envs/typing.py",
-        "--pretty",
-        "--install-types",
-        "--disable-error-code=assignment",
-        "--disable-error-code=attr-defined",
     ]
 
     ext_modules = mypycify(
