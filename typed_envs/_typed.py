@@ -3,6 +3,7 @@ from typing import Final, TypeVar
 
 from typed_envs._env_var import EnvironmentVariable
 
+
 T = TypeVar("T")
 
 

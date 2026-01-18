@@ -82,7 +82,7 @@ class EnvironmentVariable(Generic[T]):
 
     @override
     def __str__(self) -> str:
-        base_type = self.__args__
+        base_type = type(self).__args__
         string_from_base = base_type.__str__(self)
         # NOTE: If this returns True, base type's `__str__` method calls `__repr__` and our custom `__repr__` breaks it.
         if string_from_base == repr(self):
@@ -96,15 +96,16 @@ class EnvironmentVariable(Generic[T]):
 
     @override
     def __repr__(self) -> str:
+        base_type = type(self).__args__
         if self._using_default:
             return "EnvironmentVariable[{}](name=`{}`, default_value={}, using_default=True)".format(
-                self.__args__.__qualname__,
+                base_type.__qualname__,
                 self._env_name,
                 self._default_value,
             )
         else:
             return "EnvironmentVariable[{}](name=`{}`, default_value={}, current_value={})".format(
-                self.__args__.__qualname__,
+                base_type.__qualname__,
                 self._env_name,
                 self._default_value,
                 self._init_arg0,

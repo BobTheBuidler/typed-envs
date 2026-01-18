@@ -32,3 +32,27 @@ There are only 2 differences between `some_var` and `int(10)`:
 >>> 20 / some_var
 2
 ```
+
+### Mypy plugin
+
+Mypy cannot natively model the dynamic subclass created by typed_envs. If you
+want mypy to treat `EnvironmentVariable[T]` as having the methods and attributes
+of both `EnvironmentVariable` and its underlying `T` (including for
+`create_env(...)` and `EnvVarFactory.create_env(...)`), enable the plugin:
+
+```
+[mypy]
+plugins = typed_envs.mypy_plugin
+```
+
+For `pyproject.toml` users:
+
+```
+[tool.mypy]
+plugins = ["typed_envs.mypy_plugin"]
+```
+
+The plugin synthesizes a mypy-only class that inherits from both
+`EnvironmentVariable` and the underlying type, so you can call methods from
+either side without casts. It also preserves unions, optionals, and common
+typing constructs like `Annotated`, `TypedDict`, and `Literal`.

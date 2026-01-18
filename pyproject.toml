@@ -1,11 +1,8 @@
 [build-system]
-requires = [
-  "setuptools",
-  "wheel",
-  "mypy[mypyc]==1.19.1",
-]
+requires = ["setuptools", "wheel", "mypy[mypyc]==1.19.1"]
 
 [tool.mypy]
+files = ["."]
 strict = true
 enable_error_code = [
   "deprecated",
