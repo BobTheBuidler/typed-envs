@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Callable, Iterable, Union, cast
+from typing import Callable, Iterable, Optional, Union, cast
 
 from mypy.mro import MroError, calculate_mro
 from mypy.nodes import Block, ClassDef, SymbolTable, SymbolTableNode, TypeInfo, MDEF
@@ -75,8 +75,8 @@ PluginApi = Union[
 ]
 
 def _find_arg_type(
-    ctx: FunctionContext | MethodContext, names: Iterable[str]
-) -> Type | None:
+    ctx: Union[FunctionContext, MethodContext], names: Iterable[str]
+) -> Optional[Type]:
     """Return the first matching argument type by name from a call context."""
     for name in names:
         for index, callee_name in enumerate(ctx.callee_arg_names):
@@ -85,7 +85,7 @@ def _find_arg_type(
     return None
 
 
-def _class_arg_to_type(arg_type: Type) -> Type | None:
+def _class_arg_to_type(arg_type: Type) -> Optional[Type]:
     """Normalize a `type`-like argument into the instance type to intersect."""
     proper = get_proper_type(arg_type)
     if isinstance(proper, TypeType):
@@ -139,7 +139,7 @@ class TypedEnvsPlugin(Plugin):
     @override
     def get_function_hook(
         self, fullname: str
-    ) -> Callable[[FunctionContext], Type] | None:
+    ) -> Optional[Callable[[FunctionContext], Type]]:
         if fullname in _CREATE_ENV_FUNCTIONS:
             return self._create_env_function_hook
         return None
@@ -147,7 +147,7 @@ class TypedEnvsPlugin(Plugin):
     @override
     def get_method_hook(
         self, fullname: str
-    ) -> Callable[[MethodContext], Type] | None:
+    ) -> Optional[Callable[[MethodContext], Type]]:
         if fullname in _CREATE_ENV_METHODS:
             return self._create_env_method_hook
         return None
@@ -155,7 +155,7 @@ class TypedEnvsPlugin(Plugin):
     @override
     def get_type_analyze_hook(
         self, fullname: str
-    ) -> Callable[[AnalyzeTypeContext], Type] | None:
+    ) -> Optional[Callable[[AnalyzeTypeContext], Type]]:
         if fullname in _ENV_VAR_TYPES:
             return self._env_var_type_analyze
         return None
@@ -171,7 +171,7 @@ class TypedEnvsPlugin(Plugin):
         return result
 
     def _envvar_intersection(
-        self, api: PluginApi, arg: Type, env_var_instance: Instance | None = None
+        self, api: PluginApi, arg: Type, env_var_instance: Optional[Instance] = None
     ) -> Type:
         """Return a type that behaves like both EnvironmentVariable and the base."""
         proper = get_proper_type(arg)
@@ -217,7 +217,7 @@ class TypedEnvsPlugin(Plugin):
             )
         return self._named_type(api, "typed_envs._env_var.EnvironmentVariable", [proper])
 
-    def _fallback_instance(self, proper: Type) -> Instance | None:
+    def _fallback_instance(self, proper: Type) -> Optional[Instance]:
         """Extract a fallback Instance for Literal/Tuple/TypedDict-like inputs."""
         fallback = getattr(proper, "fallback", None)
         if isinstance(fallback, Instance):
@@ -232,7 +232,7 @@ class TypedEnvsPlugin(Plugin):
         api: PluginApi,
         env_arg: Type,
         base: Instance,
-        env_var_instance: Instance | None = None,
+        env_var_instance: Optional[Instance] = None,
     ) -> Instance:
         """Create or reuse a cached synthetic TypeInfo for the env-var class."""
         if env_var_instance is None:
@@ -333,7 +333,7 @@ class TypedEnvsPlugin(Plugin):
             return cast(Instance, named_type(fullname, args))
         raise AssertionError("Plugin API missing named_type")
 
-    def _extract_envvar_instance(self, typ: Type) -> Instance | None:
+    def _extract_envvar_instance(self, typ: Type) -> Optional[Instance]:
         """Locate the EnvironmentVariable instance within a composite type."""
         proper = get_proper_type(typ)
         if not isinstance(proper, Instance):
