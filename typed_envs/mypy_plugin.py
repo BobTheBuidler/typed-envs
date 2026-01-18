@@ -20,8 +20,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Callable
-from collections.abc import Iterable
+from typing import Callable, Iterable
 
 from mypy.mro import MroError, calculate_mro
 from mypy.nodes import Block, ClassDef, SymbolTable, SymbolTableNode, TypeInfo, MDEF
@@ -43,6 +42,7 @@ from mypy.types import (
     UninhabitedType,
     get_proper_type,
 )
+
 
 _ENV_VAR_TYPES = {
     "typed_envs.EnvironmentVariable",
@@ -82,20 +82,22 @@ def _class_arg_to_type(arg_type: Type) -> Type | None:
     if isinstance(proper, CallableType):
         return proper.ret_type
     if isinstance(proper, Overloaded):
-        items = proper.items if isinstance(proper.items, list) else proper.items()
-        ret_types = [item.ret_type for item in items]
+        overload_items = (
+            proper.items if isinstance(proper.items, list) else proper.items()
+        )
+        ret_types = [item.ret_type for item in overload_items]
         first = ret_types[0]
         if all(ret == first for ret in ret_types[1:]):
             return first
         return UnionType.make_union(ret_types)
     if isinstance(proper, UnionType):
-        items: list[Type] = []
+        union_items: list[Type] = []
         for item in proper.items:
             converted = _class_arg_to_type(item)
             if converted is None:
                 return None
-            items.append(converted)
-        return UnionType.make_union(items)
+            union_items.append(converted)
+        return UnionType.make_union(union_items)
     return None
 
 
@@ -124,7 +126,9 @@ class TypedEnvsPlugin(Plugin):
             return self._create_env_function_hook
         return None
 
-    def get_method_hook(self, fullname: str) -> Callable[[MethodContext], Type] | None:
+    def get_method_hook(
+        self, fullname: str
+    ) -> Callable[[MethodContext], Type] | None:
         if fullname in _CREATE_ENV_METHODS:
             return self._create_env_method_hook
         return None
@@ -168,15 +172,15 @@ class TypedEnvsPlugin(Plugin):
                 return UnionType.make_union(items)
             bound = get_proper_type(proper.upper_bound)
             if isinstance(bound, Instance):
-                return self._build_envvar_instance(api, proper, bound, env_var_instance)
+                return self._build_envvar_instance(
+                    api, proper, bound, env_var_instance
+                )
             fallback = self._fallback_instance(bound)
             if fallback is not None:
                 return self._build_envvar_instance(
                     api, proper, fallback, env_var_instance
                 )
-            return self._named_type(
-                api, "typed_envs._env_var.EnvironmentVariable", [proper]
-            )
+            return self._named_type(api, "typed_envs._env_var.EnvironmentVariable", [proper])
         if isinstance(proper, TypeType):
             proper = get_proper_type(proper.item)
         if isinstance(proper, (LiteralType, TypedDictType, TupleType)):
@@ -186,10 +190,10 @@ class TypedEnvsPlugin(Plugin):
                     api, proper, fallback, env_var_instance
                 )
         if isinstance(proper, Instance):
-            return self._build_envvar_instance(api, proper, proper, env_var_instance)
-        return self._named_type(
-            api, "typed_envs._env_var.EnvironmentVariable", [proper]
-        )
+            return self._build_envvar_instance(
+                api, proper, proper, env_var_instance
+            )
+        return self._named_type(api, "typed_envs._env_var.EnvironmentVariable", [proper])
 
     def _fallback_instance(self, proper: Type) -> Instance | None:
         fallback = getattr(proper, "fallback", None)

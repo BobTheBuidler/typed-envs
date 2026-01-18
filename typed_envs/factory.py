@@ -7,6 +7,7 @@ from typed_envs._env_var import EnvironmentVariable
 from typed_envs.registry import _register_new_env
 from typed_envs.typing import StringConverter, VarName
 
+
 T = TypeVar("T")
 
 
@@ -112,7 +113,7 @@ class EnvVarFactory:
             full_name = VarName(env_var_name)
 
         # Get value
-        var_value = os.environ.get(full_name)
+        var_value: Any = os.environ.get(full_name)
         using_default = var_value is None
         var_value = var_value or default
         if env_var_type is bool:
