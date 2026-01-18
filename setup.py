@@ -11,6 +11,7 @@ def _read_readme() -> str:
         return ""
 
 # Build mypyc extensions on 3.11+ to keep older CPython installs working.
+ext_modules: list[object]
 if sys.implementation.name == "cpython" and sys.version_info >= (3, 11):
     from mypyc.build import mypycify
 
