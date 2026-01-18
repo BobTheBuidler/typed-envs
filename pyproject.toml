@@ -19,3 +19,8 @@ enable_error_code = [
   "unused-awaitable",
   "unused-ignore",
 ]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+ignore_missing_imports = true
+disallow_untyped_decorators = false
