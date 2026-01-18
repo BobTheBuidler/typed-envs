@@ -1,6 +1,11 @@
 from functools import lru_cache
-from typing import Any, ClassVar, Generic, Hashable, TypeVar, cast, final
+from typing import Any, ClassVar, Generic, TypeVar, cast, final
+from collections.abc import Hashable
 
+try:
+    from typing import override
+except ImportError:  # pragma: no cover - fallback for Python < 3.12
+    from typing_extensions import override
 
 T = TypeVar("T")
 
@@ -75,6 +80,7 @@ class EnvironmentVariable(Generic[T]):
             if str(e) != expected:
                 raise
 
+    @override
     def __str__(self) -> str:
         base_type = type(self).__args__
         string_from_base = base_type.__str__(self)
@@ -88,6 +94,7 @@ class EnvironmentVariable(Generic[T]):
             else string_from_base
         )
 
+    @override
     def __repr__(self) -> str:
         base_type = type(self).__args__
         if self._using_default:

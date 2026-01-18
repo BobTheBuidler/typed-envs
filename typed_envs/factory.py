@@ -38,7 +38,7 @@ class EnvVarFactory:
         env_var_name: str,
         env_var_type: type[T],
         default: Any,
-        *init_args,
+        *init_args: Any,
         string_converter: Optional[StringConverter] = None,
         verbose: bool = True,
         **init_kwargs: Any,
@@ -184,7 +184,7 @@ logger: Final[logging.Logger] = logging.getLogger("typed_envs")
 
 from typed_envs import ENVIRONMENT_VARIABLES
 
-if ENVIRONMENT_VARIABLES.SHUTUP:
+if bool(ENVIRONMENT_VARIABLES.SHUTUP):
     logger.disabled = True
 else:
     if not logger.hasHandlers():

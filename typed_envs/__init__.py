@@ -55,10 +55,10 @@ def create_env(
     name: str,
     typ: type[T],
     default: Any,
-    *init_args,
+    *init_args: Any,
     string_converter: Optional[StringConverter] = None,
     verbose: bool = True,
-    **init_kwargs
+    **init_kwargs: Any
 ) -> "EnvironmentVariable[T]":
     """
     Returns a new :class:`EnvironmentVariable` object with no prefix specified.
@@ -122,6 +122,7 @@ def create_env(
 
 __all__ = [
     "create_env",
+    "EnvironmentVariable",
     "EnvVarFactory",
     "ENVIRONMENT",
     "_ENVIRONMENT_VARIABLES_SET_BY_USER",

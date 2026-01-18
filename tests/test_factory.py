@@ -3,9 +3,9 @@ import pytest
 from typed_envs import EnvVarFactory
 
 
-def test_register_string_converter():
+def test_register_string_converter() -> None:
     class MyType:
-        def __init__(self, value: int): ...
+        def __init__(self, value: int) -> None: ...
 
     factory = EnvVarFactory("TEST")
     assert not factory.default_string_converters

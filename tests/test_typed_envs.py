@@ -5,7 +5,7 @@ import pytest
 from typed_envs import EnvironmentVariable, create_env
 
 
-def test_int_env():
+def test_int_env() -> None:
     """Test integer environment variable creation and operations.
 
     Verifies that the environment variable created using :func:`create_env` behaves
@@ -28,7 +28,7 @@ def test_int_env():
     env / 10
 
 
-def test_str_env():
+def test_str_env() -> None:
     """Test string environment variable creation and operations.
 
     Checks that the environment variable behaves like an instance of :class:`str`
@@ -56,7 +56,7 @@ def test_str_env():
     assert int(env) == 10
 
 
-def test_complex_env():
+def test_complex_env() -> None:
     """Test complex environment variable creation with custom type.
 
     Verifies that the environment variable created is an instance of
@@ -77,7 +77,7 @@ def test_complex_env():
     assert hasattr(env, "release")
 
 
-def test_bool_conversion():
+def test_bool_conversion() -> None:
     """Test boolean environment variable conversion behavior.
 
     Demonstrates that a boolean environment variable behaves like an :class:`int`
@@ -103,7 +103,7 @@ def test_bool_conversion():
 
 
 @pytest.mark.parametrize("value", ("0", "false", "False", "FALSE"))
-def test_falsey_bool_conversion(value):
+def test_falsey_bool_conversion(value: str) -> None:
     """Test boolean environment variable conversion behavior for falsey values.
 
     Demonstrates that falsey values are properly converted, the environment variable behaves
