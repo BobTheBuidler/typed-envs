@@ -4,7 +4,8 @@ from setuptools import find_packages, setup  # type: ignore[import-untyped]
 
 from typed_envs import description, description_addon
 
-if sys.implementation.name == "cpython":
+# Build mypyc extensions on 3.11+ to keep older CPython installs working.
+if sys.implementation.name == "cpython" and sys.version_info >= (3, 11):
     from mypyc.build import mypycify
 
     MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
