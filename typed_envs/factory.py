@@ -7,6 +7,7 @@ from typed_envs._env_var import EnvironmentVariable
 from typed_envs.registry import _register_new_env
 from typed_envs.typing import StringConverter, VarName
 
+
 T = TypeVar("T")
 
 
@@ -44,6 +45,15 @@ class EnvVarFactory:
     ) -> "EnvironmentVariable[T]":
         """
         Creates a new :class:`EnvironmentVariable` object with the specified parameters.
+
+        Typing note:
+            Mypy cannot natively model the dynamic subclass created by typed_envs.
+            If you want mypy to treat `EnvironmentVariable[T]` as having the methods
+            and attributes of both `EnvironmentVariable` and the underlying `T`,
+            enable the typed_envs mypy plugin in your config:
+
+            [mypy]
+            plugins = typed_envs.mypy_plugin
 
         Args:
             env_var_name: The name of the environment variable.
@@ -103,7 +113,7 @@ class EnvVarFactory:
             full_name = VarName(env_var_name)
 
         # Get value
-        var_value = os.environ.get(full_name)
+        var_value: Any = os.environ.get(full_name)
         using_default = var_value is None
         var_value = var_value or default
         if env_var_type is bool:

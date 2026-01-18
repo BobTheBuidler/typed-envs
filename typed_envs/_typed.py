@@ -3,6 +3,7 @@ from typing import Final, TypeVar
 
 from typed_envs._env_var import EnvironmentVariable
 
+
 T = TypeVar("T")
 
 
@@ -41,8 +42,9 @@ def build_subclass(type_arg: type[T]) -> type["EnvironmentVariable[T]"]:
         typed_cls_dict["__int__"] = __int__
     if hasattr(type_arg, "__annotations__"):
         typed_cls_dict["__annotations__"] = type_arg.__annotations__
-    if hasattr(type_arg, "__parameters__"):
-        typed_cls_dict["__parameters__"] = type_arg.__parameters__
+    parameters = getattr(type_arg, "__parameters__", None)
+    if parameters is not None:
+        typed_cls_dict["__parameters__"] = parameters
 
     try:
         return type(typed_cls_name, typed_cls_bases, typed_cls_dict)
