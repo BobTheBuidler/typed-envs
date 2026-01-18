@@ -2,7 +2,13 @@ import os
 import sys
 from setuptools import find_packages, setup  # type: ignore[import-untyped]
 
-from typed_envs import description, description_addon
+def _read_readme() -> str:
+    readme_path = os.path.join(os.path.dirname(__file__), "README.md")
+    try:
+        with open(readme_path, encoding="utf-8") as handle:
+            return handle.read()
+    except OSError:
+        return ""
 
 # Build mypyc extensions on 3.11+ to keep older CPython installs working.
 if sys.implementation.name == "cpython" and sys.version_info >= (3, 11):
@@ -45,8 +51,9 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries",
     ],
-    description=description,
-    long_description=description + description_addon,
+    description="Typed environment variables for python applications.",
+    long_description=_read_readme(),
+    long_description_content_type="text/markdown",
     python_requires=">=3.9,<4",
     packages=find_packages(),
     install_requires=["typing_extensions>=4.7"],
