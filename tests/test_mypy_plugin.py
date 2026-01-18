@@ -16,10 +16,14 @@ def _run_mypy(tmp_path: Path, source: str) -> tuple[str, str, int]:
     config_path = tmp_path / "mypy.ini"
 
     source_path.write_text(textwrap.dedent(source))
-    config_path.write_text(textwrap.dedent("""
+    config_path.write_text(
+        textwrap.dedent(
+            """
             [mypy]
             plugins = typed_envs.mypy_plugin
-            """).lstrip())
+            """
+        ).lstrip()
+    )
 
     prior_mypy_path = os.environ.get("MYPYPATH")
     prior_python_path = os.environ.get("PYTHONPATH")
@@ -67,6 +71,7 @@ def test_mypy_plugin_exhaustive_cases(tmp_path: Path) -> None:
     source = """
         import typed_envs
         from dataclasses import dataclass
+        from enum import Enum
         from typing import (
             Any,
             Annotated,
@@ -273,5 +278,41 @@ def test_mypy_plugin_exhaustive_cases(tmp_path: Path) -> None:
 
         takes_mapping(td_env)
         host_value = td_env["host"]
+
+        class Color(Enum):
+            RED = "red"
+            BLUE = "blue"
+
+        color_env = typed_envs.create_env("COLOR", Color, Color.RED)
+
+        def takes_color(x: Color) -> None:
+            print(x)
+
+        takes_color(color_env)
+        takes_str(color_env.name)
+        color_value = color_env.value
+
+        set_env: EnvironmentVariable[set[str]] = cast(
+            EnvironmentVariable[set[str]],
+            typed_envs.create_env("SET", set, {"a"}),
+        )
+        set_env.add("b")
+        for set_item in set_env:
+            takes_str(set_item)
+
+        int_type: type[int] = int
+        int_type_env = typed_envs.create_env("INT_TYPE", int_type, 1)
+        takes_int(int_type_env)
+
+        any_type: type[Any] = object
+        any_env2 = typed_envs.create_env("ANY2", any_type, object())
+        any_env2.any_attr.any_other_attr
+
+        maybe_env: EnvironmentVariable[int | None] = cast(
+            EnvironmentVariable[int | None],
+            typed_envs.create_env("MAYBE", int, 5),
+        )
+        if isinstance(maybe_env, int):
+            maybe_env.bit_length()
         """
     _assert_mypy_ok(tmp_path, source)

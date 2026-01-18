@@ -62,6 +62,7 @@ _CREATE_ENV_METHODS = {
 def _find_arg_type(
     ctx: FunctionContext | MethodContext, names: Iterable[str]
 ) -> Type | None:
+    """Return the first matching argument type by name from a call context."""
     for name in names:
         for index, callee_name in enumerate(ctx.callee_arg_names):
             if callee_name == name and ctx.arg_types[index]:
@@ -70,6 +71,7 @@ def _find_arg_type(
 
 
 def _class_arg_to_type(arg_type: Type) -> Type | None:
+    """Normalize a `type`-like argument into the instance type to intersect."""
     proper = get_proper_type(arg_type)
     if isinstance(proper, TypeType):
         return proper.item
@@ -102,6 +104,7 @@ def _class_arg_to_type(arg_type: Type) -> Type | None:
 
 
 def _envvar_type_key(env_arg: Type, base: Instance) -> str:
+    """Build a stable cache key for the synthetic env-var class."""
     payload = json.dumps(
         {"arg": env_arg.serialize(), "base": base.serialize()}, sort_keys=True
     )
@@ -109,6 +112,7 @@ def _envvar_type_key(env_arg: Type, base: Instance) -> str:
 
 
 def _typed_envvar_name(digest: str) -> str:
+    """Create a deterministic synthetic class name from the cache digest."""
     return f"EnvironmentVariable_{digest[:10]}"
 
 
@@ -141,6 +145,7 @@ class TypedEnvsPlugin(Plugin):
         return None
 
     def _env_var_type_analyze(self, ctx: AnalyzeTypeContext) -> Type:
+        """Rewrite EnvironmentVariable[T] as a composite type of T and EnvVar."""
         if len(ctx.type.args) != 1:
             return AnyType(TypeOfAny.special_form)
         analyzed = ctx.api.analyze_type(ctx.type.args[0])
@@ -152,6 +157,7 @@ class TypedEnvsPlugin(Plugin):
     def _envvar_intersection(
         self, api, arg: Type, env_var_instance: Instance | None = None
     ) -> Type:
+        """Return a type that behaves like both EnvironmentVariable and the base."""
         proper = get_proper_type(arg)
         if isinstance(proper, AnyType):
             return proper
@@ -196,6 +202,7 @@ class TypedEnvsPlugin(Plugin):
         return self._named_type(api, "typed_envs._env_var.EnvironmentVariable", [proper])
 
     def _fallback_instance(self, proper: Type) -> Instance | None:
+        """Extract a fallback Instance for Literal/Tuple/TypedDict-like inputs."""
         fallback = getattr(proper, "fallback", None)
         if isinstance(fallback, Instance):
             return fallback
@@ -211,6 +218,7 @@ class TypedEnvsPlugin(Plugin):
         base: Instance,
         env_var_instance: Instance | None = None,
     ) -> Instance:
+        """Create or reuse a cached synthetic TypeInfo for the env-var class."""
         if env_var_instance is None:
             env_var_instance = self._named_type(
                 api, "typed_envs._env_var.EnvironmentVariable", [env_arg]
@@ -237,6 +245,7 @@ class TypedEnvsPlugin(Plugin):
         return Instance(info, [])
 
     def _module_id(self, api, env_var_instance: Instance) -> str:
+        """Pick a module id suitable for registering synthetic types."""
         module_id = getattr(api, "cur_mod_id", None)
         if callable(module_id):
             module_id = module_id()
@@ -257,7 +266,23 @@ class TypedEnvsPlugin(Plugin):
     def _register_typeinfo(
         self, api, module_id: str, class_name: str, info: TypeInfo
     ) -> None:
+        """Register the synthetic class with mypy's symbol tables."""
         add_node = getattr(api, "add_symbol_table_node", None)
+        cur_mod_id = getattr(api, "cur_mod_id", None)
+        if callable(cur_mod_id):
+            cur_mod_id = cur_mod_id()
+        if not isinstance(cur_mod_id, str):
+            cur_mod_node = getattr(api, "cur_mod_node", None)
+            if callable(cur_mod_node):
+                cur_mod_node = cur_mod_node()
+            if cur_mod_node is not None:
+                fullname = getattr(cur_mod_node, "fullname", None)
+                if isinstance(fullname, str):
+                    cur_mod_id = fullname
+        if not isinstance(cur_mod_id, str):
+            cur_mod_id = getattr(api, "module_name", None)
+        if isinstance(cur_mod_id, str) and cur_mod_id != module_id:
+            add_node = None
         if callable(add_node):
             try:
                 add_node(class_name, SymbolTableNode(MDEF, info))
@@ -283,11 +308,13 @@ class TypedEnvsPlugin(Plugin):
                 module.names[class_name] = SymbolTableNode(MDEF, info)
 
     def _named_type(self, api, fullname: str, args: list[Type]) -> Instance:
+        """Compatibility wrapper for mypy's named type helpers."""
         if hasattr(api, "named_generic_type"):
             return api.named_generic_type(fullname, args)
         return api.named_type(fullname, args)
 
     def _extract_envvar_instance(self, typ: Type) -> Instance | None:
+        """Locate the EnvironmentVariable instance within a composite type."""
         proper = get_proper_type(typ)
         if not isinstance(proper, Instance):
             return None
@@ -299,6 +326,7 @@ class TypedEnvsPlugin(Plugin):
         return None
 
     def _create_env_function_hook(self, ctx: FunctionContext) -> Type:
+        """Compute return type for typed_envs.create_env calls."""
         arg_type = _find_arg_type(ctx, ("typ",))
         if arg_type is None:
             return ctx.default_return_type
@@ -316,6 +344,7 @@ class TypedEnvsPlugin(Plugin):
         return self._envvar_intersection(ctx.api, type_arg, env_var_instance)
 
     def _create_env_method_hook(self, ctx: MethodContext) -> Type:
+        """Compute return type for EnvVarFactory.create_env calls."""
         arg_type = _find_arg_type(ctx, ("env_var_type",))
         if arg_type is None:
             return ctx.default_return_type

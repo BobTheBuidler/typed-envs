@@ -44,3 +44,15 @@ of both `EnvironmentVariable` and its underlying `T` (including for
 [mypy]
 plugins = typed_envs.mypy_plugin
 ```
+
+For `pyproject.toml` users:
+
+```
+[tool.mypy]
+plugins = ["typed_envs.mypy_plugin"]
+```
+
+The plugin synthesizes a mypy-only class that inherits from both
+`EnvironmentVariable` and the underlying type, so you can call methods from
+either side without casts. It also preserves unions, optionals, and common
+typing constructs like `Annotated`, `TypedDict`, and `Literal`.
