@@ -949,7 +949,7 @@ CPyTagged CPyDef__typed_____int___3_build_subclass_obj_____call__(PyObject *cpy_
     CPyTagged cpy_r_r4;
     cpy_r_r0 = ((typed_envs____typed_____int___3_build_subclass_objObject *)cpy_r___mypyc_self__)->___mypyc_env__;
     if (unlikely(cpy_r_r0 == NULL)) {
-        CPy_AttributeError("typed_envs/_typed.py", "__int__", "__int___build_subclass_obj", "__mypyc_env__", 37, CPyStatic__typed___globals);
+        CPy_AttributeError("typed_envs/_typed.py", "__int__", "__int___build_subclass_obj", "__mypyc_env__", 36, CPyStatic__typed___globals);
         goto CPyL5;
     }
     CPy_INCREF_NO_IMM(cpy_r_r0);
@@ -1130,7 +1130,7 @@ PyObject *CPyDef__typed___build_subclass(PyObject *cpy_r_type_arg) {
     if (likely(PyUnicode_Check(cpy_r_r2)))
         cpy_r_r3 = cpy_r_r2;
     else {
-        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 26, CPyStatic__typed___globals, "str", cpy_r_r2);
+        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 25, CPyStatic__typed___globals, "str", cpy_r_r2);
         goto CPyL63;
     }
     cpy_r_r4 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ']' */
@@ -1185,7 +1185,7 @@ CPyL11: ;
     if (likely(PyUnicode_Check(cpy_r_r19)))
         cpy_r_r20 = cpy_r_r19;
     else {
-        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 31, CPyStatic__typed___globals, "str", cpy_r_r19);
+        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 30, CPyStatic__typed___globals, "str", cpy_r_r19);
         goto CPyL66;
     }
     cpy_r_r21 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__qualname__' */
@@ -1199,7 +1199,7 @@ CPyL11: ;
     if (likely(PyUnicode_Check(cpy_r_r24)))
         cpy_r_r25 = cpy_r_r24;
     else {
-        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 32, CPyStatic__typed___globals, "str", cpy_r_r24);
+        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 31, CPyStatic__typed___globals, "str", cpy_r_r24);
         goto CPyL67;
     }
     cpy_r_r26 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ']' */
@@ -1228,7 +1228,7 @@ CPyL11: ;
         cpy_r_r31 = NULL;
     }
     if (cpy_r_r31 != NULL) goto __LL2;
-    CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 33, CPyStatic__typed___globals, "str or None", cpy_r_r30);
+    CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 32, CPyStatic__typed___globals, "str or None", cpy_r_r30);
     goto CPyL68;
 __LL2: ;
     cpy_r_r32 = PyDict_New();
@@ -1308,7 +1308,7 @@ CPyL28: ;
     if (likely(PyDict_Check(cpy_r_r53)))
         cpy_r_r54 = cpy_r_r53;
     else {
-        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 44, CPyStatic__typed___globals, "dict", cpy_r_r53);
+        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 43, CPyStatic__typed___globals, "dict", cpy_r_r53);
         goto CPyL77;
     }
     cpy_r_r55 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* '__annotations__' */
@@ -1384,7 +1384,7 @@ CPyL37: ;
     if (likely(PyTuple_Check(cpy_r_r77)))
         cpy_r_r78 = cpy_r_r77;
     else {
-        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 52, CPyStatic__typed___globals, "tuple", cpy_r_r77);
+        CPy_TypeErrorTraceback("typed_envs/_typed.py", "build_subclass", 51, CPyStatic__typed___globals, "tuple", cpy_r_r77);
         goto CPyL80;
     }
     cpy_r_r79 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'bases: ' */
