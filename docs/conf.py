@@ -9,7 +9,6 @@
 import os
 import sys
 
-
 project = "typed-envs"
 copyright = "2024, BobTheBuidler"
 author = "BobTheBuidler"
