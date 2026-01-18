@@ -16,14 +16,10 @@ def _run_mypy(tmp_path: Path, source: str) -> tuple[str, str, int]:
     config_path = tmp_path / "mypy.ini"
 
     source_path.write_text(textwrap.dedent(source))
-    config_path.write_text(
-        textwrap.dedent(
-            """
+    config_path.write_text(textwrap.dedent("""
             [mypy]
             plugins = typed_envs.mypy_plugin
-            """
-        ).lstrip()
-    )
+            """).lstrip())
 
     prior_mypy_path = os.environ.get("MYPYPATH")
     prior_python_path = os.environ.get("PYTHONPATH")

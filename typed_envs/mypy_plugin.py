@@ -44,7 +44,6 @@ from mypy.types import (
     get_proper_type,
 )
 
-
 _ENV_VAR_TYPES = {
     "typed_envs.EnvironmentVariable",
     "typed_envs._env_var.EnvironmentVariable",
