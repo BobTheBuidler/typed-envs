@@ -48,6 +48,7 @@ setup(
     long_description=description + description_addon,
     python_requires=">=3.9,<4",
     packages=find_packages(),
+    install_requires=["typing_extensions>=4.7"],
     package_data={"typed_envs": ["py.typed"]},
     include_package_data=True,
     ext_modules=ext_modules,
