@@ -7,7 +7,6 @@ try:
 except ImportError:  # pragma: no cover - fallback for Python < 3.12
     from typing_extensions import override
 
-
 T = TypeVar("T")
 
 
