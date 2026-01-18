@@ -20,6 +20,14 @@ typed\_envs.factory module
    :show-inheritance:
    :undoc-members:
 
+typed\_envs.mypy\_plugin module
+-------------------------------
+
+.. automodule:: typed_envs.mypy_plugin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 typed\_envs.registry module
 ---------------------------
 

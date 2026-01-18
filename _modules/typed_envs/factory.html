@@ -42,6 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">typed_envs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin.html">Mypy Plugin</a></li>
 </ul>
 
         </div>
@@ -78,6 +79,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typed_envs._env_var</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnvironmentVariable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typed_envs.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">_register_new_env</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typed_envs.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringConverter</span><span class="p">,</span> <span class="n">VarName</span>
+
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
 
@@ -123,6 +125,15 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;EnvironmentVariable[T]&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new :class:`EnvironmentVariable` object with the specified parameters.</span>
+
+<span class="sd">        Typing note:</span>
+<span class="sd">            Mypy cannot natively model the dynamic subclass created by typed_envs.</span>
+<span class="sd">            If you want mypy to treat `EnvironmentVariable[T]` as having the methods</span>
+<span class="sd">            and attributes of both `EnvironmentVariable` and the underlying `T`,</span>
+<span class="sd">            enable the typed_envs mypy plugin in your config:</span>
+
+<span class="sd">            [mypy]</span>
+<span class="sd">            plugins = typed_envs.mypy_plugin</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            env_var_name: The name of the environment variable.</span>
@@ -182,7 +193,7 @@
             <span class="n">full_name</span> <span class="o">=</span> <span class="n">VarName</span><span class="p">(</span><span class="n">env_var_name</span><span class="p">)</span>
 
         <span class="c1"># Get value</span>
-        <span class="n">var_value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
+        <span class="n">var_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
         <span class="n">using_default</span> <span class="o">=</span> <span class="n">var_value</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="n">var_value</span> <span class="o">=</span> <span class="n">var_value</span> <span class="ow">or</span> <span class="n">default</span>
         <span class="k">if</span> <span class="n">env_var_type</span> <span class="ow">is</span> <span class="nb">bool</span><span class="p">:</span>

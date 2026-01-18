@@ -19,6 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mypy Plugin" href="../plugin.html" />
     <link rel="prev" title="typed_envs" href="modules.html" /> 
 </head>
 
@@ -52,6 +53,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#typed_envs.factory.__annotate__"><code class="docutils literal notranslate"><span class="pre">__annotate__()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#typed-envs-mypy-plugin-module">typed_envs.mypy_plugin module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-typed_envs.registry">typed_envs.registry module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-typed_envs.typing">typed_envs.typing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-typed_envs">Module contents</a><ul>
@@ -63,6 +65,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../plugin.html">Mypy Plugin</a></li>
 </ul>
 
         </div>
@@ -123,6 +126,15 @@
 <dt class="sig sig-object py" id="typed_envs.factory.EnvVarFactory.create_env">
 <span class="sig-name descname"><span class="pre">create_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_var_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_var_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">init_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string_converter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">init_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/typed_envs/factory.html#EnvVarFactory.create_env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#typed_envs.factory.EnvVarFactory.create_env" title="Link to this definition"></a></dt>
 <dd><p>Creates a new <code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentVariable</span></code> object with the specified parameters.</p>
+<dl>
+<dt>Typing note:</dt><dd><p>Mypy cannot natively model the dynamic subclass created by typed_envs.
+If you want mypy to treat <cite>EnvironmentVariable[T]</cite> as having the methods
+and attributes of both <cite>EnvironmentVariable</cite> and the underlying <cite>T</cite>,
+enable the typed_envs mypy plugin in your config:</p>
+<p>[mypy]
+plugins = typed_envs.mypy_plugin</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -194,12 +206,12 @@ some_var = factory.create_env(“SET_WITH_THIS_ENV”, int, 10)</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="typed_envs.factory.EnvVarFactory.__dict__">
-<span class="sig-name descname"><span class="pre">__dict__</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'typed_envs.factory',</span> <span class="pre">'__firstlineno__':</span> <span class="pre">13,</span> <span class="pre">'__doc__':</span> <span class="pre">'Factory</span> <span class="pre">for</span> <span class="pre">creating</span> <span class="pre">:class:`EnvironmentVariable`</span> <span class="pre">instances</span> <span class="pre">with</span> <span class="pre">optional</span> <span class="pre">prefix.',</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.__init__&gt;,</span> <span class="pre">'default_string_converters':</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;,</span> <span class="pre">'use_prefix':</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;,</span> <span class="pre">'create_env':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.create_env&gt;,</span> <span class="pre">'register_string_converter':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.register_string_converter&gt;,</span> <span class="pre">'__static_attributes__':</span> <span class="pre">('__default_string_converters',</span> <span class="pre">'__use_prefix',</span> <span class="pre">'prefix'),</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'EnvVarFactory'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'EnvVarFactory'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__annotations_cache__':</span> <span class="pre">{'prefix':</span> <span class="pre">'Final',</span> <span class="pre">'__use_prefix':</span> <span class="pre">'Final',</span> <span class="pre">'__default_string_converters':</span> <span class="pre">'Final[dict[type,</span> <span class="pre">StringConverter]]'}})</span></span><a class="headerlink" href="#typed_envs.factory.EnvVarFactory.__dict__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__dict__</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'typed_envs.factory',</span> <span class="pre">'__firstlineno__':</span> <span class="pre">14,</span> <span class="pre">'__doc__':</span> <span class="pre">'Factory</span> <span class="pre">for</span> <span class="pre">creating</span> <span class="pre">:class:`EnvironmentVariable`</span> <span class="pre">instances</span> <span class="pre">with</span> <span class="pre">optional</span> <span class="pre">prefix.',</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.__init__&gt;,</span> <span class="pre">'default_string_converters':</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;,</span> <span class="pre">'use_prefix':</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;,</span> <span class="pre">'create_env':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.create_env&gt;,</span> <span class="pre">'register_string_converter':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.register_string_converter&gt;,</span> <span class="pre">'__static_attributes__':</span> <span class="pre">('__default_string_converters',</span> <span class="pre">'__use_prefix',</span> <span class="pre">'prefix'),</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'EnvVarFactory'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'EnvVarFactory'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__annotations_cache__':</span> <span class="pre">{'prefix':</span> <span class="pre">'Final',</span> <span class="pre">'__use_prefix':</span> <span class="pre">'Final',</span> <span class="pre">'__default_string_converters':</span> <span class="pre">'Final[dict[type,</span> <span class="pre">StringConverter]]'}})</span></span><a class="headerlink" href="#typed_envs.factory.EnvVarFactory.__dict__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="typed_envs.factory.EnvVarFactory.__firstlineno__">
-<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></span><a class="headerlink" href="#typed_envs.factory.EnvVarFactory.__firstlineno__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></span><a class="headerlink" href="#typed_envs.factory.EnvVarFactory.__firstlineno__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -236,6 +248,9 @@ some_var = factory.create_env(“SET_WITH_THIS_ENV”, int, 10)</p>
 <dd></dd></dl>
 
 </section>
+<section id="typed-envs-mypy-plugin-module">
+<h2>typed_envs.mypy_plugin module<a class="headerlink" href="#typed-envs-mypy-plugin-module" title="Link to this heading"></a></h2>
+</section>
 <section id="module-typed_envs.registry">
 <span id="typed-envs-registry-module"></span><h2>typed_envs.registry module<a class="headerlink" href="#module-typed_envs.registry" title="Link to this heading"></a></h2>
 </section>
@@ -267,6 +282,15 @@ some_var = factory.create_env(“SET_WITH_THIS_ENV”, int, 10)</p>
 <dt class="sig sig-object py" id="typed_envs.EnvVarFactory.create_env">
 <span class="sig-name descname"><span class="pre">create_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_var_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_var_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">init_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string_converter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">init_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/typed_envs/factory.html#EnvVarFactory.create_env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#typed_envs.EnvVarFactory.create_env" title="Link to this definition"></a></dt>
 <dd><p>Creates a new <code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentVariable</span></code> object with the specified parameters.</p>
+<dl>
+<dt>Typing note:</dt><dd><p>Mypy cannot natively model the dynamic subclass created by typed_envs.
+If you want mypy to treat <cite>EnvironmentVariable[T]</cite> as having the methods
+and attributes of both <cite>EnvironmentVariable</cite> and the underlying <cite>T</cite>,
+enable the typed_envs mypy plugin in your config:</p>
+<p>[mypy]
+plugins = typed_envs.mypy_plugin</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -343,12 +367,12 @@ some_var = factory.create_env(“SET_WITH_THIS_ENV”, int, 10)</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="typed_envs.EnvVarFactory.__dict__">
-<span class="sig-name descname"><span class="pre">__dict__</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'typed_envs.factory',</span> <span class="pre">'__firstlineno__':</span> <span class="pre">13,</span> <span class="pre">'__doc__':</span> <span class="pre">'Factory</span> <span class="pre">for</span> <span class="pre">creating</span> <span class="pre">:class:`EnvironmentVariable`</span> <span class="pre">instances</span> <span class="pre">with</span> <span class="pre">optional</span> <span class="pre">prefix.',</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.__init__&gt;,</span> <span class="pre">'default_string_converters':</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;,</span> <span class="pre">'use_prefix':</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;,</span> <span class="pre">'create_env':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.create_env&gt;,</span> <span class="pre">'register_string_converter':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.register_string_converter&gt;,</span> <span class="pre">'__static_attributes__':</span> <span class="pre">('__default_string_converters',</span> <span class="pre">'__use_prefix',</span> <span class="pre">'prefix'),</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'EnvVarFactory'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'EnvVarFactory'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__annotations_cache__':</span> <span class="pre">{'prefix':</span> <span class="pre">'Final',</span> <span class="pre">'__use_prefix':</span> <span class="pre">'Final',</span> <span class="pre">'__default_string_converters':</span> <span class="pre">'Final[dict[type,</span> <span class="pre">StringConverter]]'}})</span></span><a class="headerlink" href="#typed_envs.EnvVarFactory.__dict__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__dict__</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'typed_envs.factory',</span> <span class="pre">'__firstlineno__':</span> <span class="pre">14,</span> <span class="pre">'__doc__':</span> <span class="pre">'Factory</span> <span class="pre">for</span> <span class="pre">creating</span> <span class="pre">:class:`EnvironmentVariable`</span> <span class="pre">instances</span> <span class="pre">with</span> <span class="pre">optional</span> <span class="pre">prefix.',</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.__init__&gt;,</span> <span class="pre">'default_string_converters':</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;,</span> <span class="pre">'use_prefix':</span> <span class="pre">&lt;property</span> <span class="pre">object&gt;,</span> <span class="pre">'create_env':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.create_env&gt;,</span> <span class="pre">'register_string_converter':</span> <span class="pre">&lt;function</span> <span class="pre">EnvVarFactory.register_string_converter&gt;,</span> <span class="pre">'__static_attributes__':</span> <span class="pre">('__default_string_converters',</span> <span class="pre">'__use_prefix',</span> <span class="pre">'prefix'),</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'EnvVarFactory'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'EnvVarFactory'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__annotations_cache__':</span> <span class="pre">{'prefix':</span> <span class="pre">'Final',</span> <span class="pre">'__use_prefix':</span> <span class="pre">'Final',</span> <span class="pre">'__default_string_converters':</span> <span class="pre">'Final[dict[type,</span> <span class="pre">StringConverter]]'}})</span></span><a class="headerlink" href="#typed_envs.EnvVarFactory.__dict__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="typed_envs.EnvVarFactory.__firstlineno__">
-<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></span><a class="headerlink" href="#typed_envs.EnvVarFactory.__firstlineno__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></span><a class="headerlink" href="#typed_envs.EnvVarFactory.__firstlineno__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -397,6 +421,7 @@ some_var = factory.create_env(“SET_WITH_THIS_ENV”, int, 10)</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="modules.html" class="btn btn-neutral float-left" title="typed_envs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../plugin.html" class="btn btn-neutral float-right" title="Mypy Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
