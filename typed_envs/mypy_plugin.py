@@ -20,11 +20,20 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Callable, Iterable
+from typing import Callable, Iterable, Union, cast
 
 from mypy.mro import MroError, calculate_mro
 from mypy.nodes import Block, ClassDef, SymbolTable, SymbolTableNode, TypeInfo, MDEF
-from mypy.plugin import AnalyzeTypeContext, FunctionContext, MethodContext, Plugin
+from mypy.options import Options
+from mypy.plugin import (
+    AnalyzeTypeContext,
+    CheckerPluginInterface,
+    FunctionContext,
+    MethodContext,
+    Plugin,
+    SemanticAnalyzerPluginInterface,
+    TypeAnalyzerPluginInterface,
+)
 from mypy.types import (
     AnyType,
     CallableType,
@@ -42,6 +51,7 @@ from mypy.types import (
     UninhabitedType,
     get_proper_type,
 )
+from typing_extensions import override
 
 
 _ENV_VAR_TYPES = {
@@ -58,6 +68,11 @@ _CREATE_ENV_METHODS = {
     "typed_envs.EnvVarFactory.create_env",
 }
 
+PluginApi = Union[
+    CheckerPluginInterface,
+    SemanticAnalyzerPluginInterface,
+    TypeAnalyzerPluginInterface,
+]
 
 def _find_arg_type(
     ctx: FunctionContext | MethodContext, names: Iterable[str]
@@ -84,9 +99,7 @@ def _class_arg_to_type(arg_type: Type) -> Type | None:
     if isinstance(proper, CallableType):
         return proper.ret_type
     if isinstance(proper, Overloaded):
-        overload_items = (
-            proper.items if isinstance(proper.items, list) else proper.items()
-        )
+        overload_items = proper.items
         ret_types = [item.ret_type for item in overload_items]
         first = ret_types[0]
         if all(ret == first for ret in ret_types[1:]):
@@ -119,10 +132,11 @@ def _typed_envvar_name(digest: str) -> str:
 class TypedEnvsPlugin(Plugin):
     """Plugin that maps EnvironmentVariable[T] to an intersection of T and EnvironmentVariable."""
 
-    def __init__(self, options) -> None:
+    def __init__(self, options: Options) -> None:
         super().__init__(options)
         self._envvar_cache: dict[str, TypeInfo] = {}
 
+    @override
     def get_function_hook(
         self, fullname: str
     ) -> Callable[[FunctionContext], Type] | None:
@@ -130,6 +144,7 @@ class TypedEnvsPlugin(Plugin):
             return self._create_env_function_hook
         return None
 
+    @override
     def get_method_hook(
         self, fullname: str
     ) -> Callable[[MethodContext], Type] | None:
@@ -137,6 +152,7 @@ class TypedEnvsPlugin(Plugin):
             return self._create_env_method_hook
         return None
 
+    @override
     def get_type_analyze_hook(
         self, fullname: str
     ) -> Callable[[AnalyzeTypeContext], Type] | None:
@@ -155,7 +171,7 @@ class TypedEnvsPlugin(Plugin):
         return result
 
     def _envvar_intersection(
-        self, api, arg: Type, env_var_instance: Instance | None = None
+        self, api: PluginApi, arg: Type, env_var_instance: Instance | None = None
     ) -> Type:
         """Return a type that behaves like both EnvironmentVariable and the base."""
         proper = get_proper_type(arg)
@@ -213,7 +229,7 @@ class TypedEnvsPlugin(Plugin):
 
     def _build_envvar_instance(
         self,
-        api,
+        api: PluginApi,
         env_arg: Type,
         base: Instance,
         env_var_instance: Instance | None = None,
@@ -244,7 +260,7 @@ class TypedEnvsPlugin(Plugin):
             self._envvar_cache[key] = info
         return Instance(info, [])
 
-    def _module_id(self, api, env_var_instance: Instance) -> str:
+    def _module_id(self, api: PluginApi, env_var_instance: Instance) -> str:
         """Pick a module id suitable for registering synthetic types."""
         module_id = getattr(api, "cur_mod_id", None)
         if callable(module_id):
@@ -264,7 +280,7 @@ class TypedEnvsPlugin(Plugin):
         return env_var_instance.type.module_name
 
     def _register_typeinfo(
-        self, api, module_id: str, class_name: str, info: TypeInfo
+        self, api: PluginApi, module_id: str, class_name: str, info: TypeInfo
     ) -> None:
         """Register the synthetic class with mypy's symbol tables."""
         add_node = getattr(api, "add_symbol_table_node", None)
@@ -307,11 +323,15 @@ class TypedEnvsPlugin(Plugin):
             if module is not None and class_name not in module.names:
                 module.names[class_name] = SymbolTableNode(MDEF, info)
 
-    def _named_type(self, api, fullname: str, args: list[Type]) -> Instance:
+    def _named_type(self, api: PluginApi, fullname: str, args: list[Type]) -> Instance:
         """Compatibility wrapper for mypy's named type helpers."""
-        if hasattr(api, "named_generic_type"):
-            return api.named_generic_type(fullname, args)
-        return api.named_type(fullname, args)
+        named_generic_type = getattr(api, "named_generic_type", None)
+        if callable(named_generic_type):
+            return cast(Instance, named_generic_type(fullname, args))
+        named_type = getattr(api, "named_type", None)
+        if callable(named_type):
+            return cast(Instance, named_type(fullname, args))
+        raise AssertionError("Plugin API missing named_type")
 
     def _extract_envvar_instance(self, typ: Type) -> Instance | None:
         """Locate the EnvironmentVariable instance within a composite type."""

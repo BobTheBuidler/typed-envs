@@ -1,11 +1,8 @@
+from collections.abc import Hashable
 from functools import lru_cache
 from typing import Any, ClassVar, Generic, TypeVar, cast, final
-from collections.abc import Hashable
 
-try:
-    from typing import override
-except ImportError:  # pragma: no cover - fallback for Python < 3.12
-    from typing_extensions import override
+from typing_extensions import override
 
 T = TypeVar("T")
 
