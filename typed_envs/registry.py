@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Final
 
 from typed_envs._env_var import EnvironmentVariable
