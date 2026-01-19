@@ -4,10 +4,13 @@ from setuptools import find_packages, setup
 
 from typed_envs import description, description_addon
 
+VERSION = "0.2.3"
+PYTHON_REQUIRES = ">=3.10,<4"
+
+MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
+
 if sys.implementation.name == "cpython":
     from mypyc.build import mypycify
-
-    MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
 
     paths_to_compile = [
         "typed_envs/__init__.py",
@@ -27,7 +30,7 @@ else:
 
 setup(
     name="typed_envs",
-    version="0.2.3",
+    version=VERSION,
     url="https://github.com/BobTheBuidler/typed-envs",
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
@@ -35,7 +38,6 @@ setup(
     classifiers=[
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
@@ -46,7 +48,7 @@ setup(
     ],
     description=description,
     long_description=description + description_addon,
-    python_requires=">=3.9,<4",
+    python_requires=PYTHON_REQUIRES,
     packages=find_packages(),
     package_data={"typed_envs": ["py.typed"]},
     include_package_data=True,
