@@ -10,9 +10,9 @@ def _read_readme() -> str:
     except OSError:
         return ""
 
-# Build mypyc extensions on 3.11+ to keep older CPython installs working.
+
 ext_modules: list[object]
-if sys.implementation.name == "cpython" and sys.version_info >= (3, 11):
+if sys.implementation.name == "cpython":
     from mypyc.build import mypycify
 
     MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
