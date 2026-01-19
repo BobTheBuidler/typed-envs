@@ -35,7 +35,7 @@ else:
 
 setup(
     name="typed_envs",
-    version="0.2.3",
+    version="0.2.4",
     url="https://github.com/BobTheBuidler/typed-envs",
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
