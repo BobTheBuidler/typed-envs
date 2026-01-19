@@ -21,6 +21,9 @@ def _run_mypy(tmp_path: Path, source: str) -> tuple[str, str, int]:
             """
             [mypy]
             plugins = typed_envs.mypy_plugin
+
+            [mypy-typed_envs.*]
+            ignore_errors = True
             """
         ).lstrip()
     )
@@ -81,9 +84,11 @@ def test_mypy_plugin_exhaustive_cases(tmp_path: Path) -> None:
             Literal,
             Mapping,
             NewType,
+            Optional,
             Protocol,
             TypeVar,
             TypedDict,
+            Union,
             cast,
         )
 
@@ -100,7 +105,7 @@ def test_mypy_plugin_exhaustive_cases(tmp_path: Path) -> None:
         def takes_str(x: str) -> None:
             print(x)
 
-        def takes_union(x: int | str) -> None:
+        def takes_union(x: Union[int, str]) -> None:
             print(x)
 
         explicit.bit_length()
@@ -169,8 +174,8 @@ def test_mypy_plugin_exhaustive_cases(tmp_path: Path) -> None:
             return await await_env
 
         flag = True
-        env_type: type[int] | type[str] = int if flag else str
-        default: int | str = 0 if flag else "ok"
+        env_type: Union[type[int], type[str]] = int if flag else str
+        default: Union[int, str] = 0 if flag else "ok"
         env_union = typed_envs.create_env("UNION", env_type, default)
 
         takes_union(env_union)
@@ -180,7 +185,7 @@ def test_mypy_plugin_exhaustive_cases(tmp_path: Path) -> None:
             env_union.upper()
 
         opt_env = cast(
-            EnvironmentVariable[int] | None,
+            Optional[EnvironmentVariable[int]],
             typed_envs.create_env("OPT", int, 1),
         )
         if opt_env is not None:
@@ -308,8 +313,8 @@ def test_mypy_plugin_exhaustive_cases(tmp_path: Path) -> None:
         any_env2 = typed_envs.create_env("ANY2", any_type, object())
         any_env2.any_attr.any_other_attr
 
-        maybe_env: EnvironmentVariable[int | None] = cast(
-            EnvironmentVariable[int | None],
+        maybe_env: EnvironmentVariable[Optional[int]] = cast(
+            EnvironmentVariable[Optional[int]],
             typed_envs.create_env("MAYBE", int, 5),
         )
         if isinstance(maybe_env, int):
