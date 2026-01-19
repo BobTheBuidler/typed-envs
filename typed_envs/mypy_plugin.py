@@ -165,7 +165,13 @@ class TypedEnvsPlugin(Plugin):
         if len(ctx.type.args) != 1:
             return AnyType(TypeOfAny.special_form)
         analyzed = ctx.api.analyze_type(ctx.type.args[0])
-        result = self._envvar_intersection(ctx.api, analyzed)
+        result: Type
+        if self._is_internal_module(ctx.api):
+            result = self._named_type(
+                ctx.api, "typed_envs._env_var.EnvironmentVariable", [analyzed]
+            )
+        else:
+            result = self._envvar_intersection(ctx.api, analyzed)
         if ctx.type.optional:
             return UnionType.make_union([result, NoneType()])
         return result
@@ -332,6 +338,15 @@ class TypedEnvsPlugin(Plugin):
         if callable(named_type):
             return cast(Instance, named_type(fullname, args))
         raise AssertionError("Plugin API missing named_type")
+
+    def _is_internal_module(self, api: PluginApi) -> bool:
+        """Check whether mypy is analyzing typed_envs itself."""
+        module_id = getattr(api, "cur_mod_id", None)
+        if callable(module_id):
+            module_id = module_id()
+        if not isinstance(module_id, str):
+            module_id = getattr(api, "module_name", None)
+        return isinstance(module_id, str) and module_id.startswith("typed_envs")
 
     def _extract_envvar_instance(self, typ: Type) -> Optional[Instance]:
         """Locate the EnvironmentVariable instance within a composite type."""
