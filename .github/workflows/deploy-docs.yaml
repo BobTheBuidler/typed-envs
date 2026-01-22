@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - master
+    paths:
+      - ".github/workflows/deploy-docs.yaml"
+      - "docs/**"
+      - "typed_envs/**"
+      - "README.md"
+      - "Makefile"
+      - "pyproject.toml"
+      - "setup.py"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -28,6 +36,10 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.14'
+          cache: "pip"
+          cache-dependency-path: |
+            pyproject.toml
+            setup.py
 
       - name: Install dependencies
         run: |
