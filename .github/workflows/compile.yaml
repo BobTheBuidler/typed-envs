@@ -4,6 +4,12 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+      - '**.py'
+      - '!tests/*'
+      - '.github/workflows/compile.yaml'
+      - 'pyproject.toml'
+      - 'setup.py'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
