@@ -13,5 +13,6 @@ All agents must follow these rules:
 7) Update dependency lockfiles when adding or removing Python dependencies.
 8) If the repo uses mypyc, verify tests run against compiled extensions (not interpreted Python) and note how you confirmed.
 9) If the branch you're assigned to work on is from a remote (ie origin/master or upstream/awesome-feature) you must ensure you fetch and pull from the remote before you begin your work.
+10) All mypy configuration (flags, overrides, per-module ignores, and file targets) should go in pyproject.toml. Do not split config across CLI args, mypy.ini, setup.cfg, or workflow steps.
 
 Reference: https://www.conventionalcommits.org/en/v1.0.0/
