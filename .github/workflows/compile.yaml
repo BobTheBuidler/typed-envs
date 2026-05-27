@@ -4,6 +4,12 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+      - '**.py'
+      - '!tests/*'
+      - '.github/workflows/compile.yaml'
+      - 'pyproject.toml'
+      - 'setup.py'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -31,15 +37,19 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.14"
+          cache: "pip"
+          cache-dependency-path: |
+            pyproject.toml
+            setup.py
 
       - name: Mypycify
-        uses: BobTheBuidler/mypycify@v0.3.2
+        uses: BobTheBuidler/mypycify@v0.4.0
         with:
           python-version: "3.14"
           hash-key: |
             pyproject.toml
             setup.py
-            ypricemagic/**/*.py
+            typed_envs/**/*.py
           pip-cache-dependency-path: |
             pyproject.toml
             requirements.txt

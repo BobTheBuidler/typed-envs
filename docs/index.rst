@@ -11,6 +11,7 @@ Welcome to typed-envs's documentation!
    :caption: Contents:
 
    source/modules.rst
+   plugin
 
 Indices and tables
 ==================

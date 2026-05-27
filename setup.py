@@ -1,14 +1,22 @@
 import os
 import sys
-from setuptools import find_packages, setup
+from setuptools import find_packages, setup  # type: ignore[import-untyped]
 
-from typed_envs import description, description_addon
+def _read_readme() -> str:
+    readme_path = os.path.join(os.path.dirname(__file__), "README.md")
+    try:
+        with open(readme_path, encoding="utf-8") as handle:
+            return handle.read()
+    except OSError:
+        return ""
 
-VERSION = "0.2.3"
+VERSION = "0.2.4"
 PYTHON_REQUIRES = ">=3.10,<4"
 
 MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
 
+
+ext_modules: list[object]
 if sys.implementation.name == "cpython":
     from mypyc.build import mypycify
 
@@ -46,10 +54,12 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries",
     ],
-    description=description,
-    long_description=description + description_addon,
+    description="Typed environment variables for python applications.",
+    long_description=_read_readme(),
+    long_description_content_type="text/markdown",
     python_requires=PYTHON_REQUIRES,
     packages=find_packages(),
+    install_requires=["typing_extensions>=4.7"],
     package_data={"typed_envs": ["py.typed"]},
     include_package_data=True,
     ext_modules=ext_modules,

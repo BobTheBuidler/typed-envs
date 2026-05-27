@@ -55,15 +55,24 @@ def create_env(
     name: str,
     typ: type[T],
     default: Any,
-    *init_args,
+    *init_args: Any,
     string_converter: Optional[StringConverter] = None,
     verbose: bool = True,
-    **init_kwargs
+    **init_kwargs: Any
 ) -> "EnvironmentVariable[T]":
     """
     Returns a new :class:`EnvironmentVariable` object with no prefix specified.
 
     Functionally, :class:`EnvironmentVariable` objects will work exactly the same as any instance of specified `typ`.
+
+    Typing note:
+        Mypy cannot natively model the dynamic subclass created by typed_envs.
+        If you want mypy to treat `EnvironmentVariable[T]` as having the methods
+        and attributes of both `EnvironmentVariable` and the underlying `T`,
+        enable the typed_envs mypy plugin in your config:
+
+        [mypy]
+        plugins = typed_envs.mypy_plugin
 
     Args:
         name: The name of the environment variable.
@@ -113,6 +122,7 @@ def create_env(
 
 __all__ = [
     "create_env",
+    "EnvironmentVariable",
     "EnvVarFactory",
     "ENVIRONMENT",
     "_ENVIRONMENT_VARIABLES_SET_BY_USER",

@@ -1,4 +1,6 @@
-from typing import Final
+from __future__ import annotations
+
+from typing import Any, Final
 
 from typed_envs._env_var import EnvironmentVariable
 from typed_envs.typing import EnvRegistry, VarName
@@ -8,7 +10,7 @@ _ENVIRONMENT_VARIABLES_SET_BY_USER: Final[EnvRegistry] = EnvRegistry({})
 _ENVIRONMENT_VARIABLES_USING_DEFAULTS: Final[EnvRegistry] = EnvRegistry({})
 
 
-def _register_new_env(name: VarName, instance: EnvironmentVariable) -> None:
+def _register_new_env(name: VarName, instance: EnvironmentVariable[Any]) -> None:
     ENVIRONMENT[name] = instance
     if instance._using_default:
         _ENVIRONMENT_VARIABLES_USING_DEFAULTS[name] = instance
