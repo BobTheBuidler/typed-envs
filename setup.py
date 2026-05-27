@@ -10,7 +10,7 @@ def _read_readme() -> str:
     except OSError:
         return ""
 
-VERSION = "0.2.4"
+VERSION = "0.2.5"
 PYTHON_REQUIRES = ">=3.10,<4"
 
 MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
