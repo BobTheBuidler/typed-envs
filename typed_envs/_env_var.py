@@ -120,7 +120,7 @@ class EnvironmentVariable(Generic[T]):
             return _build_subclass(type_arg)  # type: ignore [arg-type]
         return cast(
             type["EnvironmentVariable[T]"],
-            super().__class_getitem__(type_arg),  # type: ignore [misc]
+            super().__class_getitem__(type_arg),
         )
 
     # helpers for mypy
