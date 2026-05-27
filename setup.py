@@ -10,12 +10,15 @@ def _read_readme() -> str:
     except OSError:
         return ""
 
+VERSION = "0.2.4"
+PYTHON_REQUIRES = ">=3.10,<4"
+
+MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
+
 
 ext_modules: list[object]
 if sys.implementation.name == "cpython":
     from mypyc.build import mypycify
-
-    MYPYC_DEBUG_LEVEL = os.environ.get("MYPYC_DEBUG_LEVEL", "0")
 
     paths_to_compile = [
         "typed_envs/__init__.py",
@@ -35,7 +38,7 @@ else:
 
 setup(
     name="typed_envs",
-    version="0.2.4",
+    version=VERSION,
     url="https://github.com/BobTheBuidler/typed-envs",
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
@@ -43,7 +46,6 @@ setup(
     classifiers=[
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
@@ -55,7 +57,7 @@ setup(
     description="Typed environment variables for python applications.",
     long_description=_read_readme(),
     long_description_content_type="text/markdown",
-    python_requires=">=3.9,<4",
+    python_requires=PYTHON_REQUIRES,
     packages=find_packages(),
     install_requires=["typing_extensions>=4.7"],
     package_data={"typed_envs": ["py.typed"]},
