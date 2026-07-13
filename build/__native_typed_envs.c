@@ -480,8 +480,7 @@ CPyL3: ;
     CPy_INCREF(CPyModule_typed_envs___registry);
     CPy_DECREF(cpy_r_r30);
 CPyL11: ;
-    cpy_r_r31 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('ENVIRONMENT', '_ENVIRONMENT_VARIABLES_SET_BY_USER',
-                                   '_ENVIRONMENT_VARIABLES_USING_DEFAULTS') */
+    cpy_r_r31 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('ENVIRONMENT', '_ENVIRONMENT_VARIABLES_SET_BY_USER', '_ENVIRONMENT_VARIABLES_USING_DEFAULTS') */
     cpy_r_r32 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'typed_envs.registry' */
     cpy_r_r33 = CPyStatic_typed_envs___globals;
     cpy_r_r34 = CPyImport_GetNativeAttrs(cpy_r_r32, cpy_r_r31, cpy_r_r31, cpy_r_r33);
@@ -534,17 +533,7 @@ CPyL17: ;
     } else
         goto CPyL30;
 CPyL18: ;
-    cpy_r_r53 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('typed_envs is used to create specialized '
-                                   '`EnvironmentVariable` objects that behave exactly the '
-                                   'same as any other instance of the `typ` used to create '
-                                   'them.\n'
-                                   '\n'
-                                   'typed_envs is used for:\n'
-                                   '    - defining your envs in a readable, user friendly '
-                                   'way\n'
-                                   '    - enhancing type hints for the returned instances\n'
-                                   '    - enhancing __repr__ of the returned instance with '
-                                   'extra contextual information\n') */
+    cpy_r_r53 = CPyStatics[DIFFCHECK_PLACEHOLDER];
     cpy_r_r54 = CPyStatic_typed_envs___globals;
     cpy_r_r55 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'description' */
     cpy_r_r56 = CPyDict_SetItem(cpy_r_r54, cpy_r_r55, cpy_r_r53);
@@ -553,40 +542,7 @@ CPyL18: ;
         CPy_AddTraceback("typed_envs/__init__.py", "<module>", DIFFCHECK_PLACEHOLDER, CPyStatic_typed_envs___globals);
         goto CPyL28;
     }
-    cpy_r_r58 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* ('\n'
-                                   'In the example below, `some_var` can be used just like '
-                                   'as any other `int` object.\n'
-                                   '\n'
-                                   '```\n'
-                                   'import typed_envs\n'
-                                   'some_var = typed_envs.create_env("SET_WITH_THIS_ENV", '
-                                   'int, 10)\n'
-                                   '>>> isinstance(some_var, int)\n'
-                                   'True\n'
-                                   '>>> isinstance(some_var, EnvironmentVariable)\n'
-                                   'True\n'
-                                   '```\n'
-                                   '\n'
-                                   'There are only 2 differences between `some_var` and '
-                                   '`int(10)`:\n'
-                                   '    - `some_var` will properly type check as an '
-                                   'instance of both `int` and `EnvironmentVariable`\n'
-                                   '    - `some_var.__repr__()` will include contextual '
-                                   'information about the `EnvironmentVariable`.\n'
-                                   '\n'
-                                   '```\n'
-                                   '>>> some_var\n'
-                                   '<EnvironmentVariable[name=`SET_WITH_THIS_ENV`, '
-                                   'type=int, default_value=10, current_value=10, '
-                                   'using_default=True]>\n'
-                                   '>>> str(some_var)\n'
-                                   '"10"\n'
-                                   '>>> some_var + 5\n'
-                                   '15\n'
-                                   '>>> 20 / some_var\n'
-                                   '2\n'
-                                   '```\n'
-                                   '\n') */
+    cpy_r_r58 = CPyStatics[DIFFCHECK_PLACEHOLDER];
     cpy_r_r59 = CPyStatic_typed_envs___globals;
     cpy_r_r60 = CPyStatics[DIFFCHECK_PLACEHOLDER]; /* 'description_addon' */
     cpy_r_r61 = CPyDict_SetItem(cpy_r_r59, cpy_r_r60, cpy_r_r58);
